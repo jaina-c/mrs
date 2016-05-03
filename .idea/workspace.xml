@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="015b0fbc-8069-463f-b919-fadd523678c4" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/css/mrs.css" afterPath="$PROJECT_DIR$/statics/css/mrs.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/css/server.css" afterPath="$PROJECT_DIR$/statics/css/server.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/e_logo.png" afterPath="$PROJECT_DIR$/statics/images/e_logo.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_ico_close.png" afterPath="$PROJECT_DIR$/statics/images/s_ico_close.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_logo.png" afterPath="$PROJECT_DIR$/statics/images/s_logo.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_menu.png" afterPath="$PROJECT_DIR$/statics/images/s_menu.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_plan_icon.png" afterPath="$PROJECT_DIR$/statics/images/s_plan_icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_qr.png" afterPath="$PROJECT_DIR$/statics/images/s_qr.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_server.png" afterPath="$PROJECT_DIR$/statics/images/s_server.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/images/s_server_select.png" afterPath="$PROJECT_DIR$/statics/images/s_server_select.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/js/mrs.js" afterPath="$PROJECT_DIR$/statics/js/mrs.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/js/scroll.js" afterPath="$PROJECT_DIR$/statics/js/scroll.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/static/js/server.js" afterPath="$PROJECT_DIR$/statics/js/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/enjoy.html" afterPath="$PROJECT_DIR$/templates/enjoy.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/mrspage.html" afterPath="$PROJECT_DIR$/templates/mrspage.html" />
     </list>
     <ignored path="mrs.iws" />
@@ -41,8 +27,8 @@
       <file leaf-file-name="mrs.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/statics/js/mrs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="990" column="40" selection-start-line="990" selection-start-column="40" selection-end-line="990" selection-end-column="40" />
+            <state relative-caret-position="345">
+              <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
               <folding>
                 <element signature="n#!!block;n#orientationChange#0" expanded="false" />
                 <element signature="n#!!block;n#close_keyboard#0" expanded="false" />
@@ -61,26 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/statics/js/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-189">
-              <caret line="165" column="67" selection-start-line="165" selection-start-column="67" selection-end-line="165" selection-end-column="67" />
-              <folding>
-                <marker date="1462263674000" expanded="true" signature="1767:1780" placeholder="..." />
-                <marker date="1462263674000" expanded="true" signature="6886:6901" placeholder="..." />
-                <marker date="1462263674000" expanded="true" signature="7060:7090" placeholder="..." />
-                <marker date="1462263674000" expanded="true" signature="8438:8452" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mrspage.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mrspage.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/mrspage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="110" column="46" selection-start-line="110" selection-start-column="46" selection-end-line="110" selection-end-column="46" />
+            <state relative-caret-position="-718">
+              <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -189,9 +160,9 @@
         <option value="$USER_HOME$/mrs/templates/mrspage.html" />
         <option value="$PROJECT_DIR$/static/js/mrs.js" />
         <option value="$PROJECT_DIR$/templates/enjoy.html" />
-        <option value="$PROJECT_DIR$/templates/mrspage.html" />
         <option value="$PROJECT_DIR$/statics/js/mrs.js" />
         <option value="$PROJECT_DIR$/statics/js/server.js" />
+        <option value="$PROJECT_DIR$/templates/mrspage.html" />
       </list>
     </option>
   </component>
@@ -201,8 +172,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="57" />
-    <option name="y" value="29" />
+    <option name="x" value="36" />
+    <option name="y" value="32" />
     <option name="width" value="1863" />
     <option name="height" value="971" />
   </component>
@@ -433,12 +404,12 @@
       <workItem from="1461902260031" duration="3272000" />
       <workItem from="1461994604206" duration="4944000" />
       <workItem from="1462261859639" duration="81000" />
-      <workItem from="1462261949443" duration="1461000" />
+      <workItem from="1462261949443" duration="2751000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="181045000" />
+    <option name="totallyTimeSpent" value="182335000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -461,7 +432,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="57" y="29" width="1863" height="971" extended-state="0" />
+    <frame x="36" y="32" width="1863" height="971" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12077295" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -812,20 +783,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/mrspage.html">
+    <entry file="file://$PROJECT_DIR$/statics/js/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="110" column="46" selection-start-line="110" selection-start-column="46" selection-end-line="110" selection-end-column="46" />
+        <state relative-caret-position="-1762">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding>
-            <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1462263674000" expanded="true" signature="1767:1780" placeholder="..." />
+            <marker date="1462263674000" expanded="true" signature="6886:6901" placeholder="..." />
+            <marker date="1462263674000" expanded="true" signature="7060:7090" placeholder="..." />
+            <marker date="1462263674000" expanded="true" signature="8438:8452" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/statics/js/mrs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="990" column="40" selection-start-line="990" selection-start-column="40" selection-end-line="990" selection-end-column="40" />
+        <state relative-caret-position="345">
+          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
           <folding>
             <element signature="n#!!block;n#orientationChange#0" expanded="false" />
             <element signature="n#!!block;n#close_keyboard#0" expanded="false" />
@@ -843,15 +817,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/statics/js/server.js">
+    <entry file="file://$PROJECT_DIR$/templates/mrspage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="165" column="67" selection-start-line="165" selection-start-column="67" selection-end-line="165" selection-end-column="67" />
+        <state relative-caret-position="-718">
+          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
           <folding>
-            <marker date="1462263674000" expanded="true" signature="1767:1780" placeholder="..." />
-            <marker date="1462263674000" expanded="true" signature="6886:6901" placeholder="..." />
-            <marker date="1462263674000" expanded="true" signature="7060:7090" placeholder="..." />
-            <marker date="1462263674000" expanded="true" signature="8438:8452" placeholder="..." />
+            <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
