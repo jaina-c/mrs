@@ -970,7 +970,7 @@ function menuList(){
     document.getElementById("menu_list").innerHTML="";
     var div=document.createElement("div");
     div.className='menuDiv';
-    div.innerHTML="<img src='static/images/s_qr.png' width='135px' height='135px' style='display: block'>" +
+    div.innerHTML="<img src='statics/images/s_qr.png' width='135px' height='135px' style='display: block'>" +
         "<div style='width: 135px;color:rgba(255,255,255,.6);text-align: center;font-size: 12px;position: absolute;line-height: 27px;'>长按二维码识别</div>";
     document.getElementById("menu_list").appendChild(div);
     $("#dialog-info").click(function () {

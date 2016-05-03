@@ -44,7 +44,7 @@ function reload_server_list() {
         "<div class='server_infomation'>" +
         "<div class='server_name'><span class='service-name'>servername</span>" +
         "<span class='responseType' style='display: none'>" +
-        "<span class='zqjh'><img src='static/images/s_plan_icon.png' width='67.5' height='20'></span></span></div>" +
+        "<span class='zqjh'><img src='statics/images/s_plan_icon.png' width='67.5' height='20'></span></span></div>" +
         "<div class='server_des'>serverdesc" +
         "<span class='ljxq' onclick='server_detail(serverid,this)'><br>了解详情..</span>" +
         "</div>" +
@@ -167,7 +167,7 @@ function close_detail(detail) {
     "<linearGradient y1='0' x1='0' y2='1' x2='1'  id='svg_4'> " +
     "<stop stop-color='#63636E' offset='0'/> " +
     "<stop stop-color='#9095A2' offset='1'/> </linearGradient> </defs> <g><title>Layer 2</title> <rect id='svg_3' width='100%' height='100%' y='0' x='0' fill='url(#svg_4)'/> </g> </svg> " +
-    "<span class='response-type'><img src='static/images/s_plan_icon.png' width='67.5' height='20' style='display: block'></span> " +
+    "<span class='response-type'><img src='statics/images/s_plan_icon.png' width='67.5' height='20' style='display: block'></span> " +
     "<div class='detail_pic'></div> " +
     "<div class='detail_desc'></div>");
 }
