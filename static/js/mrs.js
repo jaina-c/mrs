@@ -23,6 +23,10 @@ var expireTimeStamp=0;
 var server_lists=[];
 var kvs=[];
 var service_btn='';
+var addr='';
+var province='';
+var x="";
+var browser_hei,browser_width;
 Chat.initialize = function() {
     if (window.location.protocol == 'http:') {
         // Chat.connect('ws://' + window.location.host + ':8100/im');
@@ -962,9 +966,6 @@ function login(){
     flag=0;
     Chat.initialize();
 }
-function refesh(){
-    query_msg_pack();
-}
 function menuList(){
     document.getElementById("menu_list").innerHTML="";
     var div=document.createElement("div");
@@ -998,4 +999,237 @@ function select_server() {
     $(".pack_menu_list li").click(function () {
         $(".pack_menu_list").css({"display":"none"});
     })
+}
+function orientationChange(){
+    var orientation = window.orientation;
+    if(orientation == 0 || orientation == 180){
+        //添加竖屏操作
+//        alert(' 请取消锁屏横版观看                         ' +
+//        '【安卓用户】 ' + '微信->我->设置->通用->开启横屏模式')
+        if($("#dialog").css("display")=="none"){
+            $(".change").css("display","block");
+            $("#changeDialog").css("display","block");
+            $(".testEdit").css("display","block");
+            $(".rest_days").css("display","block");
+        }
+        $(".btn_start_use").html(service_btn);
+        x=document.getElementById("positionErr");
+        browser_hei=$(window).height();
+        browser_width=$(window).width();
+        var leftMargin=22.5;
+        var serverWidth=browser_width-(2*leftMargin);
+        var serverHeight=serverWidth*1.6;
+        if(serverWidth>369){
+            serverWidth=369;
+            serverHeight=590.4;
+            leftMargin=(browser_width-369)/2;
+        }
+        $("#server_infomation").css({"width":"100%","height":serverHeight-50});
+        $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
+        $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+        $(".server_img img").css({"width":serverWidth*0.19});
+        $(".server_img").css({"top":serverHeight*0.21});
+        var dialogw=parseInt($("#dialog").css("width"))-20;
+        $(".svgrect").css("height",browser_hei);
+        $(".container").css("width",$(window).width());
+        $(".container").css("height",browser_hei);
+        $(".container").css("overflow",'hidden');
+        var inputhei=parseInt($("#dialog").css("height"));
+        $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
+        $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
+        $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+    }
+    else if(Math.abs(orientation) == 90){
+        //添加横屏操作
+        //alert('横屏');
+        var browser_width=$(window).width();
+        var browser_hei=$(window).height();
+        $(".container").css({"width":browser_width});
+        $(".container").css({"height":browser_hei});
+        $(".container").css("overflow",'hidden');
+        $(".svgrect").css({"height":browser_hei});
+        var inputhei=parseInt($("#dialog").css("height"));
+        $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
+        var leftMargin=22.5;
+        var serverWidth=browser_width-(2*leftMargin);
+        var serverHeight=serverWidth*1.6;
+        if(serverWidth>369){
+            serverWidth=369;
+            serverHeight=590.4;
+            leftMargin=(browser_width-369)/2;
+        }
+        $("#server_infomation").css({"width":"100%","height":serverHeight-50});
+        $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
+        $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+        $(".server_img img").css({"width":serverWidth*0.19});
+        $(".server_img").css({"top":serverHeight*0.21});
+        $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+    }else{
+
+    }
+}
+window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", orientationChange, false);
+$(document).ready(function(){
+//      touchScroll("control");
+    $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+    $(".btn_start_use").html(service_btn);
+    x=document.getElementById("positionErr");
+    browser_hei=$(window).height();
+    browser_width=$(window).width();
+    var leftMargin=22.5;
+    var serverWidth=browser_width-(2*leftMargin);
+    var serverHeight=serverWidth*1.6;
+    if(serverWidth>369){
+        serverWidth=369;
+        serverHeight=590.4;
+        leftMargin=(browser_width-369)/2;
+    }
+    $("#server_infomation").css({"width":"100%","height":serverHeight-50});
+    $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
+    $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+    $(".server_img img").css({"width":serverWidth*0.19});
+    $(".server_img").css({"top":serverHeight*0.21});
+    var dialogw=parseInt($("#dialog").css("width"))-20;
+    $(".svgrect").css("height",browser_hei);
+    $(".container").css("width",$(window).width());
+    $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
+    var ua = navigator.userAgent.toLowerCase();
+    $("#dialog-input").focus(function(){
+        if(ua.indexOf("iphone")>0||ua.indexOf("android")>0){
+            setTimeout(function(){
+                var dialogth=$("#dialog").offset().top- $(document).scrollTop();
+                if(window.innerHeight==browser_hei){
+                    $("#dialog").css({"position":"static","bottom":""});
+                    $(".container").css("height",browser_hei+1000);
+                    $(".svgrect").css("height",browser_hei+1000);
+                    $(document).scrollTop(dialogth-150);
+                }
+                else if(window.innerHeight!=browser_hei){
+                    if(parseInt(dialogth)>window.innerHeight){
+                        $("#dialog").css({"position":"static","bottom":""});
+                        $(".container").css("height",browser_hei+1000);
+                        $(".svgrect").css("height",browser_hei+1000);
+                        $(document).scrollTop(browser_hei-window.innerHeight);
+                    }
+                    else{
+
+                    }
+                }
+                else{
+
+                }
+            },500)
+        }
+    });
+    $("#dialog-input").blur(function(){
+        $("#dialog").css({"position":"fixed","bottom":"0px"});
+        $(".container").css("height",browser_hei);
+        $(".svgrect").css("height",browser_hei);
+        $(document).css("scroll","hidden");
+        $(document).scrollTop(0);
+        document.body.scrollTop=0;
+        setTimeout(function(){
+            var diaTop=$("#dialog").offset().top;
+            $('#dialog-info').css("height",diaTop+'px');
+        },500);
+
+    });
+    close_keyboard();
+    var swiper = function (select) {
+        var startY,endY;
+        var scrollTopVal=0; //左右滑动请自行修改
+        document.getElementById(select).addEventListener("touchstart", touchStart, false);
+        document.getElementById(select).addEventListener("touchmove", touchMove, false);
+        document.getElementById(select).addEventListener("touchend", touchEnd, false);
+        var idselect="#"+select;
+        function touchStart(event){
+            var touch = event.touches[0];
+            startY = touch.pageY;//触摸目标在页面中的y坐标
+            scrollTopVal=$(idselect).scrollTop();
+            document.removeEventListener('touchmove', bodyScroll, false);
+        }
+        function touchMove(event){
+            var touch = event.touches[0];
+            endY = (startY-touch.pageY);
+            event._isScroller=true;
+            console.log($(idselect).scrollTop());
+            if($(idselect).scrollTop()==1){
+//                    event.preventDefault();
+                $("#dialog-info").css("overflow-y","hidden");
+//                    document.addEventListener('touchmove', bodyScroll, false);
+            }
+        }
+        function touchEnd(event){
+            document.removeEventListener('touchmove', bodyScroll, false);
+            scrollTopVal=$(idselect).scrollTop();
+        }
+    };
+    var containers=new swiper('server_infomation');
+    $(".container").click(function (){
+        $(".pack_menu_list").css({"display":"none"});
+    })
+//        $("#dialog-input").on("keydown", function (e) {
+//            if (e.keyCode == 13) {
+//                    document.activeElement.blur('dialog-input');
+//            }
+//        });
+});
+function close_keyboard(){
+    document.activeElement.blur('dialog-input');
+}
+//   解决微信浏览器默认事件
+var overscroll = function(el) {
+    el.addEventListener('touchstart', function() {
+        var top = el.scrollTop, totalScroll = el.scrollHeight, currentScroll = top + el.offsetHeight;
+        //If we're at the top or the bottom of the containers
+        //scroll, push up or down one pixel.
+        //this prevents the scroll from "passing through" to
+        //the body.
+        if(top === 0) {
+            el.scrollTop = 1
+        } else if(currentScroll === totalScroll) {
+            el.scrollTop = top - 1
+        }
+    });
+    el.addEventListener('touchmove', function(evt) {
+        //if the content is actually scrollable, i.e. the content is long enough
+        //that scrolling can occur
+        if(el.offsetHeight < el.scrollHeight)
+            evt._isScroller = true
+    })
+}
+overscroll(document.querySelector('.mrs'));
+overscroll(document.querySelector('.bg_style'));
+document.body.addEventListener('touchmove', function(evt) {
+    //In this case, the default behavior is scrolling the body, which
+    //would result in an overflow.  Since we don't want that, we preventDefault.
+    if(!evt._isScroller) {
+        evt.preventDefault()
+    }
+});
+function isTouchDevice(){
+    try{
+        document.createEvent("TouchEvent");
+        return true;
+    }catch(e){
+        return false;
+    }
+}
+function touchScroll(id){
+    if(isTouchDevice()){ //if touch events exist...
+        var el=document.getElementById(id);
+        var scrollStartPos=0;
+        document.getElementById(id).addEventListener("touchstart", function(event) {
+            scrollStartPos=this.scrollTop+event.touches[0].pageY;
+            event.preventDefault();
+        },false);
+
+        document.getElementById(id).addEventListener("touchmove", function(event) {
+            this.scrollTop=scrollStartPos-event.touches[0].pageY;
+            event.preventDefault();
+        },false);
+    }
+}
+function refesh(){
+    query_msg_pack();
 }
