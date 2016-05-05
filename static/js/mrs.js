@@ -365,7 +365,6 @@ function datetostamp(dates){
     //2014-07-10 10:21:12的时间戳为：1404958872
     return timestamp2
 }
-
 function reload_mrs_page(user_info){
     userName=user_info.user_name;
     expire_time=user_info.expire_time;
