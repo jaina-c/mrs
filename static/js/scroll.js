@@ -35,9 +35,6 @@
             self._bind(MOVE_EV, window);
             self._bind(CANCEL_EV, window);
             document.getElementById("menu_list").innerHTML="";
-            //if($("#server_infomation").css("display")=="block"){
-            //    document.addEventListener('touchmove', bodyScroll, false);
-            //}
         },
         _move:function(e){
             //$("#dialog").css({"position":'fixed','bottom': '0px'});
@@ -50,7 +47,6 @@
                     document.activeElement.blur('dialog-input');
                     if($("#dialog-info").scrollTop()<200){
                         if(request_flag==0){
-                            //$('.loader').css("display","block");
                             flag++;
                             self._bind(MOVE_EV, window);
                             self._bind(END_EV, window);
@@ -64,14 +60,8 @@
             }
         },
         _end:function(e){
-            //document.removeEventListener('touchmove', bodyScroll, false);
             var that = this;
-            //if($("#dialog-info").scrollTop()<200 ) {
             that.callBack();
-            //}
-            //setTimeout(function(){
-            //    $(".loader").css("display","none");
-            //},3000);
             that._unbind(MOVE_EV, window);
             that._unbind(END_EV, window);
             that._unbind(CANCEL_EV, window);

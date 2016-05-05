@@ -27,6 +27,9 @@ var addr='';
 var province='';
 var x="";
 var browser_hei,browser_width;
+var ref_nums=[];
+var ref_date={};
+var user_owner_code=[];
 Chat.initialize = function() {
     if (window.location.protocol == 'http:') {
         // Chat.connect('ws://' + window.location.host + ':8100/im');
@@ -107,16 +110,14 @@ Console.log = (function(message) {
     /**while (console.childNodes.length > 25) {
                 console.removeChild(console.firstChild);
             }*/
-    console.log(message);
+    console.log("Console.log:"+message);
 });
 
 Chat.sendMessage = (function() {
     var message = $('#dialog-input').val();
-    //console.log(message)
     if(message!=''){
         content={"msg":message,"ref_num":transdate()};
         comObj={"code":501,"subcode":0,"content":content};
-        //console.log(JSON.stringify(comObj));
         Chat.socket.send(JSON.stringify(comObj));
         setTimeout(clearInput,10);
         msg='<div class="user-msg" id="refnum">' +
@@ -171,13 +172,14 @@ packageHandler.process=(function(msg){
         return;
     }
     if (msgObj.code==100&&msgObj.subcode==0) {
-        console.log(JSON.stringify(msgObj));
         user_info=msgObj.content.user_info;
         prologs=msgObj.content.prologs;
         server_lists=msgObj.content.services;
         kvs=msgObj.content.kv;
-        var kvLength=msgObj.content.kv.length;
-        if(kvLength==0){
+        if (user_info.subscribe_flag==1){
+            $(".follow_title").css({"display":"none"})
+        }
+        if(user_info.user_status==0){
             isSelected=0;
         }else{
             isSelected=1;
@@ -200,7 +202,6 @@ packageHandler.process=(function(msg){
         reload_mrs_page(user_info);
     };
     if(msgObj.code==10){
-        //console.log(msgObj)
         for(var i=0;i<ref_nums.length;i++){
             if (msgObj.content.ref_num==ref_nums[i].ref_num){
                 if(ref_nums[i].type=="service"){
@@ -261,7 +262,7 @@ packageHandler.process=(function(msg){
         }
         reload_conv_list(conv_list);
         inputChange();
-    };
+    }
     if(msgObj.code==101){
         $(".change").css("display","none");
         $("#changeDialog").html("");
@@ -284,14 +285,76 @@ packageHandler.process=(function(msg){
         }
         Dialog.log(message);
     }
+    if (msgObj.code==1812){
+        ref_date.process(msgObj.content);
+    }
+    if (msgObj.code==1811){
+        console.log(JSON.stringify(msgObj.content));
+        user_owner_code=msgObj.content.ref_reply;
+        ref_date.process(msgObj.content);
+    }
 });
+ref_date.process=(function(msg){
+    var refdate=find_ref(msg.ref_num);
+    if (refdate.date_type==inviteCode){
+        if(msg.ref_reply.error==undefined){
+            start_select_server();
+        }else {
+            //邀请码不正确
+
+        }
+    }
+    if (refdate.date_type==userCode){
+        reload_user_owner_code();
+    }
+})
+function reload_user_owner_code() {
+    console.log(JSON.stringify(user_owner_code));
+    var restnum=user_owner_code.allow_count-user_owner_code.used_count;
+    if(restnum<10){
+        restnum="0"+restnum
+    }
+    $("#user_code_con").css("display","block");
+    var divcon=$(".invite_content").html();
+    $(".invite_content").html(divcon.replace("allow_count",user_owner_code.allow_count).
+    replace("duration_to_owner",user_owner_code.duration_to_owner).replace("code_user",user_owner_code.code));
+    var restcon=$(".the_rest").html();
+    $(".the_rest").html(restcon.replace("allow-used",restnum))
+}
+function server_list() {
+    if( $(".pack_menu").css("opacity")!=0.8){
+        $("#server_select_contain").css("display","block");
+        $(".block").css("display","none");
+        $("#dialog-input").attr("disabled","disabled");
+        $("#dialog-info").css("overflow-y","hidden");
+        service_btn="关&nbsp;闭";
+        start_select_server();
+    }
+}
+function add_ref(key,value){
+    this.ref_nums[key] = value;
+}
+function find_ref(key){
+    return this.ref_nums[key];
+}
+function remove_ref(key){
+    delete  this.ref_nums[key];
+}
+function showAll_ref(){
+    var x;
+    for ( x in this.ref_nums)
+    {
+        if(this.ref_nums[x].date_type==current_ref_num_owner_type){
+            remove_ref(x);
+        }
+    }
+}
 // 获取某个时间格式的时间戳
 function datetostamp(dates){
     var stringTime = dates;
     var timestamp2 = Date.parse(new Date(stringTime.replace("-","/").replace("-","/")));
     timestamp2 = timestamp2 / 1000;
     //2014-07-10 10:21:12的时间戳为：1404958872
-    console.log(stringTime + "的时间戳为：" + timestamp2);
     return timestamp2
 }
 
@@ -306,7 +369,6 @@ function reload_mrs_page(user_info){
         service_btn="开始使用";
     }
     nowTimeStamp=parseInt(transdate()/1000);
-    //user_info.is_continue=false;
     if(expire_time!=null){
         expireTimeStamp=datetostamp(expire_time);
     }else{
@@ -314,7 +376,6 @@ function reload_mrs_page(user_info){
     }
     if (expireTimeStamp==0){$(".days_num").html("00")}
     else {
-
         if (nowTimeStamp<expireTimeStamp){
             var restDays=expireTimeStamp-nowTimeStamp;
             var day_num=parseInt(restDays/60/60/24);
@@ -364,7 +425,8 @@ function reload_mrs_page(user_info){
                 }
             }
         }
-    }else if(current_status==1){
+    }
+    else if(current_status==1){
         if(expire_time==null){
             if(isSelected==0){
                 $("#server_select_contain").css("display","block");
@@ -425,6 +487,9 @@ function send_index_con() {
             $("#container").css("height",browser_hei);
             $(".scrollWrap").css({"height":(browser_hei-inputhei-50)+"px"});
             $(".testEdit").css("display","none");
+            if (user_info.subscribe_flag==1){
+                $(".follow_title").css({"display":"none"})
+            }
             $(".rest_days").css("display","none");
             $(".pack_menu").css("display",'none');
             $(".symbol").css("display","inline-block");
@@ -479,7 +544,6 @@ function ran_num(n,m){
     }
     random_num.push(number);
     return number;
-    //console.log(random_num)
 }
 function startWeight(pro,s){
     var num=0;
@@ -616,7 +680,6 @@ function reload_prologs(){
                     };
                 }
                 else if(expireTimeStamp==0){//未开始试用
-                    //console.log(JSON.stringify(prologs0));
                     if($(".changeHuashu").length==1){
                         current_start_weight=random_weight(prologs0,0);
                         show_prologs(prologs0);
@@ -686,7 +749,7 @@ function geocoder_CallBack(data) {
     // alert(addr)
     update_address_pack(addr);
     //$("#result").html(province);
-    //    getWeather(province);
+    //getWeather(province);
 }
 var prologs_num=[];
 function random_weight(prologs,s){//随机权重数
@@ -720,11 +783,9 @@ function random_weight(prologs,s){//随机权重数
                         current_weight=i;
                     }
                 }
-                //console.log("123:"+current_weight);
                 if(current_weight!=prologs_num[(prologs_num.length-1)]){
                     prologs_num.push(current_weight);
                     prologs_num.splice(0,1);
-                    //console.log(prologs_num);
                     return current_weight;
                 }
             }
@@ -732,7 +793,6 @@ function random_weight(prologs,s){//随机权重数
 
             prologs_num.push(current_weight);
             prologs_num.splice(0,1);
-            //console.log(prologs_num);
             return current_weight;
     }
 
@@ -743,7 +803,6 @@ function change_prologs(){
     show_prologs(current_prolog);
 }
 function reload_conv_list(conv_list){
-    console.log(JSON.stringify(conv_list))
 
     var browser_hei=$(window).height();
     $(".container").css("height",browser_hei);
@@ -828,9 +887,6 @@ function reload_conv_list(conv_list){
                 $("#dialog-info").scrollTop(adjust_height);
                 $("#dialog-info").css("overflow-y","auto")
             })(newHeight,consolesHei);
-            //Console.log("old_height："+consolesHei)
-            //Console.log("new_height:"+newHeight)
-            //Console.log("scrolltop:"+ $("#dialog-info").scrollTop())
             current_query=[];
             request_flag=0;
 
@@ -838,7 +894,6 @@ function reload_conv_list(conv_list){
 
     }
     $(".loader").css("display","none");
-    console.log(request_flag);
 }
 Dialog.log=(function(message){
     var consoles = document.getElementById('conv_content');
@@ -848,13 +903,10 @@ Dialog.log=(function(message){
     var preword=$("#conv_content p:last-child div:first-child").attr("class");
     var pretime=$("#conv_content p:last-child div:first-child").attr("id");
     consoles.appendChild(p);
-    //console.log(consoles.innerHTML);
     var currentword=$("#conv_content p:last-child div:first-child").attr("class");
     var currenttime=$("#conv_content p:last-child div:first-child").attr("id");
     var cha=parseInt(currenttime/1000)-parseInt(pretime/1000);
     var shicha=JSON.parse(timestamp(cha));
-    //console.log("pre:"+format(parseInt(pretime/1000)));
-    //console.log("curr:"+format(parseInt(currenttime/1000)));
     if(preword==currentword){
         $("#conv_content p:last-child").css("margin-top","25px");
     }
@@ -865,21 +917,16 @@ Dialog.log=(function(message){
         qscroll = new qScroll(refesh);
     }
     if(pretime!=undefined&&currenttime!=undefined){
-        //console.log(shicha)
         if(shicha.mintue>3||shicha.day!=0||shicha.hour!=0){
             $('#conv_content  p:last-child').before('<p class="shijian">'+format(parseInt(currenttime/1000))+'</p>');
         }
     }
-    console.log(flag);
     if(flag==0){
         $("#dialog-info").stop().animate({scrollTop: consoles.scrollHeight}, '0');
         //document.getElementById('dialog-info').scrollTop = consoles.scrollHeight;
     }
 });
 function timestamp(nTime){
-    //var oDate1 = new Date(2015,8,1,15,30,0);
-    //var oDate2 = new Date(2015,10,1,0,0,0);
-    //var nTime = Math.abs((oDate2.getTime() - oDate1.getTime()))/1000;
     var day = Math.floor(nTime/86400);
     var hour = Math.floor(nTime%86400/3600);
     var minute = Math.floor(nTime%86400%3600/60);
@@ -937,7 +984,6 @@ function query_msg_pack(){
         request_flag++;
     }
     comObj={"code":701,"subcode":0,"content":message};
-    console.log(JSON.stringify(comObj))
     Chat.socket.send(JSON.stringify(comObj));
 
 }
@@ -970,7 +1016,7 @@ function menuList(){
     document.getElementById("menu_list").innerHTML="";
     var div=document.createElement("div");
     div.className='menuDiv';
-    div.innerHTML="<img src='statics/images/s_qr.png' width='135px' height='135px' style='display: block'>" +
+    div.innerHTML="<img src='/static/images/s_qr.png' width='135px' height='135px' style='display: block'>" +
         "<div style='width: 135px;color:rgba(255,255,255,.6);text-align: center;font-size: 12px;position: absolute;line-height: 27px;'>长按二维码识别</div>";
     document.getElementById("menu_list").appendChild(div);
     $("#dialog-info").click(function () {
@@ -984,17 +1030,9 @@ function close_bottom_title(icon){
         $('#dialog-info').css("height",diaTop+'px');
     },700);
 }
-function server_list() {
-    if( $(".pack_menu").css("opacity")!=0.8){
-        $("#server_select_contain").css("display","block");
-        $(".block").css("display","none");
-        $("#dialog-input").attr("disabled","disabled");
-        $("#dialog-info").css("overflow-y","hidden");
-        service_btn="关&nbsp;闭";
-        start_select_server();
-    }
-}
+
 function select_server() {
+
     $(".pack_menu_list").css({"display":"block"});
     $(".pack_menu_list li").click(function () {
         $(".pack_menu_list").css({"display":"none"});
@@ -1028,7 +1066,7 @@ function orientationChange(){
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
         $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
         $(".server_img img").css({"width":serverWidth*0.19});
-        $(".server_img").css({"top":serverHeight*0.21});
+        $(".server_img").css({"margin-top":serverHeight*0.18});
         var dialogw=parseInt($("#dialog").css("width"))-20;
         $(".svgrect").css("height",browser_hei);
         $(".container").css("width",$(window).width());
@@ -1062,7 +1100,7 @@ function orientationChange(){
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
         $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
         $(".server_img img").css({"width":serverWidth*0.19});
-        $(".server_img").css({"top":serverHeight*0.21});
+        $(".server_img").css({"margin-top":serverHeight*0.18});
         $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
     }else{
 
@@ -1086,9 +1124,10 @@ $(document).ready(function(){
     }
     $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
-    $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+    // $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+    // $(".invite_friend").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
     $(".server_img img").css({"width":serverWidth*0.19});
-    $(".server_img").css({"top":serverHeight*0.21});
+    $(".server_img").css({"margin-top":serverHeight*0.18});
     var dialogw=parseInt($("#dialog").css("width"))-20;
     $(".svgrect").css("height",browser_hei);
     $(".container").css("width",$(window).width());
@@ -1152,7 +1191,6 @@ $(document).ready(function(){
             var touch = event.touches[0];
             endY = (startY-touch.pageY);
             event._isScroller=true;
-            console.log($(idselect).scrollTop());
             if($(idselect).scrollTop()==1){
 //                    event.preventDefault();
                 $("#dialog-info").css("overflow-y","hidden");
@@ -1165,7 +1203,7 @@ $(document).ready(function(){
         }
     };
     var containers=new swiper('server_infomation');
-    $(".container").click(function (){
+    $("#dialog-info").click(function (){
         $(".pack_menu_list").css({"display":"none"});
     })
 //        $("#dialog-input").on("keydown", function (e) {
