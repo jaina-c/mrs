@@ -1,12 +1,12 @@
-#server_select{
+#server_select {
     width: 88vw;
     height: 140.8vw;
     max-width: 369px;
     max-height: 590.4px;
-    z-index:99;
+    z-index: 99;
     border-radius: 4px;
     overflow: hidden;
-    background: -webkit-linear-gradient(99deg, #8C909D , #9095A2);
+    background: -webkit-linear-gradient(99deg, #8C909D, #9095A2);
     position: absolute;
     left: 50%;
     top: 50%;

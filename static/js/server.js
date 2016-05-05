@@ -17,7 +17,6 @@ function start_select_server() {
             reload_server_list();
         }
 }
-
 function reload_server_list() {
     browser_hei=$(window).height();
     if($("#dialog").css("display")!="none"){

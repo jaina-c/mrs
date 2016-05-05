@@ -1122,6 +1122,7 @@ $(document).ready(function(){
         serverHeight=590.4;
         leftMargin=(browser_width-369)/2;
     }
+    
     $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
     // $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
