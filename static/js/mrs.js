@@ -461,9 +461,9 @@ function reload_index(){
         $("#changeDialog").css("display","block");
         $(".testEdit").css("display","block");
         $(".pack_menu").css("display",'block');
-        if(user_info.user_status==0){
+        // if(user_info.user_status==0){
             $(".rest_days").css("display","block");
-        }
+        // }
     }
     if($("#dialog").css("display")=="block"){
         $(".change").css("display","none");

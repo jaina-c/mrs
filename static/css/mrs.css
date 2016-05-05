@@ -198,6 +198,7 @@ title{
     margin-left: 88.5px;
     z-index: 0;
     transform: rotate(45deg);
+    margin-top: -4.5px;
 }
 .pack_menu_list_ul{
     padding:0px;
