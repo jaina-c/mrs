@@ -27,7 +27,8 @@
         <rect id="svg_1" width="100%" height="100%" y="0" x="0" fill="url(#svg_2)"/>
     </g>
 </svg>
-<div class="pack_menu_list"><ul class="pack_menu_list_ul"><li onclick="server_list()">选择服务</li><li onclick="get_user_code()">邀请好友</li><li>开通服务</li></ul></div>
+<div class="pack_menu_list"><ul class="pack_menu_list_ul"><li onclick="server_list()">选择服务</li><li onclick="get_user_code()">邀请好友</li>
+    <li><a href="http://www.essential.com.cn/year_fee" class="open_server_link">开通服务</a></li></ul></div>
 <div class="pack_menu" onclick="select_server()"><span></span><span></span></div>
 <div class="rest_days">试用剩余<span class="days_num">30</span>天</div>
 <div class="weather"><span id="result"></span></div>
@@ -85,8 +86,10 @@
             <div class="server_intro">
                 S先生, 你的私人管家
                 <div class="server_intro_info">从安排体验米其林之旅到每天的工作午餐，我们全面考虑，选择适合你的方案，并执行。</div>
-                <div class="enter_code"><input placeholder="请输入邀请码" type="text" class="input_code" id="input_code"></div>
-                <div class="open_member">或开通S先生会员</div>
+                <div class="enter_code">
+                    <input placeholder="请输入邀请码" type="text" class="input_code" id="input_code">
+                    <div class="code_error">邀请码错误</div></div>
+                <div class="open_member"><a href="http://www.essential.com.cn/year_fee" class="open_server_link">或开通S先生会员</a></div>
             </div>
             <ul class="server_list">
                 <li class="list_first borstyle" >
@@ -135,13 +138,16 @@
     var code=document.getElementById('input_code');
     var current_ref_num_owner_type=null;
     var code_value=code.value;
-    var timer=setInterval(listenCode,100);
+    var timer;
        function listenCode()
        {
            if (code_value!==code.value){
                code_value=code.value;
                if(code_value.length<4){
-                   $(".kaishi_sel").css({"color":"rgba(255,255,255,.3)"})
+                   $(".kaishi_sel").css({"color":"rgba(255,255,255,.3)"});
+                   if (code_value.length==0){
+                       $(".code_error").css("opacity","0");
+                   }
                }else {
                    $(".kaishi_sel").css({"color":"rgba(255,255,255,1.0)"})
                }

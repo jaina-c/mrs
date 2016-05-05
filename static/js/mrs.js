@@ -32,11 +32,17 @@ var ref_date={};
 var user_owner_code=[];
 Chat.initialize = function() {
     if (window.location.protocol == 'http:') {
-        // Chat.connect('ws://' + window.location.host + ':8100/im');
-        Chat.connect('ws://www.essential.com.cn:8100/im');
+        if (window.location.host.indexOf("localhost")==-1){
+            Chat.connect('ws://' + window.location.host + ':8100/im');
+        }else {
+            Chat.connect('ws://www.essential.com.cn:8100/im');
+        }
     } else {
-        // Chat.connect('wss://' + window.location.host + ':8100/im');
-        Chat.connect('wss://http://www.essential.com.cn:8100/im');
+        if (window.location.host.indexOf("localhost")==-1){
+            Chat.connect('wss://' + window.location.host + ':8100/im');
+        }else {
+            Chat.connect('wss://http://www.essential.com.cn:8100/im');
+        }
     }
 };
 Chat.socket = null;
@@ -298,10 +304,12 @@ ref_date.process=(function(msg){
     var refdate=find_ref(msg.ref_num);
     if (refdate.date_type==inviteCode){
         if(msg.ref_reply.error==undefined){
+            user_info.user_status=msg.ref_reply.user_status;
             start_select_server();
+            clearInterval(timer);
         }else {
             //邀请码不正确
-
+            $(".code_error").css("opacity","1.0");
         }
     }
     if (refdate.date_type==userCode){
@@ -394,76 +402,20 @@ function reload_mrs_page(user_info){
             $(".days_num").html("00");
         }
     }
-    if(current_status==0){
-        if(expire_time!=null){
-            if (expireTimeStamp>nowTimeStamp){
-                if(isSelected==0){
-                    $("#server_select_contain").css("display","block");
-                    $(".testEdit").css("display",'block');
-                    $(".rest_days").css("display","none");
-                }else {
-                    if(user_info.is_continue==true){
-                        query_msg_pack();
-                    }
-                    if(user_info.is_continue==false){
-                        reload_index();
-                    }
-                }
-            }
+    if(isSelected==0){
+        $("#server_select_contain").css("display","block");
+        timer=setInterval(listenCode,100);
+        $(".testEdit").css("display",'block');
+        $(".rest_days").css("display","none");
+    }else {
+        if(user_info.is_continue==true){
+            query_msg_pack();
         }
-        else{
-            if(isSelected==0){
-                $("#server_select_contain").css("display","block");
-                $(".testEdit").css("display",'block');
-                $(".rest_days").css("display","none");
-            }else {
-                if(user_info.is_continue==true){
-                    query_msg_pack();
-                }
-                if(user_info.is_continue==false){
-                    reload_index();
-                }
-            }
+        if(user_info.is_continue==false){
+            reload_index();
         }
     }
-    else if(current_status==1){
-        if(expire_time==null){
-            if(isSelected==0){
-                $("#server_select_contain").css("display","block");
-                $(".testEdit").css("display",'block');
-                $(".rest_days").css("display","none");
-            }else {
-                if(user_info.is_continue==true){
-                    query_msg_pack();
-                }
-                if(user_info.is_continue==false){
-                    reload_index();
-                }
-            }
-        }else {
-            if(expireTimeStamp>nowTimeStamp){
-                if(isSelected==0){
-                    $("#server_select_contain").css("display","block");
-                    $(".testEdit").css("display",'block');
-                    $(".rest_days").css("display","none");
-                }else {
-                    if(user_info.is_continue==true){
-                        query_msg_pack();
-                    }
-                    if(user_info.is_continue==false){
-                        reload_index();
-                    }
-                }
-            }else {
-                if(user_info.is_continue==true){
-                    query_msg_pack();
-                }
-                if(user_info.is_continue==false){
-                    reload_index();
-                }
-            }
-        }
-    }
+
 }
 Chat.initialize();
 function sendMessage(){
@@ -498,21 +450,18 @@ function send_index_con() {
             Chat.sendMessage();
         },1000)
     }
-
 }
 
 function reload_index(){
     var browser_hei=$(window).height();
     $(".container").css("height",browser_hei);
-    //$(".container").css("overflow",'hidden');
     $("#dialog-info").css("height",browser_hei);
-    //$(".change").css("display","block");
     if($("#dialog").css("display")=="none"){
         $(".change").css("display","block");
         $("#changeDialog").css("display","block");
         $(".testEdit").css("display","block");
         $(".pack_menu").css("display",'block');
-        if(current_status==0){
+        if(user_info.user_status==0){
             $(".rest_days").css("display","block");
         }
     }
@@ -1114,6 +1063,7 @@ $(document).ready(function(){
     x=document.getElementById("positionErr");
     browser_hei=$(window).height();
     browser_width=$(window).width();
+    $(".open_server_link").attr("href","http://"+window.location.host+"/year_fee");
     var leftMargin=22.5;
     var serverWidth=browser_width-(2*leftMargin);
     var serverHeight=serverWidth*1.6;
@@ -1121,10 +1071,12 @@ $(document).ready(function(){
         serverWidth=369;
         serverHeight=590.4;
         leftMargin=(browser_width-369)/2;
+        $("#server_select").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
+        $(".invite_friend").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
     }
     
-    $("#server_infomation").css({"width":"100%","height":serverHeight-50});
-    $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
+    $("#server_infomation").css({"width":"100%","height":parseInt($("#server_select").css("height"))-50});
+    $(".bg_style").css({"background-size":'100% 100%'});
     // $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
     // $(".invite_friend").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
     $(".server_img img").css({"width":serverWidth*0.19});

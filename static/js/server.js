@@ -68,8 +68,15 @@ function reload_server_list() {
             $(".zqjh:eq("+i+")").css("display","none");
         })
     }
-    //$("ul.server_list").html($("ul.server_list").html()+"<li class='lastli'>如果你还有其他需求，也可以直接告诉S先生。</li>");
+    browser_hei=$(window).height();
+    browser_width=$(window).width();
+    var serverWidth=parseInt($("#server_select").css("width"));
+    var serverHeight=parseInt($("#server_select").css("height"));
+    if(serverWidth>369){
+        serverHeight=590.4;
+    }
     var parentwidth=parseInt($(".server_list_lis").css("width"));
+    $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".server_infomation").css({"width":parentwidth-110.59+"px"});
     if(kvs.length!=0){
         for(var k=0;k<kvs.length;k++){
@@ -217,7 +224,7 @@ function start_trail() {
             if(flag>0){
                 Chat.socket.send(JSON.stringify(comObj));
             }
-            if (flag==0){
+            if(flag==0){
                 $("#server_select_contain").css("display","none");
                 if(user_info.is_continue==true){
                     query_msg_pack();
