@@ -5,7 +5,7 @@
     user_info={},
     Console = {},
     Dialog={},
-    prologs0=[],prologs1=[],prologs2=[],prologs3=[],
+    prologs0=[],prologs1=[],prologs3=[],
     current_start_weight=0,
     save_address=[],
     total_trail_time=0,
@@ -192,20 +192,20 @@ packageHandler.process=(function(msg){
         }
         for(var i=0;i<prologs.length;i++){
             var type=prologs[i].type;
-            if(type==0){//未激活，未试用
+            if(type==0){//未开始使用
                 prologs0.push(prologs[i]);
             }
-            if(type==1){//已激活
+            if(type==1){//使用中
                 prologs1.push(prologs[i]);
             }
-            if(type==2){//试用中
-                prologs2.push(prologs[i]);
-            }
-            if(type==3){//试用完
+            if(type==3){//使用结束
                 prologs3.push(prologs[i]);
             }
         }
         reload_mrs_page(user_info);
+        console.log(JSON.stringify(prologs0))
+        console.log(JSON.stringify(prologs1))
+        console.log(JSON.stringify(prologs3))
     };
     if(msgObj.code==10){
         for(var i=0;i<ref_nums.length;i++){
@@ -258,15 +258,16 @@ packageHandler.process=(function(msg){
         }
     }
     if (msgObj.code==301) {
-        if(conv_list.length==1){
-            $('#conv_content').html("");
-        }else{};
         current_query=msgObj.content.ref_reply;
-        conv_list=conv_list.concat(msgObj.content.ref_reply);
-        if(conv_list[0].record_text==conv_list[1].record_text){
-            conv_list.splice(0,1)
+        console.log(JSON.stringify(conv_list));
+        if (current_query.length>1&&conv_list.length!=0){
+                console.log(current_query[0].record_text);
+                if(current_query[0].record_text==conv_list[0].record_text){
+                    current_query.splice(0,1);
+                }
         }
-        reload_conv_list(conv_list);
+        console.log(JSON.stringify(current_query));
+        reload_conv_list(current_query);
         inputChange();
     }
     if(msgObj.code==101){
@@ -365,16 +366,13 @@ function datetostamp(dates){
     //2014-07-10 10:21:12的时间戳为：1404958872
     return timestamp2
 }
+
 function reload_mrs_page(user_info){
     userName=user_info.user_name;
     expire_time=user_info.expire_time;
     user_avatar=user_info.avatar;
     current_status=user_info.user_status;
-    if(current_status==0){
-        service_btn="开始试用";
-    }else{
-        service_btn="开始使用";
-    }
+    service_btn="开始";
     nowTimeStamp=parseInt(transdate()/1000);
     if(expire_time!=null){
         expireTimeStamp=datetostamp(expire_time);
@@ -403,6 +401,29 @@ function reload_mrs_page(user_info){
     }
     if(isSelected==0){
         $("#server_select_contain").css("display","block");
+        // var ua = navigator.userAgent.toLowerCase();
+        $("#input_code").focus(function(){
+            browser_hei=$(window).height();
+            setTimeout(function(){
+                // if(window.innerHeight==browser_hei){
+                    $("#server_select_contain").scrollTop(browser_hei*0.3);
+                // }
+                // else {
+                //     $("#server_select_contain").scrollTop(browser_hei*0.3);
+                // }
+            },200)
+        });
+        if (  $(document).scrollTop()!=0){
+            $("#server_select_contain").click(function () {
+                document.activeElement.blur('input_code');
+            })
+        }
+        $("#dialog-input").blur(function(){
+            setTimeout(function(){
+                // $(document).scrollTop(0);
+                $("#server_select_contain").scrollTop(0);
+            },200)
+        });
         timer=setInterval(listenCode,100);
         $(".testEdit").css("display",'block');
         $(".rest_days").css("display","none");
@@ -482,38 +503,17 @@ function reload_index(){
     };
 }
 
-var random_num=[];
-function ran_num(n,m){
-    var c = m-n+1;
-    var number=Math.floor(Math.random() * c + n);
-    if(random_num.length==0){random_num.push(number)}
-    while(number==random_num[random_num.length-1]){
-        number=Math.floor(Math.random() * c + n)
-    }
-    random_num.push(number);
-    return number;
-}
-function startWeight(pro,s){
-    var num=0;
-    for(var i=0;i<pro.length;i++){
-        if(s==0){
-            num+=pro[i].start_weight
-        }
-        if(s==1){
-            num+=pro[i].change_weight
-        }
-    }
-    return num;
-}
+
 var  current_prolog=[];
 function show_prologs(pro){
     current_prolog=pro;
+    console.log(pro[current_start_weight].prolog_0)
     if(corps=="enjoy"){
         $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time).replace("S先生","Enjoy")+"<span></span><div></div>");
         $("#changeDialog").html("<div class='symbol'></div>" +
         "<div class='input_index'>" +
             "<form class='dialogForm' action='#' onsubmit='return false' style='width: 100%'>" +
-            "<input type='text' style='width: 98%;' placeholder='"+pro[current_start_weight].prolog_1.replace("S先生","Enjoy")+"' id='dialog-input' class='dialog-input' title='send' >" +
+            "<input type='text' placeholder='"+pro[current_start_weight].prolog_1.replace("S先生","Enjoy")+"' id='dialog-input' class='dialog-input' title='send' >" +
             "<span class='index_send_message'>发送</span>" +
             "</form>" +
             "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
@@ -521,7 +521,8 @@ function show_prologs(pro){
     if(corps==undefined){
         $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+"<span></span><div></div>");
         $("#changeDialog").html("<div class='symbol'></div>" +
-            "<div class='input_index'><form class='dialogForm' action='#' onsubmit='return false' style='width: 100%'>" +
+            "<div class='input_index'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
             "<input type='text' placeholder='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input' title='send' >" +
             "<span class='index_send_message' onclick='send_index_con()'>发&nbsp;送</span> " +
             "</form>"+
@@ -557,11 +558,12 @@ function show_prologs(pro){
                     else{
 
                     }
-                },1000)
+                },200)
             })(browser_hei);
         }
     });
     $("#dialog-input").blur(function(){
+        setTimeout(function(){
         if($(".dialog-input").val()==""){
             $("span.index_send_message").css("display","none");
         }
@@ -571,6 +573,7 @@ function show_prologs(pro){
         $("#dialog-info").css("height",browser_hei);
         $("#container").scrollTop(0);
         $("#container").css("overflow-y","hidden");
+        },200)
     });
     sendMessage();
 }
@@ -614,14 +617,15 @@ function getNowFormatDate() {
 
 function reload_prologs(){
         if($(".change").css("display")=="block"){
-            if(current_status==0){
-                if(expireTimeStamp>nowTimeStamp||expireTimeStamp==nowTimeStamp){//试用中
+            // if(current_status==0){
+                if(expireTimeStamp>nowTimeStamp||expireTimeStamp==nowTimeStamp){//使用中1
                     if($(".changeHuashu").length==1){
-                        current_start_weight=random_weight(prologs2,0);
-                        show_prologs(prologs2);
+                        current_start_weight=random_weight(prologs1,0);
+                        console.log(current_start_weight)
+                        show_prologs(prologs1);
                     };
                 }
-                else if(expireTimeStamp<nowTimeStamp){//试用完
+                else if(expireTimeStamp<nowTimeStamp&&expireTimeStamp!=0){//使用结束
                     if($(".changeHuashu").length==1){
                         current_start_weight=random_weight(prologs3,0);
                         show_prologs(prologs3);
@@ -633,13 +637,14 @@ function reload_prologs(){
                         show_prologs(prologs0);
                     };
                 }
-            }
-            if(current_status==1){//已激活
-                if($(".changeHuashu").length==1){
-                    current_start_weight=random_weight(prologs1,0);
-                    show_prologs(prologs1)
-                };
-            }
+            // }
+            // if(current_status==1){//已激活1
+            //     if($(".changeHuashu").length==1){
+            //         current_start_weight=random_weight(prologs1,0);
+            //         show_prologs(prologs1)
+            //     };
+            //    
+            // }
         }
 
         //$(".weather").css("display","block");
@@ -700,18 +705,50 @@ function geocoder_CallBack(data) {
     //getWeather(province);
 }
 var prologs_num=[];
+function startWeight(pro,s){
+    var num=0;
+    for(var i=0;i<pro.length;i++){
+        if(s==0){
+            num+=pro[i].start_weight
+        }
+        if(s==1){
+            num+=pro[i].change_weight
+        }
+    }
+    return num;
+}
+// var random_num=[];
+function ran_num(n,m){
+    var c = m-n+1;
+    console.log("c:"+c);
+    var number=Math.floor(Math.random() * c + n);
+    console.log("number:"+number);
+    // console.log("random_num"+random_num);
+    // if(random_num.length==0){random_num.push(number)}
+    // while(number==random_num[random_num.length-1]){
+    //     number=Math.floor(Math.random() * c + n)
+    // }
+    // random_num.push(number);
+    return number;
+}
 function random_weight(prologs,s){//随机权重数
     var m=startWeight(prologs,s);
+    console.log("m;"+m)
     var rd=ran_num(0,m);
+    console.log("rd:"+rd);
     var prolog_weight=0;
     var current_weight=0;
-        for(var i=0;i<prologs.length;i++){
-            if(s==0){prolog_weight+=prologs[i].start_weight;}
-            if(s==1){prolog_weight+=prologs[i].change_weight;}
-            if(rd>prolog_weight||rd==prolog_weight){
-                current_weight=i;
-            }
+    for(var i=0;i<prologs.length;i++){
+        if(s==0){prolog_weight+=prologs[i].start_weight;}
+        if(s==1){prolog_weight+=prologs[i].change_weight;}
+        console.log("prolog_weight"+prolog_weight);
+        if(rd<prolog_weight||rd==prolog_weight){
+            console.log("rd:"+rd);
+            console.log("weight:"+prolog_weight);
+            current_weight=i;
+            break;
         }
+    }
     //console.log("随机数"+rd);
     //console.log("下角标"+current_weight);
    if(prologs_num.length==0){
@@ -727,8 +764,9 @@ function random_weight(prologs,s){//随机权重数
                 for(var i=0;i<prologs.length;i++){
                     if(s==0){prolog_weight+=prologs[i].start_weight;}
                     if(s==1){prolog_weight+=prologs[i].change_weight;}
-                    if(rd>prolog_weight||rd==prolog_weight){
+                    if(rd<prolog_weight||rd==prolog_weight){
                         current_weight=i;
+                        break;
                     }
                 }
                 if(current_weight!=prologs_num[(prologs_num.length-1)]){
@@ -743,19 +781,19 @@ function random_weight(prologs,s){//随机权重数
             prologs_num.splice(0,1);
             return current_weight;
     }
-
-
 }
 function change_prologs(){
     current_start_weight=random_weight(current_prolog,1);
+
     show_prologs(current_prolog);
 }
 function reload_conv_list(conv_list){
-
     var browser_hei=$(window).height();
     $(".container").css("height",browser_hei);
     $(".container").css("overflow",'hidden');
     $(".change").css("display","none");
+    $(".testEdit").css("display","none");
+    $(".rest_days").css("display","none");
     $(".changeDialog").css("display","none");
     var inputhei=parseInt($("#dialog").css("height"));
     $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
@@ -980,8 +1018,12 @@ function close_bottom_title(icon){
 }
 
 function select_server() {
+    if($(".pack_menu_list").css("display")=="none"){
+        $(".pack_menu_list").css({"display":"block"});
+    }else {
+        $(".pack_menu_list").css({"display":"none"});
+    }
 
-    $(".pack_menu_list").css({"display":"block"});
     $(".pack_menu_list li").click(function () {
         $(".pack_menu_list").css({"display":"none"});
     })
@@ -990,8 +1032,12 @@ function orientationChange(){
     var orientation = window.orientation;
     if(orientation == 0 || orientation == 180){
         //添加竖屏操作
-//        alert(' 请取消锁屏横版观看                         ' +
-//        '【安卓用户】 ' + '微信->我->设置->通用->开启横屏模式')
+        document.activeElement.blur('dialog-input');
+        if( $(".change").css("display")=="block"){
+            setTimeout(function () {
+                $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+            },500)
+        }
         if($("#dialog").css("display")=="none"){
             $(".change").css("display","block");
             $("#changeDialog").css("display","block");
@@ -1002,54 +1048,78 @@ function orientationChange(){
         x=document.getElementById("positionErr");
         browser_hei=$(window).height();
         browser_width=$(window).width();
-        var leftMargin=22.5;
-        var serverWidth=browser_width-(2*leftMargin);
-        var serverHeight=serverWidth*1.6;
+        var serverWidth=parseInt($("#server_select").css("width"));
+        var serverHeight=parseInt($("#server_select").css("height"));
+        var serverWidth2=parseInt($(".invite_friend").css("width"));
+        var serverHeight2=parseInt($(".invite_friend").css("height"));
         if(serverWidth>369){
             serverWidth=369;
             serverHeight=590.4;
-            leftMargin=(browser_width-369)/2;
+            // leftMargin=(browser_width-369)/2;
         }
         $("#server_infomation").css({"width":"100%","height":serverHeight-50});
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
-        $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+        $("#server_select").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth/2,"margin-top":-1*serverHeight/2});
+        $(".invite_friend").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth2/2,"margin-top":-1*serverHeight2/2});
         $(".server_img img").css({"width":serverWidth*0.19});
         $(".server_img").css({"margin-top":serverHeight*0.18});
+
         var dialogw=parseInt($("#dialog").css("width"))-20;
         $(".svgrect").css("height",browser_hei);
         $(".container").css("width",$(window).width());
         $(".container").css("height",browser_hei);
         $(".container").css("overflow",'hidden');
-        var inputhei=parseInt($("#dialog").css("height"));
-        $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
+        setTimeout(function () {
+            if ($("#dialog").css("display")=="block"){
+                var inputhei=parseInt($("#dialog").css("height"));
+                $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
+            }else {
+                $("#dialog-info").css("height",browser_hei)
+            }
+        },500)
         $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
         $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
     }
     else if(Math.abs(orientation) == 90){
         //添加横屏操作
         //alert('横屏');
+        document.activeElement.blur('dialog-input');
         var browser_width=$(window).width();
         var browser_hei=$(window).height();
+        if( $(".change").css("display")=="block"){
+            setTimeout(function () {
+                $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+            },500)
+        }
         $(".container").css({"width":browser_width});
         $(".container").css({"height":browser_hei});
         $(".container").css("overflow",'hidden');
         $(".svgrect").css({"height":browser_hei});
-        var inputhei=parseInt($("#dialog").css("height"));
-        $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
-        var leftMargin=22.5;
-        var serverWidth=browser_width-(2*leftMargin);
-        var serverHeight=serverWidth*1.6;
+        setTimeout(function () {
+            if ($("#dialog").css("display")=="block"){
+                var inputhei=parseInt($("#dialog").css("height"));
+                $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
+            }else {
+                $("#dialog-info").css("height",browser_hei)
+            }
+        },500)
+        var serverWidth=parseInt($("#server_select").css("width"));
+        var serverHeight=parseInt($("#server_select").css("height"));
+        var serverWidth2=parseInt($(".invite_friend").css("width"));
+        var serverHeight2=parseInt($(".invite_friend").css("height"));
         if(serverWidth>369){
             serverWidth=369;
             serverHeight=590.4;
-            leftMargin=(browser_width-369)/2;
+            // leftMargin=(browser_width-369)/2;
         }
         $("#server_infomation").css({"width":"100%","height":serverHeight-50});
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
-        $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
+        $("#server_select").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth/2,"margin-top":-1*serverHeight/2});
+        $(".invite_friend").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth2/2,"margin-top":-1*serverHeight2/2});
         $(".server_img img").css({"width":serverWidth*0.19});
         $(".server_img").css({"margin-top":serverHeight*0.18});
         $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+
     }else{
 
     }
@@ -1057,30 +1127,27 @@ function orientationChange(){
 window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", orientationChange, false);
 $(document).ready(function(){
 //      touchScroll("control");
+    
     $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
     $(".btn_start_use").html(service_btn);
     x=document.getElementById("positionErr");
     browser_hei=$(window).height();
     browser_width=$(window).width();
     $(".open_server_link").attr("href","http://"+window.location.host+"/year_fee");
-    var leftMargin=22.5;
-    var serverWidth=browser_width-(2*leftMargin);
+    var serverWidth=parseInt($("#server_select").css("width"));
     var serverHeight=serverWidth*1.6;
     if(serverWidth>369){
         serverWidth=369;
         serverHeight=590.4;
-        leftMargin=(browser_width-369)/2;
         $("#server_select").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
         $(".invite_friend").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
     }
-    
-    $("#server_infomation").css({"width":"100%","height":parseInt($("#server_select").css("height"))-50});
+    $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".bg_style").css({"background-size":'100% 100%'});
-    // $("#server_select").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
-    // $(".invite_friend").css({"width":serverWidth+"px","height":serverHeight+"px","left":leftMargin,"top":(browser_hei-serverHeight-25)/2});
-    $(".server_img img").css({"width":serverWidth*0.19});
-    $(".server_img").css({"margin-top":serverHeight*0.18});
-    var dialogw=parseInt($("#dialog").css("width"))-20;
+     $(".server_img img").css({"width":serverWidth*0.19});
+    var enterwidth=parseInt($(".server_intro2").css("width"));
+    $(".server_intro2").css("margin-left",-1*enterwidth/2)
+      var dialogw=parseInt($("#dialog").css("width"))-20;
     $(".svgrect").css("height",browser_hei);
     $(".container").css("width",$(window).width());
     $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
@@ -1109,21 +1176,20 @@ $(document).ready(function(){
                 else{
 
                 }
-            },500)
+            },200)
         }
     });
-    $("#dialog-input").blur(function(){
-        $("#dialog").css({"position":"fixed","bottom":"0px"});
-        $(".container").css("height",browser_hei);
-        $(".svgrect").css("height",browser_hei);
-        $(document).css("scroll","hidden");
-        $(document).scrollTop(0);
-        document.body.scrollTop=0;
+    $("#dialog-input").blur(function () {
         setTimeout(function(){
-            var diaTop=$("#dialog").offset().top;
-            $('#dialog-info').css("height",diaTop+'px');
-        },500);
-
+        $("#dialog").css({"position":"fixed","bottom":"0px"});
+        $(".container").css({"height":browser_hei+"px"});
+        var inputhei=parseInt($("#dialog").css("height"));
+        $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
+        $(".svgrect").css("height",browser_hei+"px");
+        },200)
+        // $(document).css("scroll","hidden");
+        // $(document).scrollTop(0);
+        // document.body.scrollTop=0;
     });
     close_keyboard();
     var swiper = function (select) {
@@ -1158,12 +1224,9 @@ $(document).ready(function(){
     $("#dialog-info").click(function (){
         $(".pack_menu_list").css({"display":"none"});
     })
-//        $("#dialog-input").on("keydown", function (e) {
-//            if (e.keyCode == 13) {
-//                    document.activeElement.blur('dialog-input');
-//            }
-//        });
+
 });
+
 function close_keyboard(){
     document.activeElement.blur('dialog-input');
 }

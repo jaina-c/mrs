@@ -4,6 +4,7 @@ function start_select_server() {
         $(".svgserver").css("display","block");
         $(".server_img").css("display","none");
         $(".server_intro").css("display","none");
+        $(".server_intro2").css("display","none");
         $(".kaishi_sel").css("display","none");
         $(".start_trail").css("display","block");
         $("ul.server_list").css("display","block");
@@ -24,10 +25,11 @@ function reload_server_list() {
         $(".container").css("height",browser_hei);
         $(".svgrect").css("height",browser_hei);
         $(document).css("scroll","hidden");
-        $(document).scrollTop(0);
-        document.body.scrollTop=0;
+        // $(document).scrollTop(0);
+        // document.body.scrollTop=0;
         setTimeout(function(){
             var diaTop=$("#dialog").offset().top;
+            // var diaTop=$("#dialog").offset().top- $(document).scrollTop();
             $('#dialog-info').css("height",diaTop+'px');
         },1000);
     }
@@ -137,9 +139,7 @@ function server_detail(detail,span) {
     var parenttop=parseInt($("#server_select").css("top"));
     var parentleft=parseInt($("#server_select").css("left"));
     var det='';
-    $(".ser_detail").css({'width':parentwidth,'height':parentheight,"display":"block","position":"absolute","top":parenttop,"left":parentleft,"z-index":100,"border-radius": '4px',"overflow":"hidden"});
-    //$(".start_trail").css("display","none");
-    //$(".start_select_server").css("border-top","1px solid transparent");
+    $(".ser_detail").css({'width':parentwidth,'height':parentheight,"display":"block","position":"absolute","top":parenttop,"left":parentleft,"margin-top":-1*parentheight/2,"margin-left":-1*parentwidth/2,"z-index":100,"border-radius": '4px',"overflow":"hidden"});
     $("#server_select").css("display","none");
     $("#server_infomation").css("overflow-y",'hidden');
     $("#dialog-info").css("overflow-y",'hidden');
@@ -174,6 +174,7 @@ function close_detail(detail) {
 }
 
 function start_trail() {
+
         var colorVal=$(".btn_start_use").css("color");
         $("#dialog-info").css("overflow-y","scroll");
         $("#dialog-input").removeAttr("disabled");
@@ -225,13 +226,18 @@ function start_trail() {
                 Chat.socket.send(JSON.stringify(comObj));
             }
             if(flag==0){
-                $("#server_select_contain").css("display","none");
-                if(user_info.is_continue==true){
-                    query_msg_pack();
+                if ($(".btn_start_use").html()=="关&nbsp;闭"){
+                    $("#server_select_contain").css("display","none");
+                }else {
+                    $("#server_select_contain").css("display","none");
+                    if(user_info.is_continue==true){
+                        query_msg_pack();
+                    }
+                    if(user_info.is_continue==false){
+                        reload_index();
+                    }
                 }
-                if(user_info.is_continue==false){
-                    reload_index();
-                }
+
             }
         }
 }

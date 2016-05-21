@@ -7,7 +7,6 @@
     <meta name="x5-fullscreen" content="true">
     <meta name="full-screen" content="yes">
     <link href="/static/css/mrs.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/server.css" rel="stylesheet" type="text/css">
     <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
     <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=d74f511c9bf85fe44ab78e213f288688&plugin=AMap.Geocoder"></script>
@@ -115,7 +114,7 @@
 <div id="positionErr" style="position: absolute;top: -200px;"></div>
 <svg class="svgrect" xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <linearGradient y1="0" x1="0" y2="1" x2="0"  id="svg_2">
+        <linearGradient y1="0.1" x1="0" y2="1" x2="0"  id="svg_2">
             <stop stop-color="#5F1818" offset="0"/>
             <stop stop-color="#3D0E10" offset="1"/>
         </linearGradient>
@@ -125,7 +124,8 @@
         <rect id="svg_1" width="100%" height="100%" y="0" x="0" fill="url(#svg_2)"/>
     </g>
 </svg>
-<div class="pack_menu" onclick="menuList()"><span></span><span></span><span></span></div>
+<!--<div class="pack_menu" onclick="menuList()"><span></span><span></span><span></span></div>-->
+<!--<div style="position: absolute;top: 0px">-->
 <div class="weather"><span id="result"></span></div>
 <div class="container " id="container">
     <div class="mrs dialog-infos" id="dialog-info">
@@ -136,37 +136,36 @@
         </div>
     </div>
     <div class="testEdit">Beta version</div>
-    <div id="dialog" class="dialog">
-        <!--<span id="menu" onclick="menuList()"></span>-->
-        <div class="follow_title"><div class="follows">关注微信公众号“S先生”，获得更好的体验。</div><div class="icon_close" onclick="close_bottom_title(this)"></div></div>
-        <form class="con_dialogForm" action="#" onsubmit="return false" >
-            <input placeholder="点击输入..." id="dialog-input" type="text" class="con_dialog_input">
-        </form>
-    </div>
 </div>
 <div class="menu_list" id="menu_list"></div>
-<!--<div class="control" id="control"></div>-->
 
+<!--<div class="control" id="control"></div>-->
+<!--</div>-->
+
+<div id="dialog" class="dialog">
+    <!--<span id="menu" onclick="menuList()"></span>-->
+    <form class="con_dialogForm" action="#" onsubmit="return false" >
+        <input placeholder="点击输入..." id="dialog-input" type="text" class="con_dialog_input">
+    </form>
+</div>
 <script type="text/javascript" src="/static/js/scroll.js"></script>
 <script type="text/javascript" src="/static/js/mrs.js"></script>
 <script type="text/javascript">
-    var open_id='{{open_id}}';
-    var corps="{{corps}}";
+   var open_id='{{open_id}}';
+   var corps="{{corps}}";
 //    var corps="enjoy";
 //    var open_id='oO8gHuIekrttc8CxLxiklw3mFsQw';
     var addr='';
     var province='';
     var x="";
-    var browser_hei;
+
     $(document).ready(function(){
 //        touchScroll("control");
         x=document.getElementById("positionErr");
-        browser_hei=$(window).height();
-//        var ua = navigator.userAgent.toLowerCase();
+        var browser_hei=$(window).height();
         var dialogw=parseInt($("#dialog").css("width"))-20;
         $(".svgrect").css("height",browser_hei);
         $(".container").css("width",$(window).width());
-        $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
         var ua = navigator.userAgent.toLowerCase();
         $("#dialog-input").focus(function(){
             if(ua.indexOf("iphone")>0||ua.indexOf("android")>0){
@@ -202,17 +201,8 @@
             $(document).css("scroll","hidden");
             $(document).scrollTop(0);
             document.body.scrollTop=0;
-            setTimeout(function(){
-                var diaTop=$("#dialog").offset().top;
-                $('#dialog-info').css("height",diaTop+'px');
-            },500)
         });
         close_keyboard();
-//        $("#dialog-input").on("keydown", function (e) {
-//            if (e.keyCode == 13) {
-//                    document.activeElement.blur('dialog-input');
-//            }
-//        });
     });
     function close_keyboard(){
         document.activeElement.blur('dialog-input');
@@ -272,6 +262,10 @@
     function refesh(){
         query_msg_pack();
     }
+    //    function jsmethod(){
+    //        document.getElementById("dialog-input").focus();
+    //    }
+
 </script>
 </body>
 </html>
