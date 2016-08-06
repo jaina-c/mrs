@@ -30,6 +30,8 @@ var browser_hei,browser_width;
 var ref_nums=[];
 var ref_date={};
 var user_owner_code=[];
+var is_query=0;
+var in_package=false;
 Chat.initialize = function() {
     if (window.location.protocol == 'http:') {
         if (window.location.host.indexOf("localhost")==-1){
@@ -55,7 +57,6 @@ Chat.connect = (function(host) {
         Console.log('Error: WebSocket is not supported by this browser.');
         return;
     }
-
     Chat.socket.onopen = function () {
         Console.log('Info: WebSocket connection opened.');
         $("#dialog-input").removeAttr("disabled");
@@ -64,7 +65,7 @@ Chat.connect = (function(host) {
         if($(".socketClose")){
             $(".socketClose").remove();
         }
-        logingObj={"open_id":open_id};
+        var logingObj={"open_id":open_id};
         Chat.socket.send(JSON.stringify(logingObj));
         document.getElementById('dialog-input').onkeydown = function(event){
             if (event.keyCode==13) {
@@ -77,15 +78,20 @@ Chat.connect = (function(host) {
             };
         }
     };
-
     Chat.socket.onclose = function () {
         Console.log('Info: WebSocket closed.');
-        msg= '<div class="cs-msg socketClose">' +
-            '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
-            '<span class="cs-msg-content">Hey, user_name. 你已经和S先生断开连接，请点击<span onclick="login()" style="color: #3C9FFD;cursor:pointer">重新登陆</span>继续。</span></span></div>';
+        var msg= '<div class="cs-msg socketClose">' +
+            '<div class="cs_avatars"><div class="avatar avatarcs"></div></div><span class="cs_bubble"></span>' +
+            '<span class="cs-msg-content">Hey, user_name. 你已经和S先生断开连接，请点击<span onclick="login()" style="color: #3C9FFD;cursor:pointer">重新登陆' +
+            '</span>继续。</span></span></div>';
+        if(corps=='coffee'){
+            msg=msg.replace('cs-msg-content','cs-msg-content cs-msg-content-coffee').replace('cs_bubble','cs_bubble cs_bubble_coffee').replace('cs_avatars','cs_avatars_coffee')
+        }
         var consoles = document.getElementById('conv_content');
-        Dialog.log(msg.replace("user_name",userName));
-        // $(".pack_menu").css("opacity","0.8");
+        var p = document.createElement('p');
+        p.style.wordWrap = 'break-word';
+        p.innerHTML = msg.replace("user_name",userName);
+        consoles.appendChild(p);
         $("#dialog-info").stop().animate({scrollTop: consoles.scrollHeight}, '0');
         $(".change").css("display","none");
         $("#changeDialog").html("");
@@ -94,14 +100,12 @@ Chat.connect = (function(host) {
         $("#dialog-input").css("opacity",'0.3');
         $(".testEdit").css("display",'none');
         $(".pack_menu").css("display",'none');
-        $(".rest_days").css("display","none");
         $("#server_select_contain").css("display","none");
-        // $("#dialog").css("display","block");
 
     };
 
     Chat.socket.onmessage = function (message) {
-        console.log(message.data);
+        // alert(message.data);
         packageHandler.process(message.data);
     };
 });
@@ -122,24 +126,28 @@ Console.log = (function(message) {
 Chat.sendMessage = (function() {
     var message = $('#dialog-input').val();
     if(message!=''){
-        content={"msg":message,"ref_num":transdate()};
-        comObj={"code":501,"subcode":0,"content":content};
+        var content={"msg":message,"ref_num":transdate()};
+        var comObj={"code":501,"subcode":0,"content":content};
         Chat.socket.send(JSON.stringify(comObj));
         setTimeout(clearInput,10);
-        msg='<div class="user-msg" id="refnum">' +
+        var msg='<div class="user-msg" id="refnum">' +
         '<span class="user-msg-content" >' +
         message+
         '</span>' +
         //'<span class="bubble"></span>' +
-        '<span class="user-avatar"><span class="bubble"></span><img src=" '+user_avatar+'"></span>' +
+        '<span class="user-avatar"><span class="bubble bubbles"></span><img src=" '+user_avatar+'"></span>' +
         '</div>';
+        if(corps=='coffee'){
+            msg=msg.replace('user-msg-content','user-msg-content user-msg-content-coffee').replace('bubbles','bubble-coffee')
+        }
+        if(corps=='trip'){
+            msg=msg.replace('user-msg-content','user-msg-content user-msg-content-trip').replace('bubbles','bubble-trip')
+        }
         inputChange();
         Dialog.log(msg.replace("refnum",content.ref_num));
-        var msgcon={"timestamp":content.ref_num,"record_text":content.msg,"cs_id":0};
-        if(JSON.stringify(conv_list)=="[]"){
-            conv_list.push(msgcon);
-        }
-
+        var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+        conv_list.unshift(msgcon);
+        console.log(JSON.stringify(conv_list))
     }
 });
 function inputChange(){
@@ -150,11 +158,14 @@ function inputChange(){
         $(".change").css("display","none");
     }
     if($(".change").text()!=""&&$(".change").css("display")=="block"){
-        message= '<div class="cs-msg" id="'+transdate()+'">' +
+        var message= '<div class="cs-msg" id="'+transdate()+'">' +
         '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
             '<span class="cs-msg-content">'+$(".changeHuashu").text()+ '</span>';
         '</div>';
-        Dialog.log(message)
+        if (corps=='coffee'){
+            message=message.replace('cs-msg-content','cs-msg-content cs-msg-content-coffee').replace('cs_bubble','cs_bubble cs_bubble_coffee').replace('cs_avatars','cs_avatars_coffee');
+        }
+        Dialog.log(message);
     }
     $(".change").css("display","none");
     $(".weather").css("display","none");
@@ -179,11 +190,41 @@ packageHandler.process=(function(msg){
     }
     if (msgObj.code==100&&msgObj.subcode==0) {
         user_info=msgObj.content.user_info;
-        prologs=msgObj.content.prologs;
+        console.log(JSON.stringify(msgObj.content.prologs));
+        var prologs=[];
+        var flag=0;
+        for(var i=0;i<msgObj.content.prologs.length;i++){
+            if(corps=='coffee'){
+                if(msgObj.content.prologs[i].corps_group==1){
+                    prologs.push(msgObj.content.prologs[i]);
+                    flag++;
+                }
+            }
+            else if(corps=='trip'){
+                if(msgObj.content.prologs[i].corps_group==2){
+                    prologs.push(msgObj.content.prologs[i]);
+                    flag++;
+                }
+            }else{
+                if(msgObj.content.prologs[i].corps_group==0){
+                    prologs.push(msgObj.content.prologs[i])
+                }
+            }
+        }
+        if (flag==0){
+            for(var i=0;i<msgObj.content.prologs.length;i++){
+                if(msgObj.content.prologs[i].corps_group==0){
+                    prologs.push(msgObj.content.prologs[i])
+                }
+            }
+        }
+        console.log(JSON.stringify(prologs));
         server_lists=msgObj.content.services;
         kvs=msgObj.content.kv;
         if (user_info.subscribe_flag==1){
             $(".follow_title").css({"display":"none"})
+        }else{
+            $(".icon_close").css("display",'none');
         }
         if(user_info.user_status==0){
             isSelected=0;
@@ -203,9 +244,6 @@ packageHandler.process=(function(msg){
             }
         }
         reload_mrs_page(user_info);
-        console.log(JSON.stringify(prologs0))
-        console.log(JSON.stringify(prologs1))
-        console.log(JSON.stringify(prologs3))
     };
     if(msgObj.code==10){
         for(var i=0;i<ref_nums.length;i++){
@@ -234,6 +272,9 @@ packageHandler.process=(function(msg){
                             '</span>' +
                             '<span class="user-avatar"><span class="bubble"></span><img src=" '+user_avatar+'"></span>' +
                             '</div>';
+                        if(corps=='coffee'){
+                            msges.replace('bubble','bubble-coffee')
+                        }
                         $("#changeDialog").css("display","none");
                         $("#changeDialog").html("");
                         $("#dialog").css("display",'block');
@@ -243,15 +284,13 @@ packageHandler.process=(function(msg){
                         $(".change").css("display","none");
                         $(".weather").css("display","none");
                         $(".click_me").css("display","none");
-                        content={"msg":"我需要"+detailNames,"ref_num":transdate()};
-                        comObj={"code":501,"subcode":0,"content":content};
+                        var content={"msg":"我需要"+detailNames,"ref_num":transdate()};
+                        var comObj={"code":501,"subcode":0,"content":content};
                         Chat.socket.send(JSON.stringify(comObj));
                         Dialog.log(msges.replace("refnum",ref_nums[i].ref_num));
-                        $(".rest_days").css("display","none");
-                        var msgcon={"timestamp":content.ref_num,"record_text":content.msg,"cs_id":0};
-                        if(JSON.stringify(conv_list)=="[]"){
-                            conv_list.push(msgcon);
-                        }
+                        // $(".rest_days").css("display","none");
+                        var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                        conv_list.unshift(msgcon);
                     }
                 }
             }
@@ -259,15 +298,18 @@ packageHandler.process=(function(msg){
     }
     if (msgObj.code==301) {
         current_query=msgObj.content.ref_reply;
-        console.log(JSON.stringify(conv_list));
-        if (current_query.length>1&&conv_list.length!=0){
-                console.log(current_query[0].record_text);
-                if(current_query[0].record_text==conv_list[0].record_text){
-                    current_query.splice(0,1);
-                }
-        }
         console.log(JSON.stringify(current_query));
-        reload_conv_list(current_query);
+        if(JSON.stringify(conv_list)=="[]"){
+            conv_list=conv_list.concat(current_query);
+        }else{
+            if(conv_list.indexOf(current_query)==-1){
+                conv_list=conv_list.concat(current_query);
+                is_query=0;
+            }else{
+                is_query=-1;
+            }
+        }
+        reload_conv_list(conv_list);
         inputChange();
     }
     if(msgObj.code==101){
@@ -275,38 +317,153 @@ packageHandler.process=(function(msg){
         $("#changeDialog").html("");
         $("#changeDialog").css("display","none");
         $("#dialog").css("display",'block');
-        
+        var message
         if(msgObj.content.is_recv==1){
-            message=
-                '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
-                '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
-                '<span class="cs-msg-content">' + msgObj.content.msg + '</span>';
-            '</div>';
+            if (corps=='coffee'){
+                message=
+                    '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
+                    '<div class="cs_avatars cs_avatars_coffee"><div class="avatar"></div></div><span class="cs_bubble cs_bubble_coffee"></span>' +
+                    '<span class="cs-msg-content cs-msg-content-coffee">' + msgObj.content.msg + '</span>'+
+                    '</div>';
+            }else{
+                message=
+                    '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
+                    '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
+                    '<span class="cs-msg-content">' + msgObj.content.msg + '</span>'+
+                    '</div>';
+            }
         }
         else{
-            message='<div class="user-msg">' +
-            '<span class="user-msg-content">' +
-            msgObj.content.msg +
-            '</span>' +
-            '</div>';
+            if(corps=='coffee'){
+                message='<div class="user-msg"><span class="user-msg-content user-msg-content-coffee">' + msgObj.content.msg + '</span></div>';
+            }
+            else if(corps=='trip'){
+                message='<div class="user-msg"><span class="user-msg-content user-msg-content-trip">' + msgObj.content.msg + '</span></div>';
+            }else{
+                message='<div class="user-msg"><span class="user-msg-content">' + msgObj.content.msg + '</span></div>';
+            }
         }
         Dialog.log(message);
+    }
+    if(msgObj.code==201){
+        if(msgObj.content.user_conversation_status=="end_package"){
+            conv_list=[];
+            $(".s_select_service").css("color","rgb(255, 255, 255)");
+            $(".s_invite_friend").css("color","rgb(255, 255, 255)");
+            if(user_info.user_status==0){
+                setTimeout(function () {
+                    document.activeElement.blur('dialog-input');
+                    $(document).scrollTop(0);
+                    $("#server_select_contain").css("display", "block");
+                    $("#input_code").focus(function(){
+                        setTimeout(function(){
+                            $(".add_long").css("height",browser_hei+browser_hei*0.5);
+                            $(".popup_container").scrollTop(browser_hei*0.4);
+                            $(document).scrollTop(0);
+                            $(document).css("scroll","hidden");
+                        },200);
+                    });
+                    $("#input_code").blur(function(){
+                        setTimeout(function(){
+                            $(".add_long").css("height",'0px');
+                            $(".popup_container").scrollTop(0)
+                            $(document).scrollTop(0);
+                        },200)
+                    });
+                    timer = setInterval(listenCode, 100);
+                    $(".testEdit").css("display", 'block');
+                    $("#conv_content").html(' <div class="change"><div class="changeWord"></div><span class="changeHuashu"></span></div> ' +
+                        '<div id="changeDialog" class="changeDialog"></div>');
+                },1000);
+            }else {
+                setTimeout(function () {
+                    document.activeElement.blur('dialog-input');
+                    if (kvs.length==0){
+                        $("#server_select_contain").css("display","block");
+                        $(".block").css("display","none");
+                        $("#dialog-input").attr("disabled","disabled");
+                        $("#dialog-info").css("overflow-y","hidden");
+                        service_btn="关&nbsp;闭";
+                        $(".btn_start_use").css("color","rgba(255,255,255,.3)");
+                        start_select_server();
+                    }else {
+
+                    }
+                },1000);
+            }
+        }
+        else if(msgObj.content.user_conversation_status=="begin_package"){
+            if(user_info.user_status==0){
+                $(".s_select_service").css("color","rgba(255,255,255,.3)");
+                $(".s_invite_friend").css("color","rgba(255,255,255,.3)")
+            }else {
+                $(".s_select_service").css("color","rgba(255,255,255,.3)");
+            }
+        }
     }
     if (msgObj.code==1812){
         ref_date.process(msgObj.content);
     }
     if (msgObj.code==1811){
-        console.log(JSON.stringify(msgObj.content));
         user_owner_code=msgObj.content.ref_reply;
+        console.log(JSON.stringify(user_owner_code));
         ref_date.process(msgObj.content);
     }
 });
+var i=2;
+var invate;
 ref_date.process=(function(msg){
     var refdate=find_ref(msg.ref_num);
     if (refdate.date_type==inviteCode){
         if(msg.ref_reply.error==undefined){
             user_info.user_status=msg.ref_reply.user_status;
-            start_select_server();
+            if(corps=='coffee'){
+                $(".popup_container").css("display",'none');
+                var msges='<div class="user-msg" id="refnum">' +
+                    '<span class="user-msg-content user-msg-content-coffee" >帮我叫杯咖啡' +
+                    '</span>' +
+                    '<span class="user-avatar"><span class="bubble bubble-coffee"></span><img src=" '+user_avatar+'"></span>' +
+                    '</div>';
+                $("#changeDialog").css("display","none");
+                $("#changeDialog").html("");
+                $("#dialog").css("display",'block');
+                if($(".change").text()==""){
+                    $(".change").css("display","none");
+                }
+                $(".change").css("display","none");
+                $(".weather").css("display","none");
+                $(".click_me").css("display","none");
+                var content={"msg":"帮我叫杯咖啡","ref_num":transdate()};
+                var comObj={"code":501,"subcode":0,"content":content};
+                Chat.socket.send(JSON.stringify(comObj));
+                Dialog.log(msges.replace("refnum",msg.ref_num));
+                var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                conv_list.unshift(msgcon);
+            }else if(corps=='activity'){
+                $(".popup_container").css("display",'none');
+                var msges='<div class="user-msg" id="refnum">' +
+                    '<span class="user-msg-content">' +start_speech+
+                    '</span>' +
+                    '<span class="user-avatar"><span class="bubble"></span><img src=" '+user_avatar+'"></span>' +
+                    '</div>';
+                $("#changeDialog").css("display","none");
+                $("#changeDialog").html("");
+                $("#dialog").css("display",'block');
+                if($(".change").text()==""){
+                    $(".change").css("display","none");
+                }
+                $(".change").css("display","none");
+                $(".weather").css("display","none");
+                $(".click_me").css("display","none");
+                var content={"msg":start_speech,"ref_num":transdate()};
+                var comObj={"code":501,"subcode":0,"content":content};
+                Chat.socket.send(JSON.stringify(comObj));
+                Dialog.log(msges.replace("refnum",msg.ref_num));
+                var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                conv_list.unshift(msgcon);
+            }else{
+                start_select_server();
+            }
             clearInterval(timer);
         }else {
             //邀请码不正确
@@ -316,23 +473,49 @@ ref_date.process=(function(msg){
     if (refdate.date_type==userCode){
         reload_user_owner_code();
     }
+    if(refdate.date_type==promoCode){
+        if(msg.ref_reply.error==undefined){
+            $(".promo_container").css("display","none");
+            $(".promo_success").css("display","block");
+            clearInterval(timer);
+            invate=setInterval(daojishi,1000);
+            // setTimeout(close_code,3000);
+        }else {
+            //邀请码不正确
+            $(".promo_code_error").css("opacity","1.0");
+        }
+    }
 })
+function daojishi() {
+    $(".djs_seconds").html(i);
+    i--;
+    if (i<0){clearInterval(invate);close_code()}
+}
 function reload_user_owner_code() {
-    console.log(JSON.stringify(user_owner_code));
     var restnum=user_owner_code.allow_count-user_owner_code.used_count;
-    if(restnum<10){
-        restnum="0"+restnum
+    var in_friend='';
+    var title='';
+    if(restnum>0){
+        in_friend='你可以邀请<span class="restnum">'+restnum+'</span>个朋友使用';
+        title='S先生需要邀请才可以使用，分享邀请码给你的朋友，你们将同时获得duration_to_owner天的使用时间。';
+    }else{
+        in_friend='你的邀请机会已经用完';
+        title='S先生需要邀请才可以使用，你目前无法邀请新的朋友使用S先生。';
     }
     $("#user_code_con").css("display","block");
+    $(".invite_friends").html(in_friend);
+    $(".invite_intro").html(title);
     var divcon=$(".invite_content").html();
-    $(".invite_content").html(divcon.replace("allow_count",user_owner_code.allow_count).
-    replace("duration_to_owner",user_owner_code.duration_to_owner).replace("code_user",user_owner_code.code));
-    var restcon=$(".the_rest").html();
-    $(".the_rest").html(restcon.replace("allow-used",restnum))
+    $(".invite_content").html(divcon.replace("allow_count",user_owner_code.allow_count).replace("duration_to_owner",user_owner_code.duration_to_owner));
+    $(".the_rest").html($(".the_rest").html().replace("code_user",user_owner_code.code));
+    setTimeout(function () {
+        $('.screen-shot-prompt').animate({'top':'-35px'}, 200);
+    },4500);
 }
 function server_list() {
-    if( $(".pack_menu").css("opacity")!=0.8){
+    if( $(".pack_menu").css("opacity")!=0.8&&$(".s_select_service").css("color")=="rgb(255, 255, 255)"){
         $("#server_select_contain").css("display","block");
+        $("#server_select").css("display","block");
         $(".block").css("display","none");
         $("#dialog-input").attr("disabled","disabled");
         $("#dialog-info").css("overflow-y","hidden");
@@ -366,12 +549,12 @@ function datetostamp(dates){
     //2014-07-10 10:21:12的时间戳为：1404958872
     return timestamp2
 }
-
 function reload_mrs_page(user_info){
     userName=user_info.user_name;
     expire_time=user_info.expire_time;
     user_avatar=user_info.avatar;
     current_status=user_info.user_status;
+    in_package=user_info.in_package;
     service_btn="开始";
     nowTimeStamp=parseInt(transdate()/1000);
     if(expire_time!=null){
@@ -379,63 +562,68 @@ function reload_mrs_page(user_info){
     }else{
         expireTimeStamp=0;
     }
-    if (expireTimeStamp==0){$(".days_num").html("00")}
-    else {
-        if (nowTimeStamp<expireTimeStamp){
-            var restDays=expireTimeStamp-nowTimeStamp;
-            var day_num=parseInt(restDays/60/60/24);
-            if(parseInt(day_num/10)<1){
-                $(".days_num").html("0"+day_num);
-            }else{
-                $(".days_num").html(day_num);
-            }
-        }else{
-            if(user_info.is_continue==true){
-                query_msg_pack();
-            }
-            if(user_info.is_continue==false){
-                reload_index();
-            }
-            $(".days_num").html("00");
-        }
-    }
-    if(isSelected==0){
-        $("#server_select_contain").css("display","block");
-        // var ua = navigator.userAgent.toLowerCase();
-        $("#input_code").focus(function(){
-            browser_hei=$(window).height();
-            setTimeout(function(){
-                // if(window.innerHeight==browser_hei){
-                    $("#server_select_contain").scrollTop(browser_hei*0.3);
-                // }
-                // else {
-                //     $("#server_select_contain").scrollTop(browser_hei*0.3);
-                // }
-            },200)
-        });
-        if (  $(document).scrollTop()!=0){
-            $("#server_select_contain").click(function () {
-                document.activeElement.blur('input_code');
-            })
-        }
-        $("#dialog-input").blur(function(){
-            setTimeout(function(){
-                // $(document).scrollTop(0);
-                $("#server_select_contain").scrollTop(0);
-            },200)
-        });
-        timer=setInterval(listenCode,100);
-        $(".testEdit").css("display",'block');
-        $(".rest_days").css("display","none");
-    }else {
-        if(user_info.is_continue==true){
+    if (in_package==true){//在kv包里面
+        if (current_status==0){
             query_msg_pack();
+            $(".s_select_service").css("color","rgba(255,255,255,.3)");
+            $(".s_invite_friend").css("color","rgba(255,255,255,.3)")
+        }else {
+            query_msg_pack();
+            $(".s_select_service").css("color","rgba(255,255,255,.3)")
         }
-        if(user_info.is_continue==false){
-            reload_index();
+    }else {//不在kv包里面
+        if(isSelected==0){
+            $("#server_select_contain").css("display","block");
+            overscroll(document.querySelector('.bg_style'));
+            overscroll(document.querySelector('.popup_container'));
+            $("#input_code").focus(function(){
+                setTimeout(function(){
+                    $(".add_long").css("height",browser_hei+browser_hei*0.5);
+                    $(".popup_container").scrollTop(browser_hei*0.4);
+                    $(document).scrollTop(0);
+                    $(document).css("scroll","hidden");
+                },200);
+            });
+            $("#input_code").blur(function(){
+                setTimeout(function(){
+                    $(".add_long").css("height",'0px');
+                    $(".popup_container").scrollTop(0)
+                    $(document).scrollTop(0);
+                },200)
+            });
+            timer=setInterval(listenCode,100);
+            $(".testEdit").css("display",'block');
+        }else {
+            // if (expireTimeStamp==0){$(".days_num").html("00")}
+            // else {
+            if(corps!=undefined){
+                if (nowTimeStamp>expireTimeStamp){
+                    reload_over_time_coffee()
+                }else{
+
+                }
+            }
+
+            // }
+            if (kvs.length==0){
+                $("#server_select_contain").css("display","block");
+                $(".block").css("display","none");
+                $("#dialog-input").attr("disabled","disabled");
+                $("#dialog-info").css("overflow-y","hidden");
+                service_btn="";
+                $(".btn_start_use").css("color","rgba(255,255,255,.3)")
+                start_select_server();
+            }else {
+                if(user_info.is_continue==true){
+                    query_msg_pack();
+                }
+                if(user_info.is_continue==false){
+                    reload_index();
+                }
+            }
+
         }
     }
-
 }
 Chat.initialize();
 function sendMessage(){
@@ -462,7 +650,7 @@ function send_index_con() {
             if (user_info.subscribe_flag==1){
                 $(".follow_title").css({"display":"none"})
             }
-            $(".rest_days").css("display","none");
+            // $(".rest_days").css("display","none");
             $(".pack_menu").css("display",'none');
             $(".symbol").css("display","inline-block");
             $("#container").scrollTop(0);
@@ -475,15 +663,13 @@ function send_index_con() {
 function reload_index(){
     var browser_hei=$(window).height();
     $(".container").css("height",browser_hei);
+    $(".standard-detail-coffee").css("display",'flex');
     $("#dialog-info").css("height",browser_hei);
     if($("#dialog").css("display")=="none"){
         $(".change").css("display","block");
         $("#changeDialog").css("display","block");
         $(".testEdit").css("display","block");
         $(".pack_menu").css("display",'block');
-        // if(user_info.user_status==0){
-            $(".rest_days").css("display","block");
-        // }
     }
     if($("#dialog").css("display")=="block"){
         $(".change").css("display","none");
@@ -507,9 +693,8 @@ function reload_index(){
 var  current_prolog=[];
 function show_prologs(pro){
     current_prolog=pro;
-    console.log(pro[current_start_weight].prolog_0)
     if(corps=="enjoy"){
-        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time).replace("S先生","Enjoy")+"<span></span><div></div>");
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time).replace("S先生","Enjoy")+"<span></span><div></div></span>");
         $("#changeDialog").html("<div class='symbol'></div>" +
         "<div class='input_index'>" +
             "<form class='dialogForm' action='#' onsubmit='return false' style='width: 100%'>" +
@@ -517,9 +702,10 @@ function show_prologs(pro){
             "<span class='index_send_message'>发送</span>" +
             "</form>" +
             "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
+        input_focus_blur(pro)
     }
-    if(corps==undefined){
-        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+"<span></span><div></div>");
+    else if(corps==undefined){
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+"<span></span><div></div></span>");
         $("#changeDialog").html("<div class='symbol'></div>" +
             "<div class='input_index'>" +
             "<form class='dialogForm' action='#' onsubmit='return false'>" +
@@ -528,7 +714,48 @@ function show_prologs(pro){
             "</form>"+
             "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
         $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+        input_focus_blur(pro)
     }
+    else if(corps=='coffee'){
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+"<span></span><div></div></span>");
+        $("#changeDialog").html("<div class='symbol symbol_coffee'></div>" +
+            "<div class='input_index input_index_coffee'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
+            "<input type='text' value='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input dialog-input-coffee' title='send' >" +
+            "<span class='index_send_message index_send_message_coffee' onclick='send_index_con()'>发&nbsp;送</span> " +
+            "</form>"+
+            "</div>" );
+        $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+        input_focus_blur_coffee(pro)
+    }
+    else if(corps=='trip'){
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+ "<span></span><div></div></span>");
+        $("#changeDialog").html("<div class='symbol symbol_coffee'></div>" +
+            "<div class='input_index input_index_coffee'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
+            "<input type='text' value='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input dialog-input-coffee' title='send' >" +
+            "<span class='index_send_message index_send_message_trip' onclick='send_index_con()'>发&nbsp;送</span> " +
+            "</form>"+
+            "</div>" );
+        $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+        input_focus_blur_coffee(pro)
+    }
+    else{
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+"<span></span><div></div></span>");
+        $("#changeDialog").html("<div class='symbol'></div>" +
+            "<div class='input_index'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
+            "<input type='text' placeholder='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input' title='send' >" +
+            "<span class='index_send_message' onclick='send_index_con()'>发&nbsp;送</span> " +
+            "</form>"+
+            "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
+        $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+        input_focus_blur(pro)
+    }
+
+    sendMessage();
+}
+function input_focus_blur_coffee(pro) {
     var ua = navigator.userAgent.toLowerCase();
     $("#dialog-input").focus(function(){
         browser_hei=$(window).height();
@@ -564,18 +791,60 @@ function show_prologs(pro){
     });
     $("#dialog-input").blur(function(){
         setTimeout(function(){
-        if($(".dialog-input").val()==""){
-            $("span.index_send_message").css("display","none");
-        }
-        $("#click_me").css("display","inline");
-        $(".symbol").css("display","inline-block");
-        $(".dialog-input").attr("placeholder",pro[current_start_weight].prolog_1);
-        $("#dialog-info").css("height",browser_hei);
-        $("#container").scrollTop(0);
-        $("#container").css("overflow-y","hidden");
+            $(".symbol").css("display","none");
+            $(".dialog-input").attr("value",pro[current_start_weight].prolog_1);
+            $("#dialog-info").css({"height":browser_hei});
+            $("#container").scrollTop(0);
         },200)
     });
-    sendMessage();
+}
+function input_focus_blur() {
+    var ua = navigator.userAgent.toLowerCase();
+    $("#dialog-input").focus(function(){
+        browser_hei=$(window).height();
+        $(".symbol").css("display","none");
+        $("#click_me").css("display","none");
+        $(".dialog-input").attr("placeholder",'');
+        $("span.index_send_message").css("display","inline-block");
+        if(ua.indexOf("iphone")>0||ua.indexOf("android")>0){
+            (function (browser_hei) {
+                setTimeout(function(){
+                    var dialogth=$("#changeDialog").offset().top- $(document).scrollTop();
+                    if(window.innerHeight==browser_hei){
+                        $("#container").css("overflow-y","scroll");
+                        $("#dialog-info").css("height",browser_hei+500);
+                        $("#container").scrollTop(browser_hei*0.3);
+                    }
+                    else if(window.innerHeight!=browser_hei){
+                        if((parseInt(dialogth)>parseInt(window.innerHeight))==true){
+                            $("#container").css("overflow-y","scroll");
+                            $("#dialog-info").css("height",browser_hei+500);
+                            $("#container").scrollTop(window.innerHeight);
+                        }
+                        else{
+
+                        }
+                    }
+                    else{
+
+                    }
+                },200)
+            })(browser_hei);
+        }
+    });
+    $("#dialog-input").blur(function(){
+        setTimeout(function(){
+            if($(".dialog-input").val()==""){
+                $("span.index_send_message").css("display","none");
+            }
+            $("#click_me").css("display","");
+            $(".symbol").css("display","inline-block");
+            $(".dialog-input").attr("placeholder",pro[current_start_weight].prolog_1);
+            $("#dialog-info").css({"height":browser_hei});
+            $("#container").scrollTop(0);
+            // $("#container").css({"overflow-y":"hidden","background":'red'});
+        },200)
+    });
 }
 function getNowFormatDate() {
     var date = new Date();
@@ -617,11 +886,9 @@ function getNowFormatDate() {
 
 function reload_prologs(){
         if($(".change").css("display")=="block"){
-            // if(current_status==0){
                 if(expireTimeStamp>nowTimeStamp||expireTimeStamp==nowTimeStamp){//使用中1
                     if($(".changeHuashu").length==1){
                         current_start_weight=random_weight(prologs1,0);
-                        console.log(current_start_weight)
                         show_prologs(prologs1);
                     };
                 }
@@ -637,14 +904,6 @@ function reload_prologs(){
                         show_prologs(prologs0);
                     };
                 }
-            // }
-            // if(current_status==1){//已激活1
-            //     if($(".changeHuashu").length==1){
-            //         current_start_weight=random_weight(prologs1,0);
-            //         show_prologs(prologs1)
-            //     };
-            //    
-            // }
         }
 
         //$(".weather").css("display","block");
@@ -660,7 +919,7 @@ function getLocation()
     }
     else{x.innerHTML="Geolocation is not supported by this browser.";}
 }
-
+var lnglatXY
 function showPosition(position)
 {
     lnglatXY = [position.coords.longitude,position.coords.latitude];
@@ -699,7 +958,6 @@ function regeocoder() {  //逆地理编码
 function geocoder_CallBack(data) {
     addr = data.regeocode.formattedAddress; //返回地址描述
     province=data.regeocode.addressComponent.province;
-    // alert(addr)
     update_address_pack(addr);
     //$("#result").html(province);
     //getWeather(province);
@@ -720,10 +978,7 @@ function startWeight(pro,s){
 // var random_num=[];
 function ran_num(n,m){
     var c = m-n+1;
-    console.log("c:"+c);
     var number=Math.floor(Math.random() * c + n);
-    console.log("number:"+number);
-    // console.log("random_num"+random_num);
     // if(random_num.length==0){random_num.push(number)}
     // while(number==random_num[random_num.length-1]){
     //     number=Math.floor(Math.random() * c + n)
@@ -733,24 +988,17 @@ function ran_num(n,m){
 }
 function random_weight(prologs,s){//随机权重数
     var m=startWeight(prologs,s);
-    console.log("m;"+m)
     var rd=ran_num(0,m);
-    console.log("rd:"+rd);
     var prolog_weight=0;
     var current_weight=0;
     for(var i=0;i<prologs.length;i++){
         if(s==0){prolog_weight+=prologs[i].start_weight;}
         if(s==1){prolog_weight+=prologs[i].change_weight;}
-        console.log("prolog_weight"+prolog_weight);
         if(rd<prolog_weight||rd==prolog_weight){
-            console.log("rd:"+rd);
-            console.log("weight:"+prolog_weight);
             current_weight=i;
             break;
         }
     }
-    //console.log("随机数"+rd);
-    //console.log("下角标"+current_weight);
    if(prologs_num.length==0){
        prologs_num.push(current_weight);
        return current_weight;
@@ -784,7 +1032,6 @@ function random_weight(prologs,s){//随机权重数
 }
 function change_prologs(){
     current_start_weight=random_weight(current_prolog,1);
-
     show_prologs(current_prolog);
 }
 function reload_conv_list(conv_list){
@@ -793,7 +1040,6 @@ function reload_conv_list(conv_list){
     $(".container").css("overflow",'hidden');
     $(".change").css("display","none");
     $(".testEdit").css("display","none");
-    $(".rest_days").css("display","none");
     $(".changeDialog").css("display","none");
     var inputhei=parseInt($("#dialog").css("height"));
     $("#dialog-info").css({"height":(browser_hei-inputhei)+"px","padding-left":"15px","padding-right":"15px"});
@@ -802,18 +1048,26 @@ function reload_conv_list(conv_list){
     if($("#conv_content p").length==0){
         for(var i=conv_list.length-1;i>-1;i--){
             if(conv_list[i].cs_id==0){
-                msg='<div class="user-msg" id="'+conv_list[i].timestamp+'">' +
+                var msg='<div class="user-msg" id="'+conv_list[i].timestamp+'">' +
                 '<span class="user-msg-content">' +
                 conv_list[i].record_text +
                 '</span>' +
-                '<span class="user-avatar"><span class="bubble"></span><img src=" '+user_avatar+'"></span>' +
+                '<span class="user-avatar"><span class="bubble bubbles"></span><img src=" '+user_avatar+'"></span>' +
                 '</div>';
             }
             else{
                 msg= '<div class="cs-msg" id="'+conv_list[i].timestamp+'">' +
-                '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
+                '<div class="cs_avatars"><div class="avatar avatarcs"></div></div><span class="cs_bubble"></span>' +
                 '<span class="cs-msg-content">' + conv_list[i].record_text + '</span>';
                 '</div>';
+            }
+            if(corps=='coffee'){
+                msg=msg.replace('user-msg-content','user-msg-content user-msg-content-coffee').replace('cs-msg-content','cs-msg-content cs-msg-content-coffee')
+                    .replace('cs_bubble','cs_bubble cs_bubble_coffee').replace('cs_avatars','cs_avatars_coffee').replace('bubbles','bubble-coffee')
+            }
+            if(corps=='trip'){
+                msg=msg.replace('user-msg-content','user-msg-content user-msg-content-trip').replace('cs-msg-content','cs-msg-content cs-msg-content-trip')
+                    .replace('cs_bubble','cs_bubble cs_bubble_trip').replace('cs_avatars','cs_avatars_trip').replace('bubbles','bubble-trip')
             }
             Dialog.log(msg);
             $("#dialog").css("display",'block');
@@ -833,14 +1087,22 @@ function reload_conv_list(conv_list){
                     current_query[i].record_text +
                     '</span>' +
                     //'<span class="bubble"></span>' +
-                    '<span class="user-avatar"><span class="bubble"></span><img src=" '+user_avatar+'"></span>' +
+                    '<span class="user-avatar"><span class="bubble bubbles"></span><img src=" '+user_avatar+'"></span>' +
                     '</div>';
                 }
                 else{
                     msg= '<div class="cs-msg" id="'+current_query[i].timestamp+'">' +
-                    '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
+                    '<div class="cs_avatars"><div class="avatar avatarcs"></div></div><span class="cs_bubble"></span>' +
                     '<span class="cs-msg-content">' + current_query[i].record_text + '</span>';
                     '</div>';
+                }
+                if(corps=='coffee'){
+                    msg=msg.replace('user-msg-content','user-msg-content user-msg-content-coffee').
+                    replace('cs-msg-content','cs-msg-content cs-msg-content-coffee').replace('cs_bubble','cs_bubble cs_bubble_coffee').replace('cs_avatars','cs_avatars_coffee').replace('bubbles','bubble-coffee')
+                }
+                if(corps=='trip'){
+                    msg=msg.replace('user-msg-content','user-msg-content user-msg-content-trip').replace('cs-msg-content','cs-msg-content cs-msg-content-trip')
+                        .replace('cs_bubble','cs_bubble cs_bubble_trip').replace('cs_avatars','cs_avatars_trip').replace('bubbles','bubble-trip')
                 }
                 var consoles = $('#conv_content');
                 var p = document.createElement('p');
@@ -868,20 +1130,19 @@ function reload_conv_list(conv_list){
             var newHeight=document.getElementById('conv_content').scrollHeight;
             (function(nh,ch){
                 var adjust_height=parseInt( nh-ch-10);
-                //Console.log("adjust is"+adjust_height);
                 $("#dialog-info").css("overflow-y","hidden");
                 $("#dialog-info").scrollTop(adjust_height);
                 $("#dialog-info").css("overflow-y","auto")
             })(newHeight,consolesHei);
             current_query=[];
             request_flag=0;
-
         }
-
     }
     $(".loader").css("display","none");
 }
 Dialog.log=(function(message){
+    $(".testEdit").css("display",'none');
+    $(".standard-detail-coffee").css("display",'none');
     var consoles = document.getElementById('conv_content');
     var p = document.createElement('p');
     p.style.wordWrap = 'break-word';
@@ -952,33 +1213,32 @@ function format(shijianchuo)
     return times
 }
 function transdate(){
-   return Math.round(new Date().getTime());
+    var tramp=Math.round(new Date().getTime());
+    return tramp;
 }//时间转化为时间戳
-
 function query_msg_pack(){
     var timestamp;
+    console.log(JSON.stringify(conv_list));
     if(JSON.stringify(conv_list)=="[]"){
         timestamp=transdate();
     }else{
        timestamp=conv_list[conv_list.length-1].timestamp;
     }
     if(flag==0){
-        message={"timestamp":timestamp,"count":40,"ref_num":transdate()};
+        var message={"timestamp":timestamp,"count":40,"ref_num":transdate()};
     }
     if(flag!=0){
         message={"timestamp":timestamp,"count":15,"ref_num":transdate()};
         request_flag++;
     }
-    comObj={"code":701,"subcode":0,"content":message};
+    var comObj={"code":701,"subcode":0,"content":message};
     Chat.socket.send(JSON.stringify(comObj));
-
 }
 function update_address_pack(addr){
-    message={"address":addr,"ref_num":transdate()};
-    comObj={"code":801,"subcode":0,"content":message};
+    var message={"address":addr,"ref_num":transdate()};
+    var comObj={"code":801,"subcode":0,"content":message};
     if(addr!=''){
         Chat.socket.send(JSON.stringify(comObj));
-        // alert(JSON.stringify(comObj));
         save_address.push(message.ref_num);
     }
     else{
@@ -993,7 +1253,7 @@ function palpitation(){
 
 setTimeout("palpitation()",3000);
 
- 
+
 function login(){
     flag=0;
     Chat.initialize();
@@ -1007,6 +1267,17 @@ function menuList(){
     document.getElementById("menu_list").appendChild(div);
     $("#dialog-info").click(function () {
         document.getElementById("menu_list").innerHTML=""
+    })
+}
+function menuList_coffee() {
+    document.getElementById("menu_list_coffee").innerHTML="";
+    var div=document.createElement("div");
+    div.className='menuDiv-coffee';
+    div.innerHTML="<img src='/static/images/s_qr_coffee.png' width='135px' height='135px' style='display: block;background-color: white'>" +
+        "<div style='width: 135px;color:rgba(255,255,255,.6);text-align: center;font-size: 12px;position: absolute;line-height: 27px;'>长按二维码识别</div>";
+    document.getElementById("menu_list_coffee").appendChild(div);
+    $("#dialog-info").click(function () {
+        document.getElementById("menu_list_coffee").innerHTML=""
     })
 }
 function close_bottom_title(icon){
@@ -1023,9 +1294,12 @@ function select_server() {
     }else {
         $(".pack_menu_list").css({"display":"none"});
     }
-
-    $(".pack_menu_list li").click(function () {
-        $(".pack_menu_list").css({"display":"none"});
+    $(".pack_menu_list li").each(function (i) {
+        $(".pack_menu_list li:eq("+i+")").click(function () {
+            if($(".pack_menu_list li:eq("+i+")").css("color")=="rgb(255, 255, 255)"){
+                $(".pack_menu_list").css({"display":"none"});
+            }
+        })
     })
 }
 function orientationChange(){
@@ -1035,35 +1309,31 @@ function orientationChange(){
         document.activeElement.blur('dialog-input');
         if( $(".change").css("display")=="block"){
             setTimeout(function () {
-                $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+                if (corps=='coffee'){
+                    $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+                }else{
+                    $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+                }
             },500)
         }
         if($("#dialog").css("display")=="none"){
             $(".change").css("display","block");
             $("#changeDialog").css("display","block");
             $(".testEdit").css("display","block");
-            $(".rest_days").css("display","block");
         }
         $(".btn_start_use").html(service_btn);
         x=document.getElementById("positionErr");
         browser_hei=$(window).height();
-        browser_width=$(window).width();
         var serverWidth=parseInt($("#server_select").css("width"));
         var serverHeight=parseInt($("#server_select").css("height"));
-        var serverWidth2=parseInt($(".invite_friend").css("width"));
-        var serverHeight2=parseInt($(".invite_friend").css("height"));
-        if(serverWidth>369){
-            serverWidth=369;
-            serverHeight=590.4;
-            // leftMargin=(browser_width-369)/2;
-        }
+
         $("#server_infomation").css({"width":"100%","height":serverHeight-50});
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
-        $("#server_select").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth/2,"margin-top":-1*serverHeight/2});
-        $(".invite_friend").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth2/2,"margin-top":-1*serverHeight2/2});
-        $(".server_img img").css({"width":serverWidth*0.19});
-        $(".server_img").css({"margin-top":serverHeight*0.18});
-
+        if ($("#promo_code").css("display")=="block"){
+            document.activeElement.blur('promo_input');
+        }
+        // $(".server_img img").css({"width":serverWidth*0.19});
+        // $(".server_img").css({"margin-top":serverHeight*0.18});
         var dialogw=parseInt($("#dialog").css("width"))-20;
         $(".svgrect").css("height",browser_hei);
         $(".container").css("width",$(window).width());
@@ -1083,17 +1353,24 @@ function orientationChange(){
     else if(Math.abs(orientation) == 90){
         //添加横屏操作
         //alert('横屏');
+        if ($("#promo_code").css("display")=="block"){
+            document.activeElement.blur('promo_input');
+        }
         document.activeElement.blur('dialog-input');
         var browser_width=$(window).width();
         var browser_hei=$(window).height();
         if( $(".change").css("display")=="block"){
             setTimeout(function () {
-                $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+                if (corps=='coffee'){
+                    $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+                }else{
+                    $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
+                }
             },500)
         }
         $(".container").css({"width":browser_width});
         $(".container").css({"height":browser_hei});
-        $(".container").css("overflow",'hidden');
+        // $(".container").css("overflow",'hidden');
         $(".svgrect").css({"height":browser_hei});
         setTimeout(function () {
             if ($("#dialog").css("display")=="block"){
@@ -1105,21 +1382,9 @@ function orientationChange(){
         },500)
         var serverWidth=parseInt($("#server_select").css("width"));
         var serverHeight=parseInt($("#server_select").css("height"));
-        var serverWidth2=parseInt($(".invite_friend").css("width"));
-        var serverHeight2=parseInt($(".invite_friend").css("height"));
-        if(serverWidth>369){
-            serverWidth=369;
-            serverHeight=590.4;
-            // leftMargin=(browser_width-369)/2;
-        }
         $("#server_infomation").css({"width":"100%","height":serverHeight-50});
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
-        $("#server_select").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth/2,"margin-top":-1*serverHeight/2});
-        $(".invite_friend").css({"position":"absolute","left":'50%',"top":'50%','margin-left':-1*serverWidth2/2,"margin-top":-1*serverHeight2/2});
-        $(".server_img img").css({"width":serverWidth*0.19});
-        $(".server_img").css({"margin-top":serverHeight*0.18});
         $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
-
     }else{
 
     }
@@ -1127,29 +1392,33 @@ function orientationChange(){
 window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", orientationChange, false);
 $(document).ready(function(){
 //      touchScroll("control");
-    
+    initIndexShare();
+    console.log(transdate());
     $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
     $(".btn_start_use").html(service_btn);
     x=document.getElementById("positionErr");
     browser_hei=$(window).height();
     browser_width=$(window).width();
     $(".open_server_link").attr("href","http://"+window.location.host+"/year_fee");
+    $(".open_my_accout").attr("href","http://"+window.location.host+"/web/account");
     var serverWidth=parseInt($("#server_select").css("width"));
-    var serverHeight=serverWidth*1.6;
+    var serverHeight=parseInt($("#server_select").css("height"));
     if(serverWidth>369){
         serverWidth=369;
         serverHeight=590.4;
-        $("#server_select").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
-        $(".invite_friend").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
+    //     // $("#server_select").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
+    //     // $(".invite_friend").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
     }
     $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".bg_style").css({"background-size":'100% 100%'});
-     $(".server_img img").css({"width":serverWidth*0.19});
+    $(".server_img").css("margin-top",'10vh')
+    $(".server_img_trip").css("margin-top",'15vh')
+     // $(".server_img img").css({"width":serverWidth*0.19});
     var enterwidth=parseInt($(".server_intro2").css("width"));
-    $(".server_intro2").css("margin-left",-1*enterwidth/2)
+    $(".server_intro2").css("margin-left",-1*enterwidth/2);
       var dialogw=parseInt($("#dialog").css("width"))-20;
     $(".svgrect").css("height",browser_hei);
-    $(".container").css("width",$(window).width());
+    $(".container").css({"width":$(window).width()});
     $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
     var ua = navigator.userAgent.toLowerCase();
     $("#dialog-input").focus(function(){
@@ -1286,3 +1555,170 @@ function touchScroll(id){
 function refesh(){
     query_msg_pack();
 }
+function reload_standard_detail() {
+    if ($(".member-detail").length<1){//不存在则显示 详情
+        $('article').css("overflow",'hidden');
+        var div=document.createElement('div');
+        div.className='member-detail';
+        div.innerHTML='<div class="member-detail-container">' +
+            '<div class="close-activity" onclick="close_activity()"></div>' +
+            '<div style="width:100%;"><img src="../static/images/activity-banner.jpg" width="100%" height="auto"></div>' +
+            '<div class="free-open">新用户免费开通会员</div>' +
+            '<div class="activity-desc">开通STANDARD会员，可获得¥180返现至余额；余额可用于任何消费。</div>' +
+            '<div class="activity-date">活动日期：7月1日 - 9月30日</div>' +
+            '<div class="now-open" onclick="now_open_member()">现在去开通</div></div>';
+        document.body.appendChild(div);
+        $('.member-detail').bind('click',function(){
+            $(".member-detail").remove();
+            $('article').css("overflow",'');
+        });
+        $('.member-detail-container').bind('click',function(e){
+            stopPropagation(e);
+        });
+    }else{
+
+    }
+}
+function stopPropagation(e) {
+    if (e.stopPropagation)
+        e.stopPropagation();
+    else
+        e.cancelBubble = true;
+}
+function disable_title() {
+    $('.standard-detail').animate({top:'-35px',display:"none"},200);
+}
+function close_activity() {
+    $(".member-detail").remove();
+}
+function now_open_member() {
+    window.location.href="http://"+window.location.host+"/year_fee";
+}
+function reload_ur_account_coffee() {
+//    咖啡页面点击我的账户弹出提示
+    if ($(".coffee-account").length<1){//不存在则显示
+        $('article').css("overflow",'hidden');
+        var div=document.createElement('div');
+        div.className='coffee-account';
+        div.innerHTML='<div class="coffee-account-container">' +
+            '<div class="close-account-coffee" onclick="close_account_coffee()"></div>' +
+            '<div style="width:100%;">' +
+            '<img src="../static/images/coffee-account.jpg" width="100%" height="auto"></div>' +
+            '<div class="free-open">我是S先生，你的虚拟个人管家</div>' +
+            '<div class="activity-desc">是我一直在帮你订咖啡，我也可以帮你管理品质生活，解决生活上的其他问题。</div>' +
+            '<div class="now-open now-open-coffee" onclick="coffee_look_my_saccount()">查看我的S先生</div></div>';
+        if(corps=='trip'){
+            div.innerHTML=div.innerHTML.replace('coffee-account-container','coffee-account-container trip-account-container').replace('now-open-coffee','now-open-trip').replace('订咖啡','安排出行');
+        }
+        document.body.appendChild(div);
+        $('.coffee-account').bind('click',function(){
+            $(".coffee-account").remove();
+            $('article').css("overflow",'');
+        });
+        $('.coffee-account-container').bind('click',function(e){
+            stopPropagation(e);
+        });
+    }else{
+
+    }
+}
+function close_account_coffee() {
+    $(".coffee-account").remove();
+}
+function coffee_look_my_saccount() {
+    window.location.href="http://"+window.location.host+"/web/account";
+}
+function reload_over_time_coffee() {
+    //咖啡页面用户使用日期到期
+    $('article').css("overflow",'hidden');
+    var div=document.createElement('div');
+    div.className='coffee-expire';
+    div.innerHTML='<div class="coffee-expire-container">' +
+        // '<div class="close-account-coffee" onclick="close_account_coffee()"></div>' +
+        '<div style="width:100%;">' +
+        '<img src="../static/images/coffee-expire.jpg" width="100%" height="auto"></div>' +
+        '<div class="free-open">你的使用时间已到期</div>' +
+        '<div class="activity-desc">我是虚拟私人管家S先生，你可以“开通会员”继续使用；我还可以帮你解决更多生活上的问题。</div>' +
+        // '<div class="activity-date">活动日期：7月1日 - 9月30日</div>' +
+        '<div class="now-open now-open-coffee" onclick="now_open_member()">开通会员</div></div>';
+    if(corps=='trip'){
+        div.innerHTML=div.innerHTML.replace('coffee-expire-container','coffee-expire-container trip-expire-container').replace('now-open-coffee','now-open-trip');
+    }
+    document.body.appendChild(div);
+};
+
+
+
+function initIndexShare() {
+    //微信JS SDK签名变量
+    //分享标题、内容、链接、图片
+    var share_link = window.location.href.split('#')[0]; //分享链接
+    var share_image = shareImage;  //分享图片
+
+    //微信好友/QQ好友
+    // if (lang=='cn') {
+        var share_friend_title = shareFriendTitle; //发送朋友标题
+        var share_friend_content = shareFriendContent; //发送朋友内容
+        //微信朋友圈
+        var share_timeline_title = shareTimelineTitle; //朋友圈分享标题
+    // };
+    // if (lang=='en') {
+    //     var share_friend_title = shareFriendTitle_en; //发送朋友标题
+    //     var share_friend_content = shareFriendContent_en; //发送朋友内容
+    //     //微信朋友圈
+    //     var share_timeline_title = shareTimelineTitle_en; //朋友圈分享标题
+    //
+    // };
+
+
+    wx.config({
+        debug: false,
+        appId: wx_appId,
+        timestamp: wx_timestamp,
+        nonceStr: wx_nonceStr,
+        signature: wx_signature,
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+        ]
+    });
+
+    wx.ready(function(){
+        wx.onMenuShareTimeline({
+            title: share_timeline_title, // 分享标题
+            link: share_link, // 分享链接
+            imgUrl: share_image, // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        //分享微信朋友
+        wx.onMenuShareAppMessage({
+            title: share_friend_title, // 分享标题
+            link: share_link, // 分享链接
+            desc: share_friend_content, // 分享描述
+            imgUrl: share_image, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+
+
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+
+            }
+        });
+
+    });
+
+    wx.error(function(res){
+        alert('appId='+_appId + ' ' + 'timestamp=' + _timestamp + ' ' + 'nonceStr=' + _noncestr + ' ' + 'signatur=' + _signature);
+
+    });
+};

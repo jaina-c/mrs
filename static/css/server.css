@@ -1,19 +1,42 @@
-#server_select {
+.common_popups{
     width: 88vw;
-    height: 140.8vw;
     max-width: 369px;
-    max-height: 590.4px;
-    z-index: 99;
-    border-radius: 4px;
     overflow: hidden;
-    background: -webkit-linear-gradient(99deg, #8C909D, #9095A2);
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -44vw;
-    margin-top: -70.4vw;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    /*margin-left: -44vw;*/
+    border-radius: 4px;
+}
+#server_select {
+    height: 140.8vw;
+    max-height: 590.4px;
+    max-width: 369px;
+    z-index: 99;
+    /*background: -webkit-linear-gradient(99deg, #8C909D, #9095A2);*/
     animation:fade-in 0.3s 1;
     -webkit-animation:fade-in 0.3s  1;
+}
+.invite_friend{
+    height: 140.8vw;
+    background: -webkit-linear-gradient( 148deg,#9095a2, #7d7d8b);
+    max-height: 590.4px;
+    max-width: 369px;
+    border-radius: 5px;
+}
+.promo_enter{
+    height: 57vw;
+    max-height: 214px;
+    background: -webkit-linear-gradient( 123deg, #9095A2,#63636e);
+    overflow: hidden;
+}
+.promo_focus{
+    top: 0px;
+    margin-top: 6vh;
+    transform: translate(-50%,0%);
+    -webkit-transform: translate(-50%,0%);
 }
 .popup_container{
     width: 100%;
@@ -27,27 +50,70 @@
     -webkit-overflow-scrolling:touch;
     z-index: 99;
 }
-.invite_friend{
-    width: 88vw;
-    height: 140.8vw;
-    padding: 2px;
-    background: -webkit-linear-gradient( 148deg,#9095a2, #7d7d8b);
-    max-width: 369px;
-    max-height: 590.4px;
-    border-radius: 4px;
-    overflow: hidden;
+.enter_ur_promocode{
+    font-size: 17px;
+    color: #ffffff;
+    padding: 10% 0 0 0;
+}
+.ur_promo{
+    width: 70vw;
+    max-width: 293px;
+    margin:auto;
+}
+/*.promo_form{*/
+    /*padding-left: 40px;*/
+/*}*/
+.promo_input{
+    width: 70vw;
+    height: 10vw;
+    max-width: 293px;
+    max-height: 37px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: solid 1px rgba(255, 255, 255, 0.3);
+    outline: none;
+    color: #ffffff;
+    display: block;
+    margin-top: 15px;
+    font-size: 17px;
+    margin-left:auto;
+    margin-right: auto;
+}
+.promo_next{
+    width: 100%;
+    height: 50px;
+    border-top: solid 1px rgb(255, 255, 255);
+    /*background-image: linear-gradient(99deg, #63636e, #9095a2);*/
+    font-size: 15px;
+    color: rgb(255,255,255);
+    text-align: center;
+    opacity: 0.3;
+    line-height: 50px;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -44vw;
-    margin-top: -70.4vw;
+    bottom: 0px;
+}
+.promo_success{
+    padding: 11vh 0 0 0;
+    display: none;
+}
+.promo_success_div{
+    text-align: center;
+    color: white;
+    font-size: 17px;
+}
+.auto_close{
+    width: 100%;
+    font-size: 12px;
+    color: rgba(255, 255, 255, .3);
+    position: absolute;
+    bottom: 4vh;
 }
 .invite_friend2{
     width:100%;
     height:100%;
     box-sizing: border-box;
-    background-image: url("../images/s_bg_code.jpg");
-    background-size:100% auto;
+    background-image: url("../images/s_bg_code.png");
+    background-size:100% 100%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     border-radius: 4px;
@@ -59,7 +125,13 @@
     margin-top: 5px;
     opacity: 0;
 }
-
+.promo_code_error{
+    color: #ffffff;
+    font-size: 12px;
+    text-align: left;
+    margin-top: 7.5px;
+    opacity: 0;
+}
 .bg_style{
     background:url(../images/s_server.jpg);
     background-repeat:no-repeat;
@@ -70,12 +142,14 @@
 .server_img{
     /*position: relative;*/
     width:100%;
-    margin-top: 18vh;
+    margin-top: 10vh;
 }
 .server_img .server_imgage{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 19vw;
+    max-width: 71px;
 }
 .server_intro{
     font-size: 22px;
@@ -112,7 +186,8 @@
     color: white;
     border-bottom: 1px solid rgba(255,255,255,.5);
 }
-.open_server_link {
+.open_server_link,
+.open_my_accout{
     text-decoration: none;
     color: white;
 }
@@ -247,12 +322,22 @@ ul.server_list li{
     margin-top: 2px;
 }
 .ser_detail{
-    width: 0px;
-    height: 0px;
+    width: 88vw;
+    max-width: 369px;
+    height: 140.8vw;
+    max-height: 590.4px;
     z-index: 100;
     display: none;
     animation:fade-in 0.3s 1;
     -webkit-animation:fade-in 0.3s  1;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    border-radius: 4px;
+
 }
 /*.ser_detail{*/
 /*-webkit-transition:all 0.1s linear;*/
@@ -272,15 +357,15 @@ ul.server_list li{
     height:55%;
 }
 .detail_close{
-    width: 15px;
-    height: 15px;
+    width: 30px;
+    height: 30px;
     background: url("../images/s_ico_close.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 15px 15px;
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 5px;
+    top: 5px;
     z-index: 100;
 }
 .detail_desc{
@@ -332,18 +417,17 @@ ul.server_list li{
 .invite_img{
     width:100%;
     height: auto;
-    padding-top: 10vh;
+    padding-top: 30%;
 }
 .invite_img img{
-    width: 50vw;
-    max-width: 207px;
+    width: 60vw;
+    max-width: 229px;
     margin-left: auto;margin-right: auto;display: block;
 }
 *{
     box-sizing: border-box;
 }
 .invite_friends{
-
     font-size: 20px;
     width:100%;
     text-align: center;
@@ -359,60 +443,152 @@ ul.server_list li{
     margin-right: auto;
 }
 .ur_code{
-    width:100%;
     font-size: 15px;
-    margin-top: 7.5vh;
-    text-align: center;
+    text-align: left;
     color: rgba(255, 255, 255, .7);
+    line-height: 1;
 }
 .user_code{
-    width:100%;
-    font-size: 20px;
+    font-size: 22px;
     color: white;
     letter-spacing: 2.25px;
-    text-align: center;
+    text-align: left;
+    margin-top: 15px;
+    line-height: 1;
+
+}
+.restnum{
+    display: inline-block;
+    font-size: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 .the_rest{
-    font-size: 12px;
     color: rgba(255,255,255, .6);
     position: absolute;
-    left: 20px;
-    bottom: 22px;
+    left: 22.5px;
+    bottom: 32px;
 }
-.allow_used{
-    display: inline-block;
-    padding: 2px 2px;
-    border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    margin-left: 3px;
-    margin-right: 3px;
-}
+/*.allow_used{*/
+    /*display: inline-block;*/
+    /*padding: 2px 2px;*/
+    /*border-radius: 3px;*/
+    /*background-color: rgba(255, 255, 255, 0.1);*/
+    /*color: white;*/
+    /*margin-left: 3px;*/
+    /*margin-right: 3px;*/
+/*}*/
 .code_qr{
     display: block;
-    width: 60px;
+    width: 62.5px;
     height: auto;
     position:absolute;
-    right: 18.5px;
-    bottom: 13.5px;
+    right: 22.5px;
+    bottom: 24px;
+}
+.code-line{
+    width: 150px;
+    height: 1px;
+    background: rgba(255,255,255,.3);
+    position: absolute;
+    bottom: 24px;
+    left: 22.5px;
 }
 @media screen and (max-width: 320px) {
     .invite_img {
         width: 100%;
         height: auto;
-        padding-top: 8vh;
+        padding-top: 26%;
     }
     .invite_friends {
         font-size: 20px;
         width: 100%;
         text-align: center;
-        margin-top: 3vh;
+        margin-top: 4.5vh;
     }
-    .ur_code {
-        width: 100%;
-        font-size: 15px;
-        margin-top: 6vh;
-        text-align: center;
-        color: rgba(255, 255, 255, .7);
-    }
+    /*.ur_code {*/
+        /*display: inline-block;*/
+        /*width: 100%;*/
+        /*font-size: 15px;*/
+        /*!*margin-top: 6vh;*!*/
+        /*text-align: left;*/
+        /*color: rgba(255, 255, 255, .7);*/
+        /*line-height:normal;*/
+    /*}*/
+}
+/*coffee css*/
+.bg_style_coffee{
+    background:url(../images/s_server_coffee.jpg);
+    background-repeat:no-repeat;
+}
+.start_select_server_coffee{
+    border-top: 1px solid rgba(169, 141, 101, 0.3);
+    background: #2a2a2d;
+    color: #a98d65;
+}
+.kaishi_sel_coffee{
+    color: #a98d65;
+}
+.server_img .server_imgage_coffee{
+    width: 46vw;
+    max-width: 175px;
+}
+/*.server_img_coffee{*/
+    /*margin-top: 18.6vw;*/
+/*}*/
+.server_intro_coffee{
+    margin-top: 3.5px;
+}
+.server_intro_info_coffee{
+    color: rgba(255, 255, 255, .7);
+}
+.input_code_coffee{
+    background-color: rgba(255, 255, 255, 0.05);
+    border: solid 1px rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, .7);
+}
+.invite_friend2_coffee{
+    background-image: url("../images/s_bg_code_coffee.png");
+}
+.promo_enter_coffee{
+    background: #2a2a2d;
+}
+.promo_next_coffee{
+    border-top: 1px solid rgb(169, 141, 101);
+    color: rgb(169, 141, 101);
+    opacity: 0.3;
+}
+.server_intro2_coffee{
+    bottom: 7.8%;
+}
+.promo_enter_trip{
+    background: linear-gradient(to bottom, #727b88, #545962);
+}
+.promo_next_trip{
+    border-top: 1px solid rgb(255,255,255);
+    color: rgb(255, 255, 255);
+    opacity: 0.3;
+}
+.invite_friend2_trip{
+    background-image: url("../images/s_bg_code_trip.jpg");
+}
+.bg_style_trip{
+    background:url(../images/s_server_trip.jpg);
+    background-repeat:no-repeat;
+}
+.start_select_server_trip{
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    background:   #484c55;
+    color: #ffffff;
+}
+.kaishi_sel_coffee{
+    color: #ffffff;
+}
+.server_img .server_imgage_trip{
+    width: 44vw;
+    max-width: 330px;
+}
+.server_intro_trip{
+    margin-top: 5%;
+    max-width:80%;
 }

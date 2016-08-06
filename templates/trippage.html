@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>差旅助手</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0"/>
+    <meta name="x5-fullscreen" content="true">
+    <meta name="full-screen" content="yes">
+    <link href="../static/css/mrs.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/server.css" rel="stylesheet" type="text/css">
+    <style>
+        body,html{
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            color: #ffffff;
+            font:normal 100% 'Hiragino Sans GB',Helvetica,'Microsoft YaHei','冬青黑体简体中文 W3';
+            background-image: url(../static/images/s_trip_bg.png);
+            background-repeat: no-repeat;
+            background-position: 50% 0;
+            -webkit-background-size:100% 100%;
+            background-size:100% 100%;
+            font-size: 1.5em;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    </style>
+</head>
+<body class="bg trip">
+<!--<div class="standard-detail standard-detail-coffee"><div class="flexbox">现在仅支持北京、上海、广州和杭州购买星巴克。</div><div class="shouqi" onclick="disable_title()">收起 <span class="upicon"></span></div></div>-->
+<div id="positionErr" style="position: absolute;top: -200px;"></div>
+<div></div>
+<div class="pack_menu_list pack_menu_list_trip">
+    <ul class="pack_menu_list_ul">
+        <li class="s_invite_friend" onclick="get_user_code()" >邀请朋友</li>
+        <li class="s_entert_promocode" onclick="enter_promo_code()" >输入优惠码</li>
+        <li class="s_my_account" onclick="reload_ur_account_coffee()">我的账户</li>
+    </ul>
+</div>
+<div class="pack_menu pack_menu_coffee" onclick="select_server()"><span></span><span></span></div>
+<div class="weather"><span id="result"></span></div>
+<div class="container " id="container">
+    <div class="mrs dialog-infos" id="dialog-info">
+        <div class="loader"></div>
+        <div class="scrollWrap" id="conv_content">
+            <div class="change"><div class="changeWord changeWord-trip"></div><span class="changeHuashu"></span></div>
+            <div id='changeDialog' class='changeDialog changeDialog-coffee'></div>
+        </div>
+    </div>
+    <div class="testEdit testEdit_coffee">Powered by Mr.S</div>
+    <div id="dialog" class="dialog">
+        <div class="follow_title follow_title_trip">
+            <div class="follows follows_coffee">关注S先生，才能收到行程的安排</div>
+            <div class="follows-sqr"><span  onclick="menuList_coffee()">关注</span></div>
+        </div>
+        <form class="con_dialogForm con_dialogForm_trip" action="#" onsubmit="return false" >
+            <input placeholder="点击输入..." id="dialog-input" type="text" class="con_dialog_input">
+            <span class="pack_menu_conv pack_menu_conv_trip" onclick="select_server()"><span></span><span></span></span>
+        </form>
+    </div>
+</div>
+<div class="menu_list_coffee" id="menu_list_coffee"></div>
+<div class='ser_detail'>
+    <div class='detail_close' onclick='close_detail(this)'></div>
+    <svg class='svgdetail' xmlns='http://www.w3.org/2000/svg'><defs>
+        <linearGradient y1='0' x1='0' y2='1' x2='1'  id='svg_4'>
+            <stop stop-color='#63636E' offset='0'/>
+            <stop stop-color='#9095A2' offset='1'/>
+        </linearGradient>
+    </defs>
+        <g><title>Layer 2</title><rect id='svg_3' width='100%' height='100%' y='0' x='0' fill='url(#svg_4)'/></g></svg>
+    <span class='response-type'><img src='../static/images/s_plan_icon.png' width='67.5' height='20' style="display: block"></span>
+    <div class='detail_pic'></div>
+    <div class='detail_desc'></div>
+</div>
+<div id="server_select_contain" class="popup_container">
+    <div id="server_select" class="common_popups server_select_trip">
+        <svg class="svgserver" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient y1="0" x1="0" y2="1" x2="1"  id="svg_3">
+                    <stop stop-color="#63636E" offset="0"/>
+                    <stop stop-color="#9095A2" offset="1"/>
+                </linearGradient>
+            </defs>
+            <g>
+                <title>Layer 2</title>
+                <rect id="svg_2" width="100%" height="100%" y="0" x="0" fill="url(#svg_3)"/>
+            </g>
+        </svg>
+        <div id="server_infomation" class="bg_style bg_style_trip">
+            <div class="server_img server_img_trip"><img class="server_imgage server_imgage_trip" src="../static/images/server_trip_ico.png"></div>
+            <div class="server_intro server_intro_trip">
+                差旅助手
+                <div class="server_intro_info server_intro_info_coffee">要出差？我帮你安排全程。从机票酒店专车接送，到目的地的会议餐选择。</div>
+            </div>
+            <div class="server_intro2 server_intro2_coffee">
+                <div class="enter_code">
+                    <div class="enter_code_coffee">输入邀请码</div>
+                    <input value="travel" type="text" class="input_code input_code_coffee" id="input_code">
+                    <div class="code_error">邀请码错误</div>
+                </div>
+            </div>
+            <ul class="server_list">
+                <li class="list_first borstyle" >
+                    <div class="server_list_lis">
+                        <div class="server_name">选择服务</div>
+                        <div class="server_des" style="color: rgba(255,255,255,.7);margin-top: 5px">想要的服务不在下面？没问题，打字告诉我，我帮你解决。</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="start_select_server start_select_server_trip" onclick="proving_code_coffee()">
+            <span class="kaishi_sel kaishi_sel_coffee">开始使用</span>
+            <div class="start_trail">
+                <div class="detail_rate"><span class="detail_selected">0</span>/<span class="detail_total_len"></span></div>
+                <div class="btn_start_use" onclick="start_trail()"></div>
+            </div>
+        </div>
+    </div>
+    <div class="add_long"></div>
+</div>
+<div class="popup_container" id="user_code_con">
+    <div class="screen-shot-prompt">截图分享给朋友, 可直接通过长按扫码输入邀请码</div>
+    <div class="invite_friend common_popups">
+        <div class="invite_friend2 invite_friend2_trip">
+            <div class='detail_close' onclick='close_code()'></div>
+            <div class="invite_img"><img src="../static/images/s_invite_code_trip.png"></div>
+            <div class="invite_content">
+                <div class="invite_friends"></div>
+                <div class="invite_intro"></div>
+            </div>
+            <div class="the_rest">
+                <div class="ur_code">你的邀请码:</div>
+                <div class="user_code">code_user</div>
+            </div>
+            <div class="code-line"></div>
+            <img class="code_qr" src="../static/images/s_code_qr_trip.jpg">
+        </div>
+    </div>
+</div>
+<div class="popup_container" id="promo_code">
+    <div class="promo_enter promo_enter_trip common_popups">
+        <div class="detail_close" onclick="close_code()"></div>
+        <div class="promo_container">
+            <div class="enter_ur_promocode"><div class="ur_promo">输入你的优惠码</div></div>
+            <form class="promo_form" action="#" onsubmit="return false" >
+                <input id="promo_input" type="text" autofocus="autofocus" class="promo_input">
+            </form>
+            <div class="promo_code_error"><div class="ur_promo">优惠码错误</div></div>
+            <div class="promo_next promo_next_trip" onclick="promo_next()">下一步</div>
+        </div>
+        <div class="promo_success">
+            <div class="promo_success_div">你已获得了180天使用时间</div>
+            <div class="promo_success_div">有任何需求直接和我说</div>
+            <div class="promo_success_div auto_close"><span class="djs_seconds">3</span>秒后将自动关闭</div>
+        </div>
+    </div>
+</div>
+<script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=d74f511c9bf85fe44ab78e213f288688&plugin=AMap.Geocoder"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/scroll.js"></script>
+<script type="text/javascript" src="../static/js/mrs.js"></script>
+<script type="text/javascript" src="../static/js/server.js"></script>
+<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
+<script type="text/javascript">
+//    var open_id='{{open_id}}';
+  var open_id="123456";
+//    var corps="{{corps}}";
+  var corps="trip";
+    var userCode=0,inviteCode=1,promoCode=2;
+    var code=document.getElementById('input_code');
+    var current_ref_num_owner_type=null;
+    var code_value=code.value;
+    var timer;
+    var wx_appId="{{appid}}";
+    var wx_timestamp="{{timestamp}}";
+    var wx_nonceStr="{{noncestr}}";
+    var wx_signature="{{signature}}";
+    var shareImage='http://o7mo83p8r.bkt.clouddn.com/trip.jpg';
+    var shareFriendContent="要出差? 我可以帮你安排全程, 从机票就先专车接送, 到目的地的会议餐选择。";
+    var shareFriendTitle="差旅助手";
+    var shareTimelineTitle="我是你的差旅助手, 需要我帮助你安排出行计划?";
+    function listenCode() {}
+    $('.standard-detail').animate({top:'0px',display:"none"},200);
+    $('.popup_container').bind('click',function(){
+        $('.popup_container').css('display','none');
+        $('.ser_detail').css('display','none');
+    });
+    $('.common_popups').bind('click',function(e){
+        stopPropagation(e);
+    });
+    function stopPropagation(e) {
+        if (e.stopPropagation)
+            e.stopPropagation();
+        else
+            e.cancelBubble = true;
+    }
+</script>
+</body>
+</html>

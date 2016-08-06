@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人账户</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0"/>
+    <link href="../static/css/account.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<article class="act-content" id="act-content">
+    <div class="act_rest_days">剩余时间<span class="days_num">30</span>天</div>
+    <!--<div class="look_order_record" onclick="look_order_record()"><a style="color: rgba(255, 255, 255, 0.4);text-decoration: none" href="recordpage.html">查看消费记录></a></div>-->
+    <div class="act-ur-amount">你的余额:</div>
+    <div class="act-cash-amount"></div>
+    <div class="act-recharge"><button class="act-recharge-btn" onclick="recharge()">充值</button></div>
+    <div class="act-buy-member"><button class="act-buy-btn" onclick="go_to_buy_member()">开通会员</button></div>
+    <div class="history-type"><div class="balance-change balance-change-click" onclick="get_acount_history(0)">余额变动</div>
+        <div class="purchase-history" onclick="get_order_history(0)">消费记录</div></div>
+    <div class="act-acount-history">
+        <ul class="act-acount-month"></ul>
+    </div>
+</article>
+<article class="history-detail">
+    <div class="close-detail"><img src="../static/images/s_ico_close.png" onclick="close_detail_act()"></div>
+    <div class="act-pay-price">支付金额</div>
+    <div class="act-pay-price-money"></div>
+    <div class="act-history-pay-detail"><ul class="act-hisory-detail-ul"></ul></div>
+    <div class="need-help-tos">需要帮助直接告诉S先生</div>
+</article>
+<div class="act-popup-container" id="recharge">
+    <div class="act-promo-enter act-common-popups">
+        <div class="act-detail-close" onclick="close_rechange()"></div>
+        <div class="promo_container">
+            <div class="enter-ur-recharge"><div class="act-ur-promo">输入充值金额(¥)</div></div>
+            <form class="promo_form" action="#" onsubmit="return false" >
+                <input id="recharge-input" type="number" autofocus="autofocus" class="recharge-input">
+            </form>
+            <div class="recharge_next" onclick="recharge_next()">下一步</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript" src="../static/js/account.js"></script>
+</body>
+</html>

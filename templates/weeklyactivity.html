@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>S先生</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0"/>
+    <meta name="x5-fullscreen" content="true">
+    <meta name="full-screen" content="yes">
+    <link href="../static/css/mrs.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/server.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bg">
+<div class="standard-detail"><div class="flexbox">现在充值，免费获得Standard会员<span class="detail-of-member" onclick="reload_standard_detail()">详情</span>
+</div><div class="shouqi" onclick="disable_title()">收起 <span class="upicon"></span></div></div>
+<div id="positionErr" style="position: absolute;top: -200px;"></div>
+<div></div>
+<div class="pack_menu_list">
+    <ul class="pack_menu_list_ul">
+        <li class="s_select_service" onclick="server_list()" >选择服务</li>
+        <li class="s_invite_friend" onclick="get_user_code()" >邀请好友</li>
+        <li class="s_entert_promocode" onclick="enter_promo_code()" >输入优惠码</li>
+        <!--<li class="s_purchase_member"><a href="http://www.essential.com.cn/year_fee" class="open_server_link">购买会员</a></li>-->
+        <li class="s_my_account"><a href="http://www.essential.com.cn/web/account" class="open_my_accout">我的账户</a></li>
+
+    </ul></div>
+<div class="pack_menu" onclick="select_server()"><span></span><span></span></div>
+<!--<div class="rest_days">剩余时间<span class="days_num">30</span>天</div>-->
+<div class="weather"><span id="result"></span></div>
+<div class="container " id="container">
+    <div class="mrs dialog-infos" id="dialog-info">
+        <div class="loader"></div>
+        <div class="scrollWrap" id="conv_content">
+            <div class="change"><div class="changeWord"></div><span class="changeHuashu"></span></div>
+            <div id='changeDialog' class='changeDialog'></div>
+        </div>
+    </div>
+    <div class="testEdit">Beta 0.9</div>
+    <div id="dialog" class="dialog">
+        <!--<span id="menu" onclick="menuList()"></span>-->
+        <div class="follow_title">
+            <div class="follows"><span style="text-decoration: underline;color: white;" onclick="menuList()">关注S先生</span>公众账号，获得即时服务提醒</div>
+            <div class="icon_close" onclick="close_bottom_title(this)"></div>
+        </div>
+        <form class="con_dialogForm" action="#" onsubmit="return false" >
+            <input placeholder="点击输入..." id="dialog-input" type="text" class="con_dialog_input">
+            <span class="pack_menu_conv" onclick="select_server()"><span></span><span></span></span>
+        </form>
+    </div>
+</div>
+<div class="menu_list" id="menu_list"></div>
+<div class='ser_detail'>
+    <div class='detail_close' onclick='close_detail(this)'></div>
+    <svg class='svgdetail' xmlns='http://www.w3.org/2000/svg'><defs>
+        <linearGradient y1='0' x1='0' y2='1' x2='1'  id='svg_4'>
+            <stop stop-color='#63636E' offset='0'/>
+            <stop stop-color='#9095A2' offset='1'/>
+        </linearGradient>
+    </defs>
+        <g><title>Layer 2</title><rect id='svg_3' width='100%' height='100%' y='0' x='0' fill='url(#svg_4)'/></g></svg>
+    <span class='response-type'><img src='../static/images/s_plan_icon.png' width='67.5' height='20' style="display: block"></span>
+    <div class='detail_pic'></div>
+    <div class='detail_desc'></div>
+</div>
+<div id="server_select_contain" class="popup_container">
+    <div id="server_select" class="common_popups">
+        <svg class="svgserver" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient y1="0" x1="0" y2="1" x2="1"  id="svg_3">
+                    <stop stop-color="#63636E" offset="0"/>
+                    <stop stop-color="#9095A2" offset="1"/>
+                </linearGradient>
+            </defs>
+            <g>
+                <title>Layer 2</title>
+                <rect id="svg_2" width="100%" height="100%" y="0" x="0" fill="url(#svg_3)"/>
+            </g>
+        </svg>
+        <div id="server_infomation" class="bg_style">
+            <div class="server_img"><img class="server_imgage" src="../static/images/s_logo.png"></div>
+            <div class="server_intro">
+                S先生, 你的私人管家
+                <div class="server_intro_info">从安排体验米其林之旅到每天的工作午餐，我们全面考虑，选择适合你的方案，并执行。</div>
+            </div>
+            <div class="server_intro2">
+                <div class="enter_code">
+                    <input placeholder="请输入邀请码" type="text" class="input_code" id="input_code" value={{code}}>
+                    <div class="code_error">邀请码错误</div>
+                </div>
+                <div class="open_member"><a href="http://www.essential.com.cn/year_fee" class="open_server_link">或购买S先生会员</a></div>
+            </div>
+            <ul class="server_list">
+                <li class="list_first borstyle" >
+                    <div class="server_list_lis">
+                        <div class="server_name">选择服务</div>
+                        <div class="server_des" style="color: rgba(255,255,255,.7);margin-top: 5px">想要的服务不在下面？没问题，打字告诉我，我帮你解决。</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="start_select_server" onclick="proving_code()">
+            <!--start_select_server()-->
+            <span class="kaishi_sel" style="color: #ffffff;">下一步</span>
+            <div class="start_trail">
+                <div class="detail_rate"><span class="detail_selected">0</span>/<span class="detail_total_len"></span></div>
+                <div class="btn_start_use" onclick="start_trail()"></div>
+            </div>
+        </div>
+    </div>
+    <div class="add_long"></div>
+</div>
+<div class="popup_container" id="user_code_con">
+    <div class="screen-shot-prompt">截图分享给朋友, 可直接通过长按扫码输入邀请码</div>
+    <div class="invite_friend common_popups">
+        <div class="invite_friend2">
+            <div class='detail_close' onclick='close_code()'></div>
+            <div class="invite_img"><img src="../static/images/s_invite_code.png"></div>
+            <div class="invite_content">
+                <div class="invite_friends"></div>
+                <div class="invite_intro"></div>
+            </div>
+            <div class="the_rest">
+                <div class="ur_code">你的邀请码:</div>
+                <div class="user_code">code_user</div>
+            </div>
+            <div class="code-line"></div>
+            <img class="code_qr" src="../static/images/s_code_qr.png">
+        </div>
+    </div>
+</div>
+<div class="popup_container" id="promo_code">
+    <div class="promo_enter common_popups">
+        <div class="detail_close" onclick="close_code()"></div>
+        <div class="promo_container">
+            <div class="enter_ur_promocode"><div class="ur_promo">输入你的优惠码</div></div>
+            <form class="promo_form" action="#" onsubmit="return false" >
+                <input id="promo_input" type="text" autofocus="autofocus" class="promo_input">
+            </form>
+            <div class="promo_code_error"><div class="ur_promo">优惠码错误</div></div>
+            <div class="promo_next" onclick="promo_next()">下一步</div>
+        </div>
+        <div class="promo_success">
+            <div class="promo_success_div">你已获得了180天使用时间</div>
+            <div class="promo_success_div">有任何需求直接和我说</div>
+            <div class="promo_success_div auto_close"><span class="djs_seconds">3</span>秒后将自动关闭</div>
+        </div>
+    </div>
+</div>
+<!--<div class="control" id="control"></div>-->
+<script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=d74f511c9bf85fe44ab78e213f288688&plugin=AMap.Geocoder"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/scroll.js"></script>
+<script type="text/javascript" src="../static/js/mrs.js"></script>
+<script type="text/javascript" src="../static/js/server.js"></script>
+<script type="text/javascript">
+//        var open_id='{{open_id}}';
+        var open_id="123456";
+        var corps='activity';
+        var start_speech='{{start_speech}}';
+        var userCode=0,inviteCode=1,promoCode=2;
+        var code=document.getElementById('input_code');
+        var current_ref_num_owner_type=null;
+        var code_value=code.value;
+        var timer;
+    function listenCode()
+    {
+        if (code_value!==code.value){
+            code_value=code.value;
+            if(code_value.length<4){
+                $(".kaishi_sel").css({"color":"rgba(255,255,255,.3)"});
+                if (code_value.length==0){
+                    $(".code_error").css("opacity","0");
+                }
+            }else {
+                $(".kaishi_sel").css({"color":"rgba(255,255,255,1.0)"})
+            }
+        }
+    }
+    $('.standard-detail').animate({top:'0px',display:"none"},200);
+    $('.popup_container').bind('click',function(){
+        $('.popup_container').css('display','none');
+        $('.ser_detail').css('display','none');
+    });
+    $('.common_popups').bind('click',function(e){
+        stopPropagation(e);
+    });
+    function stopPropagation(e) {
+        if (e.stopPropagation)
+            e.stopPropagation();
+        else
+            e.cancelBubble = true;
+    }
+
+</script>
+</body>
+</html>

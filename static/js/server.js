@@ -11,7 +11,7 @@ function start_select_server() {
         $(".start_select_server").css("background","transparent");
         $(".detail_total_len").html(server_lists.length);
         $(".btn_start_use").html(service_btn);
-        if(service_btn=="关&nbsp;闭"){
+        if(service_btn=="关&nbsp;闭"&&kvs.length!=0){
             $(".btn_start_use").css("color","rgb(255, 255, 255)");
         }
         if($("ul.server_list li").length<2){
@@ -25,15 +25,11 @@ function reload_server_list() {
         $(".container").css("height",browser_hei);
         $(".svgrect").css("height",browser_hei);
         $(document).css("scroll","hidden");
-        // $(document).scrollTop(0);
-        // document.body.scrollTop=0;
         setTimeout(function(){
             var diaTop=$("#dialog").offset().top;
-            // var diaTop=$("#dialog").offset().top- $(document).scrollTop();
             $('#dialog-info').css("height",diaTop+'px');
         },1000);
     }
-   
     var  div="<li class='borstyle' onclick='select_service(this)'>" +
         "<div class='server_list_lis'>" +
         "<div class='ser_btn_select'>" +
@@ -65,6 +61,9 @@ function reload_server_list() {
                     .replace("serverid",serverList.service_id));
         }
     }
+    $('.ljxq').bind('click',function(e){
+        stopPropagation(e);
+    });
     if($(window).width()<375){
         $(".zqjh").each(function (i) {
             $(".zqjh:eq("+i+")").css("display","none");
@@ -77,6 +76,7 @@ function reload_server_list() {
     if(serverWidth>369){
         serverHeight=590.4;
     }
+    
     var parentwidth=parseInt($(".server_list_lis").css("width"));
     $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".server_infomation").css({"width":parentwidth-110.59+"px"});
@@ -107,6 +107,10 @@ function select_service(li) {
             var selectednum=parseInt($(".detail_selected").html());
             $(".detail_selected").html(selectednum+1);
             $(".btn_start_use").css("color","rgb(255, 255, 255)");
+            if(kvs.length==0){
+                service_btn="开&nbsp;始";
+                $(".btn_start_use").html(service_btn);
+            }
         }else{
             var selectednum=parseInt($(".detail_selected").html());
             var selectname=$(li).find(".service-name").html();
@@ -129,17 +133,11 @@ function select_service(li) {
         }
     }
 
-
 }
 
 function server_detail(detail,span) {
     document.getElementById("server_infomation").addEventListener('touchmove', bodyScroll, false);
-    var parentwidth=parseInt($("#server_select").css("width"));
-    var parentheight=parseInt($("#server_select").css("height"));
-    var parenttop=parseInt($("#server_select").css("top"));
-    var parentleft=parseInt($("#server_select").css("left"));
-    var det='';
-    $(".ser_detail").css({'width':parentwidth,'height':parentheight,"display":"block","position":"absolute","top":parenttop,"left":parentleft,"margin-top":-1*parentheight/2,"margin-left":-1*parentwidth/2,"z-index":100,"border-radius": '4px',"overflow":"hidden"});
+    $(".ser_detail").css({"display":"block"});
     $("#server_select").css("display","none");
     $("#server_infomation").css("overflow-y",'hidden');
     $("#dialog-info").css("overflow-y",'hidden');
@@ -160,7 +158,7 @@ function bodyScroll(e){
 }
 function close_detail(detail) {
     document.getElementById("server_infomation").removeEventListener('touchmove', bodyScroll, false);
-    $(detail).parent().css({"width":"0px","height":"0px","display":'none'});
+    $(detail).parent().css({"display":'none'});
     $("#server_select").css("display","block");
     $("#server_infomation").css("overflow-y",'scroll');
     $("#dialog-info").css("overflow-y",'scroll');
@@ -174,7 +172,6 @@ function close_detail(detail) {
 }
 
 function start_trail() {
-
         var colorVal=$(".btn_start_use").css("color");
         $("#dialog-info").css("overflow-y","scroll");
         $("#dialog-input").removeAttr("disabled");
@@ -226,18 +223,15 @@ function start_trail() {
                 Chat.socket.send(JSON.stringify(comObj));
             }
             if(flag==0){
-                if ($(".btn_start_use").html()=="关&nbsp;闭"){
-                    $("#server_select_contain").css("display","none");
-                }else {
-                    $("#server_select_contain").css("display","none");
-                    if(user_info.is_continue==true){
+                $("#server_select_contain").css("display","none");
+                if(user_info.is_continue==true){
+                    if($("#conv_content p").length==0){
                         query_msg_pack();
                     }
-                    if(user_info.is_continue==false){
-                        reload_index();
-                    }
                 }
-
+                if(user_info.is_continue==false){
+                    reload_index();
+                }
             }
         }
 }
@@ -258,22 +252,106 @@ function proving_code()
     }
 
 }
-
+function proving_code_coffee() {
+    var code=document.getElementById('input_code').value;
+    var timestamp=transdate();
+    var dicvalue={"date_type":inviteCode,"user_code":code};
+    current_ref_num_owner_type=inviteCode;
+    showAll_ref();
+    add_ref(timestamp,dicvalue);
+    message={"ref_num":timestamp,"user_code":code};
+    comObj={"code":812,"subcode":0,"content":message};
+    Chat.socket.send(JSON.stringify(comObj));
+}
 function get_user_code() {
-    if(JSON.stringify(user_owner_code)=='[]'){
+    if($(".s_invite_friend").css("color")=="rgb(255, 255, 255)") {
+        disable_title();
+        $('.screen-shot-prompt').animate({'top':'0'}, 200);
+        if (user_owner_code.length== 0) {
+            var timestamp = transdate();
+            var dicvalue = {"date_type": userCode};
+            current_ref_num_owner_type = userCode;
+            showAll_ref();
+            add_ref(timestamp, dicvalue);
+            message = {"ref_num": timestamp};
+            comObj = {"code": 811, "subcode": 0, "content": message};
+            Chat.socket.send(JSON.stringify(comObj));
+        }
+        else {
+            reload_user_owner_code();
+        }
+    }
+}
+var timer_promo;
+var promo_code;
+var promo_code_value;
+function send_promo_code() {
+    $(".promo_enter").addClass('promo_focus');
+    document.getElementById('promo_input').onkeydown = function(event){
+        if (event.keyCode==13) {
+            promo_next();
+        };
+    }
+}
+function enter_promo_code(){
+    if($(".s_entert_promocode").css("color")=="rgb(255, 255, 255)") {
+        $("#promo_code").css("display","block");
+        $(".promo_container").css("display","block");
+        $(".promo_success").css("display","none");
+        document.getElementById("promo_input").focus();
+        send_promo_code();
+        $('.promo_enter').bind('click',function(e){
+            stopPropagation(e);
+        });
+        $("#promo_input").focus(function(){
+            send_promo_code();
+        });
+        $("#promo_input").blur(function(){
+            setTimeout(function(){
+                $(".promo_enter").removeClass('promo_focus');
+            },200)
+        });
+        $("#promo_input").val("");
+        $(".promo_code_error").css("opacity","0");
+        promo_code=document.getElementById('promo_input');
+        promo_code_value=promo_code.value;
+        timer_promo = setInterval(promoCodes, 100);
+    }
+}
+
+function promoCodes()
+{
+    if (promo_code_value!==promo_code.value){
+        promo_code_value=promo_code.value;
+        if(promo_code_value.length<4){
+            $(".promo_next").css({"opacity":"0.3"});
+            if (promo_code_value.length==0){
+                $(".promo_code_error").css("opacity","0");
+            }
+        }else {
+            $(".promo_next").css({"opacity":"1"});
+            if(corps=='coffee'){
+                $(".promo_next").css({"border-top":" 1px solid rgba(169, 141, 101, .3)"});
+            }else{
+                $(".promo_next").css({"border-top":" 1px solid rgba(255, 255, 255, .3)"});
+            }
+        }
+    }
+}
+function promo_next() {
+    if ( $(".promo_next").css("opacity")!="0.3"){
+        var code=document.getElementById('promo_input').value;
         var timestamp=transdate();
-        var dicvalue={"date_type":userCode};
-        current_ref_num_owner_type=userCode;
+        var dicvalue={"date_type":promoCode,"user_code":code};
+        current_ref_num_owner_type=promoCode;
         showAll_ref();
         add_ref(timestamp,dicvalue);
-        message={"ref_num":timestamp};
-        comObj={"code":811,"subcode":0,"content":message};
+        message={"ref_num":timestamp,"user_code":code};
+        comObj={"code":812,"subcode":0,"content":message};
         Chat.socket.send(JSON.stringify(comObj));
-    }
-    else {
-        reload_user_owner_code();
     }
 }
 function close_code() {
-    $(".popup_container").css("display",'none')
+    $(".popup_container").css("display",'none');
+    clearInterval(timer);
 }

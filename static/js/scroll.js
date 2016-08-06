@@ -38,16 +38,12 @@
             document.activeElement.blur('dialog-input');
         },
         _move:function(e){
-            //$("#dialog").css({"position":'fixed','bottom': '0px'});
-            // document.activeElement.blur('dialog-input');
-            Console.log($("#dialog-info").scrollTop());
+            // Console.log($("#dialog-info").scrollTop());
             var self = this,point = hasTouch ? e.touches[0] : e;
             //计算手指的偏移量
             self.offsetY = point.pageY - self.startY;
                 if(self.offsetY > 0){//下拉
-                    Console.log("$('#dialog-info')"+$("#dialog-info").scrollTop());
-                    // document.activeElement.blur('dialog-input');
-                    // inputblur();
+                    // Console.log("$('#dialog-info')"+$("#dialog-info").scrollTop());
                     if($("#dialog-info").scrollTop()<200){
                         if(request_flag==0){
                             flag++;
@@ -63,7 +59,10 @@
         },
         _end:function(e){
             var that = this;
-            that.callBack();
+            if(is_query!=-1){
+                that.callBack();
+            }
+
             that._unbind(MOVE_EV, window);
             that._unbind(END_EV, window);
             that._unbind(CANCEL_EV, window);
@@ -81,5 +80,4 @@
     }else{
         window.qScroll = qScroll;
     }
-
 })(window,document);
