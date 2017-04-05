@@ -560,6 +560,7 @@
     border-radius: 13.33333vw;
     margin-top: 18.13333vw;
     text-align: center;
+    opacity:0.5;
   }
   /* line 119, ../../source/mrs/main.sass */
   body .container .card .active_code {
@@ -630,8 +631,9 @@
     line-height:34px;
     font-size: 12px;
     padding:0 10px;
-    display: flex;
+    /*display: flex;*/
     box-sizing: border-box;
+    display: none;
   }
   .detail-of-member{
     display: inline-block;
@@ -777,6 +779,69 @@
       overflow: hidden;
     }
   }
+  .popup_container {
+    width: 100%;
+    height: 100%;
+    background: rgba(24, 25, 28, 0.85);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 99;
+    box-sizing:border-box;
+    animation: fading 0.3s 1;
+    -webkit-animation: fading 0.3s 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+  }
+  .promo_enter {
+    height: 57vw;
+    max-height: 214px;
+    background: -webkit-linear-gradient( 123deg, #9095A2,#63636e);
+    overflow: hidden;
+  }
+
+  .common_popups {
+    width: 88vw;
+    max-width: 369px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    /* margin-left: -44vw; */
+    border-radius: 4px;
+    animation: fading 0.3s 1;
+    -webkit-animation: fading 0.3s 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+  }
+  .detail_close {
+    width: 30px;
+    height: 30px;
+    background-image: url(../static/images/s_ico_close.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 15px 15px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 100;
+  }
+    .promo_container{
+      color: white;
+      width:100%;
+      /*height: 100%;*/
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      /*left:50%;*/
+      transform: translate(0%,-50%);
+      -webkit-transform: translate(0%,-50%);
+    }
   </style>
 </head>
 <body>
@@ -853,9 +918,9 @@
             }
           }
         </script>
-        <div class="return-cash">购买后获得180元返现</div>
+        <div class="return-cash">会员开通功能即将来临</div>
       </div>
-      <div id="join" class="active">支 付</div>
+      <div id="join" class="active" onclick="zf()">支 付</div>
     </div>
     <div class="card prime">
       <h1>PRIME</h1>
@@ -870,7 +935,7 @@
       <div class="return-cash">需要Prime会员邀请</div>
       <div class="active_code">
         <div class="input">
-          <input placeholder="输入邀请码..">
+          <input placeholder="即将来临..">
           <div class="error">邀请码错误</div>
         </div>
         <div class="button">支 付</div>
@@ -886,6 +951,29 @@
   </div>
 </article>
 <div class="testEdit">Beta 0.9</div>
+<div class="popup_container" id="promo_code" >
+  <div class="promo_enter common_popups">
+    <div class="detail_close" onclick="close_code()"></div>
+    <div class="promo_container">
+      会员开通功能即将来临...
+    </div>
+  </div>
+</div>
+<script>
+  $('.popup_container').bind('click',function(){
+    $('.popup_container').css('display','none');
+    $('.ser_detail').css('display','none');
+  });
+  $('.common_popups').bind('click',function(e){
+    stopPropagation(e);
+  });
+  function stopPropagation(e) {
+    if (e.stopPropagation)
+      e.stopPropagation();
+    else
+      e.cancelBubble = true;
+  }
+</script>
 <script>
   require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"Sizzle":[function(require,module,exports){
   /*! Sizzle v2.3.0 | (c) jQuery Foundation, Inc. | jquery.org/license */
@@ -924,9 +1012,16 @@ root.addEventListener('touchstart', touchManager.touchstart);
 root.addEventListener('touchmove', touchManager.touchmove);
 
 Sizzle('#join')[0].addEventListener('click', function() {
-  return jsApiCall();
-});
+//  return jsApiCall();
 
+});
+function zf() {
+  $('.popup_container').css("display",'block')
+}
+function close_code() {
+  $(".popup_container").css("display",'none');
+  clearInterval(timer);
+}
 Sizzle('.active_code>.button')[0].addEventListener('click', function(event) {
   return Sizzle('.active_code .error')[0].style.display = 'block';
 });

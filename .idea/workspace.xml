@@ -2,20 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="015b0fbc-8069-463f-b919-fadd523678c4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_bg_code.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_server.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_arrow.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_fly.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_flyarri.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_hotel.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_mappending.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_pending.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_restaurant.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_icon_traffic.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/itin_view.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/mrs_date.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/mrs_klm.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/mrs_lunch.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/power_s.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_bg_code_date.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_bg_code_lunch.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_code_qr_date.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_code_qr_lunch.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_code_qr_trip.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_date_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_invite_code_date.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_lunch_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_server_date.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/s_server_lunch.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/server_date_ico.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/server_lunch_ico.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jsontype.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/itinerary.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/itinerary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/zepto.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/datepage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/itinerary.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/klmpage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/lunchpage.html" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/s_bg_code.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/s_server.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/images/s_code_qr_trip.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/images/mrs_trip.png" afterPath="$PROJECT_DIR$/static/images/mrs_trip.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ceshi.html" afterPath="$PROJECT_DIR$/ceshi.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/mrs.css" afterPath="$PROJECT_DIR$/static/css/mrs.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/normalize.css" afterPath="$PROJECT_DIR$/static/css/normalize.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/server.css" afterPath="$PROJECT_DIR$/static/css/server.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/account.js" afterPath="$PROJECT_DIR$/static/js/account.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/mrs.js" afterPath="$PROJECT_DIR$/static/js/mrs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/scroll.js" afterPath="$PROJECT_DIR$/static/js/scroll.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/server.js" afterPath="$PROJECT_DIR$/static/js/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/enjoy.html" afterPath="$PROJECT_DIR$/templates/enjoy.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/account.html" afterPath="$PROJECT_DIR$/templates/account.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/coffeepage.html" afterPath="$PROJECT_DIR$/templates/coffeepage.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/join-in.html" afterPath="$PROJECT_DIR$/templates/join-in.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/mrspage.html" afterPath="$PROJECT_DIR$/templates/mrspage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/trippage.html" afterPath="$PROJECT_DIR$/templates/trippage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/weeklyactivity.html" afterPath="$PROJECT_DIR$/templates/weeklyactivity.html" />
     </list>
     <ignored path="mrs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,57 +72,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mrspage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/mrspage.html">
+      <file leaf-file-name="recordpage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/recordpage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="49" column="67" selection-start-line="49" selection-start-column="65" selection-end-line="49" selection-end-column="67" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mrspage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/mrs/templates/mrspage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="144" column="14" selection-start-line="144" selection-start-column="14" selection-end-line="144" selection-end-column="14" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/server.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
-              <folding>
-                <marker date="1463827709000" expanded="true" signature="7717:7719" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="normalize.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/normalize.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mrs.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="525" column="14" selection-start-line="525" selection-start-column="11" selection-end-line="525" selection-end-column="14" />
+            <state relative-caret-position="345">
+              <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -95,40 +85,98 @@
       <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+            <state relative-caret-position="3270">
+              <caret line="218" column="55" selection-start-line="218" selection-start-column="55" selection-end-line="218" selection-end-column="55" />
               <folding>
-                <marker date="1463822528000" expanded="true" signature="1965:1978" placeholder="..." />
-                <marker date="1463822528000" expanded="true" signature="6954:6969" placeholder="..." />
-                <marker date="1463822528000" expanded="true" signature="7128:7158" placeholder="..." />
-                <marker date="1463822528000" expanded="true" signature="8463:8477" placeholder="..." />
+                <marker date="1477316721000" expanded="true" signature="1829:1842" placeholder="..." />
+                <marker date="1477316721000" expanded="true" signature="6647:6662" placeholder="..." />
+                <marker date="1477316721000" expanded="true" signature="6821:6851" placeholder="..." />
+                <marker date="1477316721000" expanded="true" signature="8127:8141" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mrs.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/js/mrs.js">
+      <file leaf-file-name="account.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/account.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-304">
-              <caret line="374" column="0" selection-start-line="374" selection-start-column="0" selection-end-line="374" selection-end-column="0" />
+            <state relative-caret-position="1890">
+              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="130" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="itinerary.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/itinerary.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1575">
+              <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mrs.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="s_ico_close.png" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/images/s_ico_close.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SSSS.JS" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SSSS.JS">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7485">
+              <caret line="499" column="11" selection-start-line="499" selection-start-column="9" selection-end-line="499" selection-end-column="11" />
               <folding>
-                <element signature="n#!!block;n#isTouchDevice#0" expanded="false" />
-                <element signature="n#!!block;n#touchScroll#0" expanded="false" />
-                <marker date="1463842202000" expanded="true" signature="2609:2638" placeholder="..." />
-                <marker date="1463842202000" expanded="true" signature="18682:18693" placeholder="..." />
-                <marker date="1463842202000" expanded="true" signature="36869:36883" placeholder="..." />
-                <marker date="1463842202000" expanded="true" signature="36910:37022" placeholder="..." />
+                <element signature="e#43338#96376#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scroll.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/scroll.js">
+      <file leaf-file-name="zhxit.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/zhxit.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="37" column="56" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="56" />
+            <state relative-caret-position="345">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="itinerary.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/js/itinerary.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="228" column="16" selection-start-line="228" selection-start-column="16" selection-end-line="228" selection-end-column="16" />
+              <folding>
+                <element signature="e#44#422#0" expanded="false" />
+                <element signature="e#448#4441#0" expanded="false" />
+                <element signature="e#4558#6501#0" expanded="false" />
+                <element signature="e#6590#8431#0" expanded="false" />
+                <element signature="e#8494#9581#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="itinerary.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/itinerary.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -149,44 +197,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/js.js" />
-        <option value="$PROJECT_DIR$/jjj.js" />
-        <option value="$PROJECT_DIR$/scroll.html" />
-        <option value="$PROJECT_DIR$/test.html" />
-        <option value="$USER_HOME$/AppData/Local/Temp/360zip$Temp/360$0/index.html" />
-        <option value="$PROJECT_DIR$/static/js/weather.js" />
-        <option value="$PROJECT_DIR$/text023.html" />
-        <option value="$PROJECT_DIR$/test01.html" />
-        <option value="$PROJECT_DIR$/animate.html" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/statics/css/mrs.css" />
-        <option value="$PROJECT_DIR$/sss.html" />
-        <option value="$PROJECT_DIR$/load.html" />
-        <option value="$PROJECT_DIR$/enjoy.html" />
-        <option value="D:/cygwin/home/mrspage.html" />
-        <option value="$PROJECT_DIR$/static/js/s_adaptation.js" />
-        <option value="D:/cygwin/home/statics/js/s_adaptation.js" />
-        <option value="D:/cygwin/home/statics/js/server.js" />
-        <option value="D:/cygwin/home/statics/js/mrs.js" />
-        <option value="$PROJECT_DIR$/ceshi.html" />
-        <option value="D:/cygwin/home/templates/mrspage.html" />
-        <option value="$USER_HOME$/mrs/statics/js/mrs.js" />
-        <option value="$PROJECT_DIR$/mrspage.html" />
-        <option value="$PROJECT_DIR$/statics/js/scroll.js" />
-        <option value="$PROJECT_DIR$/statics/js/mrs.js" />
-        <option value="$PROJECT_DIR$/statics/css/server.css" />
-        <option value="$PROJECT_DIR$/statics/js/server.js" />
-        <option value="$PROJECT_DIR$/enjoy1.html" />
-        <option value="$PROJECT_DIR$/templates/enjoy1.html" />
-        <option value="$PROJECT_DIR$/templates/enjoy.html" />
-        <option value="$PROJECT_DIR$/templates/join-in.html" />
-        <option value="$PROJECT_DIR$/static/js/scroll.js" />
-        <option value="$PROJECT_DIR$/static/js/server.js" />
-        <option value="$PROJECT_DIR$/templates/mrspage.html" />
+        <option value="$PROJECT_DIR$/zhxit.html" />
+        <option value="$PROJECT_DIR$/static/js/kitche.js" />
+        <option value="$USER_HOME$/mrs/statics/js/server.js" />
+        <option value="$PROJECT_DIR$/templates/activity.html" />
+        <option value="$PROJECT_DIR$/templates/weekactivity.html" />
+        <option value="$USER_HOME$/mrs/templates/weekactivity.html" />
+        <option value="$USER_HOME$/mrs/templates/weeklyactivity.html" />
+        <option value="$PROJECT_DIR$/oldjs.js" />
+        <option value="$PROJECT_DIR$/redirect.html" />
+        <option value="$USER_HOME$/mrs/templates/join-in.html" />
+        <option value="$PROJECT_DIR$/../s先生/guanjia-lure-web/statics/js/guanjia.js" />
+        <option value="$USER_HOME$/recruit/redirect.html" />
+        <option value="$USER_HOME$/mrs/templates/coffeepage.html" />
+        <option value="$PROJECT_DIR$/templates/travel.html" />
+        <option value="$PROJECT_DIR$/templates/travelpage.html" />
         <option value="$USER_HOME$/mrs/templates/mrspage.html" />
+        <option value="$USER_HOME$/mrs/templates/trippage.html" />
+        <option value="$USER_HOME$/mrs/templates/datepage.html" />
+        <option value="$USER_HOME$/mrs/templates/lunchpage.html" />
+        <option value="$USER_HOME$/mrs/statics/css/mrs.css" />
+        <option value="$USER_HOME$/mrs/statics/css/server.css" />
+        <option value="$USER_HOME$/mrs/statics/js/mrs.js" />
+        <option value="$PROJECT_DIR$/static/js/zepto.js" />
+        <option value="$PROJECT_DIR$/static/css/route.css" />
+        <option value="$PROJECT_DIR$/templates/route.html" />
+        <option value="$PROJECT_DIR$/static/js/route.js" />
+        <option value="$PROJECT_DIR$/static/css/itinerary.css" />
+        <option value="$USER_HOME$/mrs/statics/css/itinerary.css" />
+        <option value="$PROJECT_DIR$/templates/itinerary.html" />
+        <option value="$USER_HOME$/mrs/templates/itinerary.html" />
+        <option value="$USER_HOME$/mrs/statics/js/itinerary.js" />
+        <option value="$USER_HOME$/mrs/templates/templates/trippage.html" />
+        <option value="$USER_HOME$/mrs/templates/templates/join-in.html" />
+        <option value="$PROJECT_DIR$/SSSS.JS" />
+        <option value="$PROJECT_DIR$/jsontype.js" />
+        <option value="$PROJECT_DIR$/templates/datepage.html" />
+        <option value="$PROJECT_DIR$/templates/klmpage.html" />
+        <option value="$PROJECT_DIR$/templates/lunchpage.html" />
+        <option value="$PROJECT_DIR$/templates/mrspage.html" />
+        <option value="$PROJECT_DIR$/templates/trippage.html" />
+        <option value="$PROJECT_DIR$/templates/weeklyactivity.html" />
+        <option value="$PROJECT_DIR$/templates/coffeepage.html" />
+        <option value="$PROJECT_DIR$/static/js/server.js" />
+        <option value="$PROJECT_DIR$/templates/join-in.html" />
+        <option value="$PROJECT_DIR$/static/js/account.js" />
+        <option value="$PROJECT_DIR$/templates/account.html" />
         <option value="$PROJECT_DIR$/static/css/server.css" />
-        <option value="$PROJECT_DIR$/static/css/mrs.css" />
         <option value="$PROJECT_DIR$/static/js/mrs.js" />
+        <option value="$PROJECT_DIR$/input.html" />
+        <option value="$PROJECT_DIR$/static/js/itinerary.js" />
+        <option value="$PROJECT_DIR$/static/css/mrs.css" />
       </list>
     </option>
   </component>
@@ -196,10 +257,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="78" />
-    <option name="y" value="27" />
-    <option name="width" value="1760" />
-    <option name="height" value="961" />
+    <option name="x" value="409" />
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="694" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -286,24 +347,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mrs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mrs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -328,6 +371,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -338,34 +382,38 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../recruit" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/weipingli/Desktop/ESSE_MNG_MINT_S/mrs/static/js/mrs.js" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/js" />
       <recent name="$PROJECT_DIR$/static/images" />
+      <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/.." />
       <recent name="$PROJECT_DIR$/statics/images" />
-      <recent name="D:\ESSE\s先生\mrs\static\images" />
-      <recent name="D:\ESSE\s先生\mrs\static\js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.mrs.js">
+    <configuration default="false" name="mrs.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="mrs.js" working-dir="$PROJECT_DIR$/static/js">
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
@@ -420,6 +468,14 @@
       <recursive>false</recursive>
       <method />
     </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.mrs.js" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.mrs.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -453,12 +509,48 @@
       <workItem from="1462261949443" duration="53720000" />
       <workItem from="1463712110856" duration="1668000" />
       <workItem from="1463714659587" duration="23000" />
-      <workItem from="1463799614932" duration="21678000" />
+      <workItem from="1463799614932" duration="23865000" />
+      <workItem from="1463978704633" duration="68712000" />
+      <workItem from="1464670481923" duration="18968000" />
+      <workItem from="1465013962109" duration="48661000" />
+      <workItem from="1466076458959" duration="15280000" />
+      <workItem from="1466399655512" duration="5703000" />
+      <workItem from="1466483493784" duration="7832000" />
+      <workItem from="1466561990060" duration="87011000" />
+      <workItem from="1467452906744" duration="453000" />
+      <workItem from="1467614683046" duration="8088000" />
+      <workItem from="1467789972444" duration="4707000" />
+      <workItem from="1467869284112" duration="2810000" />
+      <workItem from="1467886537319" duration="1460000" />
+      <workItem from="1467953082316" duration="129000" />
+      <workItem from="1467966184721" duration="2440000" />
+      <workItem from="1468039701299" duration="3711000" />
+      <workItem from="1468294936103" duration="23289000" />
+      <workItem from="1469074486780" duration="15150000" />
+      <workItem from="1469160522067" duration="40398000" />
+      <workItem from="1470035443537" duration="20718000" />
+      <workItem from="1470385780846" duration="824000" />
+      <workItem from="1470402690019" duration="12142000" />
+      <workItem from="1470484179351" duration="4704000" />
+      <workItem from="1470799780922" duration="43642000" />
+      <workItem from="1471855421445" duration="25000" />
+      <workItem from="1472615258440" duration="705000" />
+      <workItem from="1473331783363" duration="92513000" />
+      <workItem from="1476773586914" duration="78000" />
+      <workItem from="1476774713517" duration="14219000" />
+      <workItem from="1476941574368" duration="10386000" />
+      <workItem from="1476955470539" duration="3013000" />
+      <workItem from="1477022143322" duration="19884000" />
+      <workItem from="1477469319462" duration="2683000" />
+      <workItem from="1478337083939" duration="284000" />
+      <workItem from="1479212126440" duration="1105000" />
+      <workItem from="1487140291392" duration="627000" />
+      <workItem from="1488981509319" duration="432000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="281553000" />
+    <option name="totallyTimeSpent" value="866526000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -481,27 +573,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="78" y="27" width="1760" height="961" extended-state="0" />
-    <editor active="true" />
+    <frame x="409" y="23" width="1280" height="694" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12727273" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5027322" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.49726775" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29954615" sideWeight="0.5133837" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1344411" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931727" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902467" sideWeight="0.48661634" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -517,151 +609,275 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="32" />
+      <option name="time" value="65" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ceshi.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/scroll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="143" column="7" selection-start-line="143" selection-start-column="7" selection-end-line="161" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/mrs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#isTouchDevice#0" expanded="false" />
-            <element signature="n#!!block;n#touchScroll#0" expanded="false" />
-            <marker date="1463842202000" expanded="true" signature="2609:2638" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="18682:18693" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36869:36883" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36910:37022" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mrspage.html" />
-    <entry file="file://$PROJECT_DIR$/static/js/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1463822528000" expanded="true" signature="1965:1978" placeholder="..." />
-            <marker date="1463822528000" expanded="true" signature="6954:6969" placeholder="..." />
-            <marker date="1463822528000" expanded="true" signature="7128:7158" placeholder="..." />
-            <marker date="1463822528000" expanded="true" signature="8463:8477" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enjoy.html" />
-    <entry file="file://$PROJECT_DIR$/static/js/scroll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="143" column="7" selection-start-line="143" selection-start-column="7" selection-end-line="161" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/mrs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="20" column="66" selection-start-line="20" selection-start-column="66" selection-end-line="20" selection-end-column="66" />
-          <folding>
-            <element signature="n#!!block;n#isTouchDevice#0" expanded="false" />
-            <element signature="n#!!block;n#touchScroll#0" expanded="false" />
-            <marker date="1463842202000" expanded="true" signature="2609:2638" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="18682:18693" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36869:36883" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36910:37022" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mrspage.html" />
-    <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/mrs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="180" column="20" selection-start-line="180" selection-start-column="20" selection-end-line="180" selection-end-column="20" />
-          <folding>
-            <element signature="n#!!block;n#isTouchDevice#0" expanded="false" />
-            <element signature="n#!!block;n#touchScroll#0" expanded="false" />
-            <marker date="1463842202000" expanded="true" signature="2609:2638" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="18682:18693" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36869:36883" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36910:37022" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/$玩美行程/玩美/JourneySvc最新/src/main/webapp/jsp/journey/choose.jsp" />
-    <entry file="file://D:/$玩美行程/玩美/JourneySvc最新/src/main/webapp/jsp/journey/choose.jsp" />
-    <entry file="file://E:/c少爷的文档备份/e：文档/self/wang1/20141227动画.html" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="968" column="0" selection-start-line="968" selection-start-column="0" selection-end-line="968" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/$玩美行程/玩美/JourneySvc最新/src/main/webapp/js/setupTrip.js" />
-    <entry file="file://D:/$玩美行程/玩美/JourneySvc最新/src/main/webapp/jsp/journey/setupTrip.jsp" />
-    <entry file="file://$PROJECT_DIR$/enjoy.html" />
-    <entry file="file://D:/cygwin/home/statics/js/server.js" />
-    <entry file="file://D:/cygwin/home/statics/js/mrs.js" />
-    <entry file="file://D:/cygwin/home/templates/mrspage.html" />
-    <entry file="file://$PROJECT_DIR$/static/images/s_serType.png" />
-    <entry file="file://$PROJECT_DIR$/ceshi.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/mrs/statics/js/mrs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/e_logo.png">
+    <entry file="file://$USER_HOME$/mrs/statics/js/mrs.js" />
+    <entry file="file://$PROJECT_DIR$/static/images/itin_icon_traffic.png">
       <provider selected="true" editor-type-id="images">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/mrs/statics/css/itinerary.css" />
+    <entry file="file://$USER_HOME$/mrs/templates/itinerary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/mrs/statics/js/itinerary.js" />
+    <entry file="file://$USER_HOME$/mrs/templates/templates/trippage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="173" column="36" selection-start-line="173" selection-start-column="36" selection-end-line="173" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/mrs/templates/templates/join-in.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13230">
+          <caret line="882" column="30" selection-start-line="882" selection-start-column="30" selection-end-line="882" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/coffee-account.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/coffee-expire.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/activity-banner.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/coffee_bg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/itin_bg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/share-log.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/server_trip_ico.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/server_lunch_ico.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/server_date_ico.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/server_coffee_ico.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/s_trip_bg.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/s_server_select.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/s_server_lunch.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/s_server_trip.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/mrs_coffee.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/mrs_trip.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/mrs_klm.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../屏幕快照 2016-10-20 上午11.24.07.png" />
+    <entry file="file://$PROJECT_DIR$/static/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jsontype.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="91" column="44" selection-start-line="91" selection-start-column="44" selection-end-line="91" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/datepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="107" column="111" selection-start-line="107" selection-start-column="111" selection-end-line="107" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/klmpage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="117" column="111" selection-start-line="117" selection-start-column="111" selection-end-line="117" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/lunchpage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="31" column="68" selection-start-line="31" selection-start-column="68" selection-end-line="31" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/oldjs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="135" column="72" selection-start-line="135" selection-start-column="72" selection-end-line="135" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/coffeepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2310">
+          <caret line="154" column="39" selection-start-line="154" selection-start-column="39" selection-end-line="154" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/join-in.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13590">
+          <caret line="1014" column="12" selection-start-line="1014" selection-start-column="12" selection-end-line="1014" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/mrs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10665">
+          <caret line="781" column="13" selection-start-line="781" selection-start-column="13" selection-end-line="781" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/account.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/weeklyactivity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/trippage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="108" column="29" selection-start-line="108" selection-start-column="29" selection-end-line="108" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/mrspage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2085">
+          <caret line="139" column="55" selection-start-line="139" selection-start-column="55" selection-end-line="139" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/server.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/input.html" />
+    <entry file="file://$PROJECT_DIR$/templates/recordpage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3270">
+          <caret line="218" column="55" selection-start-line="218" selection-start-column="55" selection-end-line="218" selection-end-column="55" />
+          <folding>
+            <marker date="1477316721000" expanded="true" signature="1829:1842" placeholder="..." />
+            <marker date="1477316721000" expanded="true" signature="6647:6662" placeholder="..." />
+            <marker date="1477316721000" expanded="true" signature="6821:6851" placeholder="..." />
+            <marker date="1477316721000" expanded="true" signature="8127:8141" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/account.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="130" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/itinerary.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/images/s_ico_close.png">
@@ -669,151 +885,43 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/mrs/statics/mrs.css" />
-    <entry file="file://$PROJECT_DIR$/mrspage.html" />
-    <entry file="file://$PROJECT_DIR$/static/images/s_plan_icon.png" />
-    <entry file="file://$PROJECT_DIR$/static/images/s_server_select.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/s_logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/s_menu.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/join-in-main.css">
+    <entry file="file://$PROJECT_DIR$/SSSS.JS">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/enjoy1.html" />
-    <entry file="file://$PROJECT_DIR$/static/images/s_bg_code.png" />
-    <entry file="file://$PROJECT_DIR$/templates/enjoy.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1452">
-          <caret line="256" column="69" selection-start-line="256" selection-start-column="69" selection-end-line="256" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/join-in.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9990">
-          <caret line="666" column="3414" selection-start-line="666" selection-start-column="3414" selection-end-line="666" selection-end-column="3414" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/s_server.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/s_plan_icon.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/images/s_bg_code.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/scroll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="37" column="56" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/mrs/templates/mrspage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="144" column="14" selection-start-line="144" selection-start-column="14" selection-end-line="144" selection-end-column="14" />
+        <state relative-caret-position="7485">
+          <caret line="499" column="11" selection-start-line="499" selection-start-column="9" selection-end-line="499" selection-end-column="11" />
           <folding>
-            <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#43338#96376#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/mrspage.html">
+    <entry file="file://$PROJECT_DIR$/zhxit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="49" column="67" selection-start-line="49" selection-start-column="65" selection-end-line="49" selection-end-column="67" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#span#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/server.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
-          <folding>
-            <marker date="1463827709000" expanded="true" signature="7717:7719" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/mrs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="525" column="14" selection-start-line="525" selection-start-column="11" selection-end-line="525" selection-end-column="14" />
+        <state relative-caret-position="345">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/normalize.css">
+    <entry file="file://$PROJECT_DIR$/static/js/itinerary.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="228" column="16" selection-start-line="228" selection-start-column="16" selection-end-line="228" selection-end-column="16" />
+          <folding>
+            <element signature="e#44#422#0" expanded="false" />
+            <element signature="e#448#4441#0" expanded="false" />
+            <element signature="e#4558#6501#0" expanded="false" />
+            <element signature="e#6590#8431#0" expanded="false" />
+            <element signature="e#8494#9581#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/itinerary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-          <folding>
-            <marker date="1463822528000" expanded="true" signature="1965:1978" placeholder="..." />
-            <marker date="1463822528000" expanded="true" signature="6954:6969" placeholder="..." />
-            <marker date="1463822528000" expanded="true" signature="7128:7158" placeholder="..." />
-            <marker date="1463822528000" expanded="true" signature="8463:8477" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/mrs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-304">
-          <caret line="374" column="0" selection-start-line="374" selection-start-column="0" selection-end-line="374" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#isTouchDevice#0" expanded="false" />
-            <element signature="n#!!block;n#touchScroll#0" expanded="false" />
-            <marker date="1463842202000" expanded="true" signature="2609:2638" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="18682:18693" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36869:36883" placeholder="..." />
-            <marker date="1463842202000" expanded="true" signature="36910:37022" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>

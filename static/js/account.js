@@ -10,10 +10,9 @@ var localHost=window.location.host;
 var accoutPages=1,orderpage=1;
 var touchManager;
 $(document).ready(function(){
-    // get_user_info();
+    get_user_info();
     // authorize_debug();
     scrollBottomTest();
-    reload_account_change()
     touchManager = {
         "_startX": void 0,
         "_startY": void 0,
@@ -34,8 +33,8 @@ $(document).ready(function(){
                     }
                 }else{
                     var viewH =$("#act-content").height(),//可见高度
-                         contentH =$("#act-content").get(0).scrollHeight,//内容高度
-                         scrollTop =$("#act-content").scrollTop();//滚动高度
+                        contentH =$("#act-content").get(0).scrollHeight,//内容高度
+                        scrollTop =$("#act-content").scrollTop();//滚动高度
                     if((contentH - viewH - scrollTop)==0){
                         return event.preventDefault();
                     }
@@ -124,27 +123,28 @@ function close_rechange() {
 function recharge_next() {
     var price=parseFloat($("#recharge-input").val());
     if (isNaN(price)==false&&price>0.01||price==0.01){
-        price=price*100;
+        $("#zhgn_title").css('display','block')
+        // price=price*100;
         // var url='http://'+localHost+'/api_s/transfer?amt='+price;
-        var url='http://www.essential.com.cn/api_s/transfer?amt='+price;
-        $.ajax({
-            url: url,
-            dataType: "json",
-            type: "get",
-            success: function (data) {
-               console.log(JSON.stringify(data));
-                WeixinJSBridge.invoke('getBrandWCPayRequest',data.prepay_content, function(res){
-                    if(res.err_msg == "get_brand_wcpay_request:ok"){
-                        location.pathname = '/'
-                    }
-                });
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log(XMLHttpRequest);
-                console.log(errorThrown);
-                console.log(textStatus);
-            }
-        })
+        // // var url='http://www.essential.com.cn/api_s/transfer?amt='+price;
+        // $.ajax({
+        //     url: url,
+        //     dataType: "json",
+        //     type: "get",
+        //     success: function (data) {
+        //        console.log(JSON.stringify(data))
+        //         WeixinJSBridge.invoke('getBrandWCPayRequest',data.prepay_content, function(res){
+        //             if(res.err_msg == "get_brand_wcpay_request:ok"){
+        //                 location.pathname = '/'
+        //             }
+        //         });
+        //     },
+        //     error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //         console.log(XMLHttpRequest);
+        //         console.log(errorThrown);
+        //         console.log(textStatus);
+        //     }
+        // })
 
         // window.location.href="http://"+localHost+"/wxAuthCallback/wxpay_transfer?amt="+price;
     }else{
@@ -166,8 +166,8 @@ function get_acount_history(num) {
     }
 }
 function get_account_change() {
-    // var url='http://'+localHost+'/api_s/account_history';
-    var url='http://www.essential.com.cn/api_s/account_history?page='+accoutPages;
+    var url='http://'+localHost+'/api_s/account_history';
+    // var url='http://www.essential.com.cn/api_s/account_history?page='+accoutPages;
     $.ajax({
         url: url,
         dataType: "json",
@@ -191,7 +191,6 @@ function get_account_change() {
             var achange=transfers.concat(t_orders);
             accountHistory=accountHistory.concat(achange);
             currenthistory=achange;
-            console.log(JSON.stringify(accountHistory));
            reload_account_change();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -201,19 +200,16 @@ function get_account_change() {
         }
     })
 }
+
 function reload_account_change(){
     accountHistory.sort(function (a, b) {return Date.parse(a.finish_time.replace('-','/').replace('-','/')) - Date.parse(b.finish_time.replace('-','/').replace('-','/'));});
-   accountHistory=[
-       {"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146374452654961,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-20 19:42:06","order_price":2,"pay_time":"2016-06-20 15:18:05","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-06-20 15:18:05"},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146364084239488,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-19 14:54:02","order_price":2,"pay_time":"2016-05-19 14:54:11","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-19 14:54:11"},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146346647780090,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-17 14:27:57","order_price":2,"pay_time":"2016-05-17 14:28:05","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-17 14:28:05"},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146346599262544,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-17 14:19:52","order_price":2,"pay_time":"2016-05-17 14:22:19","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-17 14:22:19"},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146346557567725,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-17 14:12:55","order_price":2,"pay_time":"2016-05-17 14:19:47","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-17 14:19:47"},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146346529528599,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-17 14:08:15","order_price":2,"pay_time":"2016-05-17 14:12:36","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-17 14:12:36"},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146346512104102,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-17 14:05:21","order_price":2,"pay_time":"2016-05-17 14:05:30","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-17 14:05:30"},{"manipulate_cs":null,"order_telephone":"23123","refund_records":[],"order_id":146302476482263,"pay_method":2,"auto_order_argument":null,"session_id":null,"order_info":"","order_name":"测试添加paid user 功能 ","create_time":"2016-05-12 11:46:04","order_price":1,"pay_time":"2016-05-12 11:51:00","paid_user":1021,"auto_order_type":null,"order_status":2,"order_json":"[{\"amount\": \"1\", \"price\": \"1\", \"commodity\": \"1\"}]","order_address":"123123123","finish_time":null},{"manipulate_cs":null,"order_telephone":"0","refund_records":[],"order_id":146302158761137,"pay_method":0,"auto_order_argument":"user_id:1021","session_id":null,"order_info":null,"order_name":"YEAR_FEE","create_time":"2016-05-12 10:53:07","order_price":2,"pay_time":"2016-05-12 11:44:47","paid_user":1021,"auto_order_type":1,"order_status":2,"order_json":"0","order_address":"","finish_time":"2016-05-12 11:44:47"},{"manipulate_cs":null,"order_telephone":"12345678901","refund_records":[{"order_id":145657623466656,"amount":1,"refund_status":0,"refund_content":"reasoning it","refund_id":10014}],"order_id":145657623466656,"pay_method":1,"auto_order_argument":null,"session_id":10178,"order_info":"","order_name":"重复的unifyorder test","create_time":"2016-02-27 20:30:34","order_price":1,"pay_time":"2016-03-02 18:00:58","paid_user":1021,"auto_order_type":null,"order_status":2,"order_json":"[{\"amount\": \"\", \"price\": \"\", \"commodity\": \"\"}]","order_address":"","finish_time":null},{"manipulate_cs":null,"order_telephone":"155-7277-0000","refund_records":[],"order_id":145673575034947,"pay_method":1,"auto_order_argument":null,"session_id":10001,"order_info":"","order_name":"订单1","create_time":"2016-02-29 16:49:10","order_price":1,"pay_time":"2016-03-02 15:19:42","paid_user":1021,"auto_order_type":null,"order_status":2,"order_json":"[{\"amount\": \"22\", \"price\": \"1\", \"commodity\": \"11111\"}]","order_address":"","finish_time":null}]
-
-    console.log(accountHistory)
     $(".act-acount-month").html('');
+    $(".act-acount-history").css({ 'margin-top':''});
     if (accountHistory.length!=0){
         // $(".act-acount-history").css({'margin-top':'2.65vh','border-top':'1px solid rgba(216, 216, 216, 0.3)'});
-        $(".act-acount-history").css({ 'margin-top':''});
         var yearm=[];
         $.each(accountHistory,function (i) {
-            var pay_time=accountHistory[i].pay_time;
+            var pay_time=accountHistory[i].finish_time;
             var pay_timearr=pay_time.split(' ')[0].split('-');
             var ym=[pay_timearr[0],pay_timearr[1]];
             var flag=0;
@@ -231,7 +227,7 @@ function reload_account_change(){
                 '<ul class="act-history-detail"></ul></li>';
             $(".act-acount-month").append(li);
             for (var k=(accountHistory.length-1);k>=0;k--){
-                var pay_time=accountHistory[k].pay_time;
+                var pay_time=accountHistory[k].finish_time;
                 var pay_timearr=pay_time.split(' ')[0].split('-');
                 var date=pay_time.split(' ')[1];
                 if (pay_timearr[0]==yearm[j][0]&&pay_timearr[1]==yearm[j][1]){
@@ -266,9 +262,9 @@ function reload_account_change(){
                     //     li=li.replace('ordername',achange[k].order_name)
                     // }
                     if(accountHistory[k].is_order==false){
-                        li=li.replace('ordername','充值').replace('orderprices','<span class="plus"></span><span class="minus-prices">¥'+accountHistory[k].order_price/100+'</span>');
+                        li=li.replace('ordername','充值').replace('orderprices','<span class="plus">+</span><span class="minus-prices">¥'+accountHistory[k].order_price/100+'</span>');
                     }else{
-                        li=li.replace('ordername',accountHistory[k].order_name).replace('orderprices','<span class="minus"></span><span class="minus-prices">¥'+accountHistory[k].order_price/100+'</span>');
+                        li=li.replace('ordername',accountHistory[k].order_name).replace('orderprices','<span class="minus">-</span><span class="minus-prices">¥'+accountHistory[k].order_price/100+'</span>');
 
                     }
                     $(".act-acount-month-li:eq("+ ($(".act-acount-month-li").length-1)+") .act-history-detail").append(li);
@@ -301,22 +297,6 @@ function look_acount_history_detial(orderid) {
             var ordername='';
             var paymethod=history.pay_method;
             var orderstatus=history.order_status;
-            if(history.auto_order_type==1){
-                ordername='购买会员';
-            }
-            if(history.is_order==false){
-                ordername='充值';
-                if(orderstatus==1){
-                    orderstatus='支付成功'
-                }
-                if(orderstatus==0){
-                    orderstatus='未支付';
-                }
-                paymethod='微信支付';
-            }else
-            {
-                ordername=history.order_name
-            }
             if(paymethod==0){
                 paymethod='未支付';
             }
@@ -324,6 +304,32 @@ function look_acount_history_detial(orderid) {
                 paymethod='余额支付';
             }else if(paymethod==2){
                 paymethod='微信支付';
+            }
+            if(history.auto_order_type==1){
+                ordername='购买Standard会员一年';
+                if(orderstatus==2){
+                    orderstatus='支付成功';
+                    paymethod='微信支付';
+                }
+                if(orderstatus==1){
+                    orderstatus='未支付';
+                    paymethod='未支付';
+                }
+            }
+            if(history.is_order==false){
+                ordername='充值';
+                if(orderstatus==1){
+                    orderstatus='支付成功';
+                    paymethod='微信支付';
+                }
+                if(orderstatus==0){
+                    orderstatus='未支付';
+                    paymethod='未支付';
+                }
+
+            }else
+            {
+                ordername=history.order_name
             }
             if (history.refund_records!=undefined){
                 if(history.refund_records.length==0){
@@ -349,7 +355,7 @@ function look_acount_history_detial(orderid) {
             replace('paymethod',paymethod).replace('orderstatus',orderstatus).replace('paytime',history.finish_time).replace('orderid',history.order_id));
             if (history.refund_records!=undefined) {
                 if (orderstatus.indexOf('退款') != -1) {
-                    $("#current-order-status").css({'color': '#D23232'});
+                    $("#current-order-status").css({'color': '#D23232'})
                 }
             }
         }
@@ -360,22 +366,18 @@ function close_detail_act() {
     $(".act-history-pay-detail").css('display','none');
     $('.act-content').css({display:'block'});
 }
-
 function get_user_info() {
-    // var url='http://'+localHost+'/api_s/account';
-    var url='http://www.essential.com.cn/api_s/account';
+    var url='http://'+localHost+'/api_s/account';
+    // var url='http://www.essential.com.cn/api_s/account';
     $.ajax({
         url: url,
         dataType: "json",
         type: "get",
         success: function (data) {
-            console.log(JSON.stringify(data))
-            
             if(data.expire_time==undefined){
                 authorize();
             }else {
                 userInfo=data;
-                alert(userInfo.year_fee_count)
                 if (userInfo.year_fee_count==null){
                     $(".act-recharge-btn").css({background:'rgba(90,97,108,.2)',color:'rgba(255,255,255,.3)'});
                 }
@@ -435,27 +437,26 @@ function go_to_buy_member(){
     window.location.href="http://"+localHost+"/year_fee";
 }
 function recharge() {
-    if(userInfo.year_fee_count>0){
-        $("#recharge").css("display","block");
-        $(".act-popup-container").css("display","block");
+    if(userInfo.year_fee_count>0) {
+        $("#recharge").css("display", "block");
+        $(".act-popup-container").css("display", "block");
         document.getElementById("recharge-input").focus();
         account_recharge();
-        $("#recharge-input").focus(function(){
+        $("#recharge-input").focus(function () {
             account_recharge();
         });
-        $("#recharge-input").blur(function(){
-            setTimeout(function(){
-                $(".act-promo-enter").css({"top":"","margin-top":""});
-            },200)
+        $("#recharge-input").blur(function () {
+            setTimeout(function () {
+                $(".act-promo-enter").css({"top": "", "margin-top": ""});
+            }, 200)
         });
         $("#recharge-input").val("");
-        promo_code=document.getElementById('recharge-input');
-        promo_code_value=promo_code.value;
+        promo_code = document.getElementById('recharge-input');
+        promo_code_value = promo_code.value;
         timer_promo = setInterval(promoCodes, 100);
-    }else {
+    }else{
         $(".act-recharge-btn").css({background:'rgba(90,97,108,.2)',color:'rgba(255,255,255,.3)'});
     }
-
 }
 function promoCodes()
 {
@@ -478,8 +479,8 @@ function account_recharge() {
     }
 }
 function get_order_change() {
-// var url='http://'+localHost+'/api_s/order_history?page='+orderpage;
-    var url='http://www.essential.com.cn/api_s/order_history?page='+orderpage;
+var url='http://'+localHost+'/api_s/order_history?page='+orderpage;
+    // var url='http://www.essential.com.cn/api_s/order_history?page='+orderpage;
     $.ajax({
         url: url,
         dataType: "json",
@@ -487,10 +488,9 @@ function get_order_change() {
         success: function (data) {
             orderHistory=orderHistory.concat(data);
             currentorderhistory=data;
-            orderHistory.sort(function (a, b) {return Date.parse(b.pay_time) - Date.parse(a.pay_time);});
-            console.log(JSON.stringify(orderHistory));
+            orderHistory.sort(function (a, b) {return Date.parse(b.pay_time.replace('-','/').replace('-','/')) - Date.parse(a.pay_time.replace('-','/').replace('-','/'));});
+            console.log(JSON.stringify(orderHistory))
             if (orderHistory.length!=0) {
-               
                 reload_order_change();
             }else{
                 $(".act-acount-month").html('');
@@ -554,7 +554,7 @@ function reload_order_change() {
                         '<div class="act-history-date">'+pay_timearr[1]+'月'+pay_timearr[2]+'日'+'&nbsp;'+date+'<span class="act-refund">&nbsp;refundacount</span>' +
                         '</div></div>' +
                         '</div>' +
-                        '<div class="act-history-price"><span class="minus"></span><span class="minus-prices">¥'+orderHistory[k].order_price/100+'</span></div></li>';
+                        '<div class="act-history-price"><span class="minus">-</span><span class="minus-prices">¥'+orderHistory[k].order_price/100+'</span></div></li>';
                     var refundmoney=0;
                     if(orderHistory[k].refund_records.length!=0){
                         for(var r=0;r<orderHistory[k].refund_records.length;r++){
@@ -570,7 +570,7 @@ function reload_order_change() {
                         li=li.replace('refundacount',' ');
                     }
                     if(orderHistory[k].auto_order_type==1){
-                        li=li.replace('ordername','购买会员');
+                        li=li.replace('ordername','购买Standard会员一年');
                     }else{
                         li=li.replace('ordername',orderHistory[k].order_name)
                     }
@@ -603,13 +603,6 @@ function reload_order_change() {
                 var ordername=history.order_name;
                 var paymethod=history.pay_method;
                 var orderstatus=history.order_status;
-
-                if(history.auto_order_type==1){
-                    ordername='购买会员';
-                }
-                if(ordername.indexOf('充值')!=-1){
-                    ordername='充值';
-                }
                 if(paymethod==0){
                     paymethod='未支付';
                 }
@@ -617,6 +610,31 @@ function reload_order_change() {
                     paymethod='余额支付';
                 }else if(paymethod==2){
                     paymethod='微信支付';
+                }
+                if(history.auto_order_type==1){
+                    ordername='购买Standard会员一年';
+                    if(orderstatus==2){
+                        orderstatus='支付成功';
+                        paymethod='微信支付';
+                    }
+                    if(orderstatus==1){
+                        orderstatus='未支付';
+                        paymethod='未支付';
+                    }
+                }
+                if(ordername.indexOf('充值')!=-1){
+                    ordername='充值';
+                    if(orderstatus==1){
+                        orderstatus='支付成功';
+                        paymethod='微信支付';
+                    }
+                    if(orderstatus==0){
+                        orderstatus='未支付';
+                        paymethod='未支付';
+                    }
+
+                }else
+                {
                 }
                 if(history.refund_records.length==0){
                     if(orderstatus==2){
@@ -633,7 +651,7 @@ function reload_order_change() {
                     if(refundmoney/100==history.order_price/100){
                         orderstatus='已全额退款';
                     }else{
-                        orderstatus='已退款 ¥'+refundmoney;
+                        orderstatus='已退款 ¥'+refundmoney/100;
                     }
                 }
                 $(".history-detail").html(ht.replace('ordername',ordername).replace('paymethod',paymethod).replace('orderstatus',orderstatus).replace('paytime',history.pay_time).replace('orderid',history.order_id))

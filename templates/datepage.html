@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>差旅助手</title>
+    <title>约会助理</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0"/>
     <meta name="x5-fullscreen" content="true">
     <meta name="full-screen" content="yes">
@@ -16,7 +16,7 @@
             padding: 0px;
             color: #ffffff;
             font:normal 100% 'Hiragino Sans GB',Helvetica,'Microsoft YaHei','冬青黑体简体中文 W3';
-            background-image: url('../static/images/s_trip_bg.png');
+            background-image: url('../static/images/s_date_bg.png');
             background-repeat: no-repeat;
             background-position: 50% 0;
             -webkit-background-size:100% 100%;
@@ -29,10 +29,9 @@
     </style>
 </head>
 <body class="bg trip">
-<!--<div class="standard-detail standard-detail-coffee"><div class="flexbox">现在仅支持北京、上海、广州和杭州购买星巴克。</div><div class="shouqi" onclick="disable_title()">收起 <span class="upicon"></span></div></div>-->
 <div id="positionErr" style="position: absolute;top: -200px;"></div>
 <div></div>
-<div class="pack_menu_list pack_menu_list_trip">
+<div class="pack_menu_list pack_menu_list_date">
     <ul class="pack_menu_list_ul">
         <li class="s_invite_friend" onclick="get_user_code()" >邀请朋友</li>
         <li class="s_entert_promocode" onclick="enter_promo_code()" >输入优惠码</li>
@@ -45,19 +44,19 @@
     <div class="mrs dialog-infos" id="dialog-info">
         <div class="loader"></div>
         <div class="scrollWrap" id="conv_content">
-            <div class="change"><div class="changeWord changeWord-trip"></div><span class="changeHuashu"></span></div>
+            <div class="change"><div class="changeWord changeWord-date"></div><span class="changeHuashu"></span></div>
             <div id='changeDialog' class='changeDialog changeDialog-coffee'></div>
         </div>
     </div>
     <div class="testEdit testEdit_trip" onclick="go_to_mrs()"></div>
     <div id="dialog" class="dialog">
-        <div class="follow_title follow_title_trip">
+        <div class="follow_title follow_title_date">
             <div class="follows follows_coffee">关注S先生，才能收到行程的安排</div>
             <div class="follows-sqr"><span  onclick="menuList_coffee()">关注</span></div>
         </div>
-        <form class="con_dialogForm con_dialogForm_trip" action="#" onsubmit="return false" >
+        <form class="con_dialogForm con_dialogForm_date" action="#" onsubmit="return false" >
             <input placeholder="点击输入..." id="dialog-input" type="text" class="con_dialog_input">
-            <span class="pack_menu_conv pack_menu_conv_trip" onclick="select_server()"><span></span><span></span></span>
+            <span class="pack_menu_conv pack_menu_conv_date" onclick="select_server()"><span></span><span></span></span>
         </form>
     </div>
 </div>
@@ -89,16 +88,16 @@
                 <rect id="svg_2" width="100%" height="100%" y="0" x="0" fill="url(#svg_3)"/>
             </g>
         </svg>
-        <div id="server_infomation" class="bg_style bg_style_trip">
-            <div class="server_img server_img_trip"><img class="server_imgage server_imgage_trip" src="../static/images/server_trip_ico.png"></div>
-            <div class="server_intro server_intro_trip">
-                差旅助手
-                <div class="server_intro_info server_intro_info_coffee">要出差？我帮你安排全程。从机票酒店专车接送，到目的地的会议餐选择。</div>
+        <div id="server_infomation" class="bg_style bg_style_date">
+            <div class="server_img server_img_date"><img class="server_imgage server_imgage_date" src="../static/images/server_date_ico.png"></div>
+            <div class="server_intro server_intro_date">
+                约会助理
+                <div class="server_intro_info server_intro_info_coffee">需要一次精致的约会，又抽不时间？交给我来安排，你们享受彼此就好。</div>
             </div>
             <div class="server_intro2 server_intro2_coffee">
                 <div class="enter_code">
                     <div class="enter_code_coffee">输入邀请码</div>
-                    <input value="trip" type="text" class="input_code input_code_coffee" id="input_code">
+                    <input value="date" type="text" class="input_code input_code_coffee" id="input_code">
                     <div class="code_error">邀请码错误</div>
                 </div>
             </div>
@@ -111,7 +110,7 @@
                 </li>
             </ul>
         </div>
-        <div class="start_select_server start_select_server_trip" onclick="proving_code_coffee()">
+        <div class="start_select_server start_select_server_date" onclick="proving_code_coffee()">
             <span class="kaishi_sel kaishi_sel_coffee">开始使用</span>
             <div class="start_trail">
                 <div class="detail_rate"><span class="detail_selected">0</span>/<span class="detail_total_len"></span></div>
@@ -124,9 +123,9 @@
 <div class="popup_container" id="user_code_con">
     <div class="screen-shot-prompt">截图分享给朋友, 可直接通过长按扫码输入邀请码</div>
     <div class="invite_friend common_popups">
-        <div class="invite_friend2 invite_friend2_trip">
+        <div class="invite_friend2 invite_friend2_date">
             <div class='detail_close' onclick='close_code()'></div>
-            <div class="invite_img"><img src="../static/images/s_invite_code_trip.png"></div>
+            <div class="invite_img"><img src="../static/images/s_invite_code_date.png"></div>
             <div class="invite_content">
                 <div class="invite_friends"></div>
                 <div class="invite_intro"></div>
@@ -136,12 +135,12 @@
                 <div class="user_code">code_user</div>
             </div>
             <div class="code-line"></div>
-            <img class="code_qr" src="../static/images/s_code_qr_trip.png">
+            <img class="code_qr" src="../static/images/s_code_qr_date.png">
         </div>
     </div>
 </div>
 <div class="popup_container" id="promo_code">
-    <div class="promo_enter promo_enter_trip common_popups">
+    <div class="promo_enter promo_enter_date common_popups">
         <div class="detail_close" onclick="close_code()"></div>
         <div class="promo_container">
             <div class="enter_ur_promocode"><div class="ur_promo">输入你的优惠码</div></div>
@@ -166,12 +165,11 @@
 <script type="text/javascript" src="../static/js/mrs.js"></script>
 <script type="text/javascript" src="../static/js/server.js"></script>
 <script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-
 <script type="text/javascript">
-//    var open_id='{{open_id}}';
-  var open_id="123456";
-//    var corps="{{corps}}";
-  var corps="trip";
+    //    var open_id='{{open_id}}';
+    var open_id="123456";
+    //    var corps="{{corps}}";
+    var corps="date";
     var userCode=0,inviteCode=1,promoCode=2;
     var code=document.getElementById('input_code');
     var current_ref_num_owner_type=null;
@@ -181,10 +179,10 @@
     var wx_timestamp="{{timestamp}}";
     var wx_nonceStr="{{noncestr}}";
     var wx_signature="{{signature}}";
-    var shareImage='http://o7mo83p8r.bkt.clouddn.com/trip.jpg';
-    var shareFriendContent="要出差? 我可以帮你安排全程, 从机票就先专车接送, 到目的地的会议餐选择。";
-    var shareFriendTitle="差旅助手";
-    var shareTimelineTitle="我是你的差旅助手, 需要我帮助你安排出行计划?";
+    var shareImage='http://o7mo83p8r.bkt.clouddn.com/date.ai%20.png';
+    var shareFriendContent="需要一次精致的约, 又抽不出时间? 交给我来安排, 你们享受彼此就好。";
+    var shareFriendTitle="约会助理";
+    var shareTimelineTitle="我是你的约会助理, 需要我帮助你安排周末的约会吗?";
     function listenCode() {}
     $('.standard-detail').animate({top:'0px',display:"none"},200);
     $('.popup_container').bind('click',function(){

@@ -65,7 +65,11 @@ Chat.connect = (function(host) {
         if($(".socketClose")){
             $(".socketClose").remove();
         }
+        // if (open_id=='{{open_id}}'){
+        //     open_id=123456;
+        // }
         var logingObj={"open_id":open_id};
+        console.log(logingObj)
         Chat.socket.send(JSON.stringify(logingObj));
         document.getElementById('dialog-input').onkeydown = function(event){
             if (event.keyCode==13) {
@@ -86,6 +90,18 @@ Chat.connect = (function(host) {
             '</span>继续。</span></span></div>';
         if(corps=='coffee'){
             msg=msg.replace('cs-msg-content','cs-msg-content cs-msg-content-coffee').replace('cs_bubble','cs_bubble cs_bubble_coffee').replace('cs_avatars','cs_avatars_coffee')
+        }
+        if(corps=='trip'){
+            msg=msg.replace('cs-msg-content','cs-msg-content cs-msg-content-trip').replace('cs_bubble','cs_bubble cs_bubble_trip').replace('cs_avatars','cs_avatars_trip');
+        }
+        if(corps=='date'){
+            msg=msg.replace('cs-msg-content','cs-msg-content cs-msg-content-date').replace('cs_bubble','cs_bubble cs_bubble_date').replace('cs_avatars','cs_avatars_date');
+        }
+        if(corps=='lunch'){
+            msg=msg.replace('cs-msg-content','cs-msg-content cs-msg-content-lunch').replace('cs_bubble','cs_bubble cs_bubble_lunch').replace('cs_avatars','cs_avatars_lunch');
+        }
+        if(corps=='KLM'){
+            msg=msg.replace('cs-msg-content','cs-msg-content cs-msg-content-klm').replace('cs_bubble','cs_bubble cs_bubble_klm').replace('cs_avatars','cs_avatars_klm');
         }
         var consoles = document.getElementById('conv_content');
         var p = document.createElement('p');
@@ -143,6 +159,15 @@ Chat.sendMessage = (function() {
         if(corps=='trip'){
             msg=msg.replace('user-msg-content','user-msg-content user-msg-content-trip').replace('bubbles','bubble-trip')
         }
+        if(corps=='date'){
+            msg=msg.replace('user-msg-content','user-msg-content user-msg-content-date').replace('bubbles','bubble-date')
+        }
+        if(corps=='lunch'){
+            msg=msg.replace('user-msg-content','user-msg-content user-msg-content-lunch').replace('bubbles','bubble-lunch')
+        }
+        if(corps=='KLM'){
+            msg=msg.replace('user-msg-content','user-msg-content user-msg-content-klm').replace('bubbles','bubble-klm')
+        }
         inputChange();
         Dialog.log(msg.replace("refnum",content.ref_num));
         var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
@@ -164,6 +189,18 @@ function inputChange(){
         '</div>';
         if (corps=='coffee'){
             message=message.replace('cs-msg-content','cs-msg-content cs-msg-content-coffee').replace('cs_bubble','cs_bubble cs_bubble_coffee').replace('cs_avatars','cs_avatars_coffee');
+        }
+        if (corps=='trip'){
+            message=message.replace('cs-msg-content','cs-msg-content cs-msg-content-trip').replace('cs_bubble','cs_bubble cs_bubble_trip').replace('cs_avatars','cs_avatars_trip');
+        }
+        if (corps=='date'){
+            message=message.replace('cs-msg-content','cs-msg-content cs-msg-content-date').replace('cs_bubble','cs_bubble cs_bubble_date').replace('cs_avatars','cs_avatars_date');
+        }
+        if (corps=='lunch'){
+            message=message.replace('cs-msg-content','cs-msg-content cs-msg-content-lunch').replace('cs_bubble','cs_bubble cs_bubble_lunch').replace('cs_avatars','cs_avatars_lunch');
+        }
+        if (corps=='KLM'){
+            message=message.replace('cs-msg-content','cs-msg-content cs-msg-content-klm').replace('cs_bubble','cs_bubble cs_bubble_klm').replace('cs_avatars','cs_avatars_klm');
         }
         Dialog.log(message);
     }
@@ -205,7 +242,26 @@ packageHandler.process=(function(msg){
                     prologs.push(msgObj.content.prologs[i]);
                     flag++;
                 }
-            }else{
+            }
+            else if(corps=='date'){
+                if(msgObj.content.prologs[i].corps_group==3){
+                    prologs.push(msgObj.content.prologs[i]);
+                    flag++;
+                }
+            }
+            else if(corps=='lunch'){
+                if(msgObj.content.prologs[i].corps_group==4){
+                    prologs.push(msgObj.content.prologs[i]);
+                    flag++;
+                }
+            }
+            else if(corps=='KLM'){
+                if(msgObj.content.prologs[i].corps_group==5){
+                    prologs.push(msgObj.content.prologs[i]);
+                    flag++;
+                }
+            }
+            else{
                 if(msgObj.content.prologs[i].corps_group==0){
                     prologs.push(msgObj.content.prologs[i])
                 }
@@ -275,6 +331,18 @@ packageHandler.process=(function(msg){
                         if(corps=='coffee'){
                             msges.replace('bubble','bubble-coffee')
                         }
+                        if(corps=='trip'){
+                            msges.replace('bubble','bubble-trip')
+                        }
+                        if(corps=='date'){
+                            msges.replace('bubble','bubble-date')
+                        }
+                        if(corps=='lunch'){
+                            msges.replace('bubble','bubble-lunch')
+                        }
+                        if(corps=='KLM'){
+                            msges.replace('bubble','bubble-klm')
+                        }
                         $("#changeDialog").css("display","none");
                         $("#changeDialog").html("");
                         $("#dialog").css("display",'block');
@@ -325,7 +393,36 @@ packageHandler.process=(function(msg){
                     '<div class="cs_avatars cs_avatars_coffee"><div class="avatar"></div></div><span class="cs_bubble cs_bubble_coffee"></span>' +
                     '<span class="cs-msg-content cs-msg-content-coffee">' + msgObj.content.msg + '</span>'+
                     '</div>';
-            }else{
+            }
+            else if (corps=='trip'){
+                message=
+                    '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
+                    '<div class="cs_avatars cs_avatars_trip"><div class="avatar"></div></div><span class="cs_bubble cs_bubble_trip"></span>' +
+                    '<span class="cs-msg-content cs-msg-content-trip">' + msgObj.content.msg + '</span>'+
+                    '</div>';
+            }
+            else if (corps=='KLM'){
+                message=
+                    '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
+                    '<div class="cs_avatars cs_avatars_klm"><div class="avatar"></div></div><span class="cs_bubble cs_bubble_klm"></span>' +
+                    '<span class="cs-msg-content cs-msg-content-klm">' + msgObj.content.msg + '</span>'+
+                    '</div>';
+            }
+            else if (corps=='date'){
+                message=
+                    '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
+                    '<div class="cs_avatars cs_avatars_date"><div class="avatar"></div></div><span class="cs_bubble cs_bubble_date"></span>' +
+                    '<span class="cs-msg-content cs-msg-content-date">' + msgObj.content.msg + '</span>'+
+                    '</div>';
+            }
+            else if (corps=='lunch'){
+                message=
+                    '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
+                    '<div class="cs_avatars cs_avatars_lunch"><div class="avatar"></div></div><span class="cs_bubble cs_bubble_lunch"></span>' +
+                    '<span class="cs-msg-content cs-msg-content-lunch">' + msgObj.content.msg + '</span>'+
+                    '</div>';
+            }
+            else{
                 message=
                     '<div class="cs-msg" id="'+(msgObj.content.timestamp*1000)+'">' +
                     '<div class="cs_avatars"><div class="avatar"></div></div><span class="cs_bubble"></span>' +
@@ -339,6 +436,15 @@ packageHandler.process=(function(msg){
             }
             else if(corps=='trip'){
                 message='<div class="user-msg"><span class="user-msg-content user-msg-content-trip">' + msgObj.content.msg + '</span></div>';
+            }
+            else if(corps=='KLM'){
+                message='<div class="user-msg"><span class="user-msg-content user-msg-content-klm">' + msgObj.content.msg + '</span></div>';
+            }
+            else if(corps=='date'){
+                message='<div class="user-msg"><span class="user-msg-content user-msg-content-date">' + msgObj.content.msg + '</span></div>';
+            }
+            else if(corps=='lunch'){
+                message='<div class="user-msg"><span class="user-msg-content user-msg-content-lunch">' + msgObj.content.msg + '</span></div>';
             }else{
                 message='<div class="user-msg"><span class="user-msg-content">' + msgObj.content.msg + '</span></div>';
             }
@@ -439,6 +545,98 @@ ref_date.process=(function(msg){
                 Dialog.log(msges.replace("refnum",msg.ref_num));
                 var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
                 conv_list.unshift(msgcon);
+            }
+            else if(corps=='trip'){
+                $(".popup_container").css("display",'none');
+                var msges='<div class="user-msg" id="refnum">' +
+                    '<span class="user-msg-content user-msg-content-trip" >帮我安排行程' +
+                    '</span>' +
+                    '<span class="user-avatar"><span class="bubble bubble-trip"></span><img src=" '+user_avatar+'"></span>' +
+                    '</div>';
+                $("#changeDialog").css("display","none");
+                $("#changeDialog").html("");
+                $("#dialog").css("display",'block');
+                if($(".change").text()==""){
+                    $(".change").css("display","none");
+                }
+                $(".change").css("display","none");
+                $(".weather").css("display","none");
+                $(".click_me").css("display","none");
+                var content={"msg":"帮我安排行程","ref_num":transdate()};
+                var comObj={"code":501,"subcode":0,"content":content};
+                Chat.socket.send(JSON.stringify(comObj));
+                Dialog.log(msges.replace("refnum",msg.ref_num));
+                var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                conv_list.unshift(msgcon);
+            }
+            else if(corps=='KLM'){
+                $(".popup_container").css("display",'none');
+                var msges='<div class="user-msg" id="refnum">' +
+                    '<span class="user-msg-content user-msg-content-klm" >我需要预定荷航的机票' +
+                    '</span>' +
+                    '<span class="user-avatar"><span class="bubble bubble-klm"></span><img src=" '+user_avatar+'"></span>' +
+                    '</div>';
+                $("#changeDialog").css("display","none");
+                $("#changeDialog").html("");
+                $("#dialog").css("display",'block');
+                if($(".change").text()==""){
+                    $(".change").css("display","none");
+                }
+                $(".change").css("display","none");
+                $(".weather").css("display","none");
+                $(".click_me").css("display","none");
+                var content={"msg":"我需要预定荷航的机票","ref_num":transdate()};
+                var comObj={"code":501,"subcode":0,"content":content};
+                Chat.socket.send(JSON.stringify(comObj));
+                Dialog.log(msges.replace("refnum",msg.ref_num));
+                var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                conv_list.unshift(msgcon);
+            }
+            else if(corps=='date'){
+                $(".popup_container").css("display",'none');
+                var msges='<div class="user-msg" id="refnum">' +
+                    '<span class="user-msg-content user-msg-content-date" >帮我安排约会' +
+                    '</span>' +
+                    '<span class="user-avatar"><span class="bubble bubble-date"></span><img src=" '+user_avatar+'"></span>' +
+                    '</div>';
+                $("#changeDialog").css("display","none");
+                $("#changeDialog").html("");
+                $("#dialog").css("display",'block');
+                if($(".change").text()==""){
+                    $(".change").css("display","none");
+                }
+                $(".change").css("display","none");
+                $(".weather").css("display","none");
+                $(".click_me").css("display","none");
+                var content={"msg":"帮我安排约会","ref_num":transdate()};
+                var comObj={"code":501,"subcode":0,"content":content};
+                Chat.socket.send(JSON.stringify(comObj));
+                Dialog.log(msges.replace("refnum",msg.ref_num));
+                var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                conv_list.unshift(msgcon);
+            }
+            else if(corps=='lunch'){
+                $(".popup_container").css("display",'none');
+                var msges='<div class="user-msg" id="refnum">' +
+                    '<span class="user-msg-content user-msg-content-lunch" >帮我安排午餐' +
+                    '</span>' +
+                    '<span class="user-avatar"><span class="bubble bubble-lunch"></span><img src=" '+user_avatar+'"></span>' +
+                    '</div>';
+                $("#changeDialog").css("display","none");
+                $("#changeDialog").html("");
+                $("#dialog").css("display",'block');
+                if($(".change").text()==""){
+                    $(".change").css("display","none");
+                }
+                $(".change").css("display","none");
+                $(".weather").css("display","none");
+                $(".click_me").css("display","none");
+                var content={"msg":"帮我安排午餐","ref_num":transdate()};
+                var comObj={"code":501,"subcode":0,"content":content};
+                Chat.socket.send(JSON.stringify(comObj));
+                Dialog.log(msges.replace("refnum",msg.ref_num));
+                var msgcon={"timestamp":(content.ref_num-23000),"record_text":content.msg,"cs_id":0};
+                conv_list.unshift(msgcon);
             }else if(corps=='activity'){
                 $(".popup_container").css("display",'none');
                 var msges='<div class="user-msg" id="refnum">' +
@@ -495,13 +693,15 @@ function reload_user_owner_code() {
     var restnum=user_owner_code.allow_count-user_owner_code.used_count;
     var in_friend='';
     var title='';
-    if(restnum>0){
-        in_friend='你可以邀请<span class="restnum">'+restnum+'</span>个朋友使用';
-        title='S先生需要邀请才可以使用，分享邀请码给你的朋友，你们将同时获得duration_to_owner天的使用时间。';
-    }else{
-        in_friend='你的邀请机会已经用完';
-        title='S先生需要邀请才可以使用，你目前无法邀请新的朋友使用S先生。';
-    }
+    // if(restnum>0){
+        // in_friend='你可以邀请<span class="restnum">'+restnum+'</span>个朋友使用';
+        in_friend='你可以邀请朋友使用';
+        // title='S先生需要邀请才可以使用，分享邀请码给你的朋友，你们将同时获得duration_to_owner天的使用时间。';
+        title='本服务需要邀请才可以使用。请等待下批邀请码的发放';
+    // }else{
+    //     in_friend='你的邀请机会已经用完';
+    //     title='S先生需要邀请才可以使用，你目前无法邀请新的朋友使用S先生。';
+    // }
     $("#user_code_con").css("display","block");
     $(".invite_friends").html(in_friend);
     $(".invite_intro").html(title);
@@ -573,26 +773,36 @@ function reload_mrs_page(user_info){
         }
     }else {//不在kv包里面
         if(isSelected==0){
-            $("#server_select_contain").css("display","block");
-            overscroll(document.querySelector('.bg_style'));
-            overscroll(document.querySelector('.popup_container'));
-            $("#input_code").focus(function(){
-                setTimeout(function(){
-                    $(".add_long").css("height",browser_hei+browser_hei*0.5);
-                    $(".popup_container").scrollTop(browser_hei*0.4);
-                    $(document).scrollTop(0);
-                    $(document).css("scroll","hidden");
-                },200);
-            });
-            $("#input_code").blur(function(){
-                setTimeout(function(){
-                    $(".add_long").css("height",'0px');
-                    $(".popup_container").scrollTop(0)
-                    $(document).scrollTop(0);
-                },200)
-            });
-            timer=setInterval(listenCode,100);
-            $(".testEdit").css("display",'block');
+            // if(corps=='KLM'){
+            if(user_info.is_continue==true){
+                query_msg_pack();
+            }
+            if(user_info.is_continue==false){
+                reload_index();
+            }
+            // }else{
+            //     $("#server_select_contain").css("display","block");
+            //     overscroll(document.querySelector('.bg_style'));
+            //     overscroll(document.querySelector('.popup_container'));
+            //     $("#input_code").focus(function(){
+            //         setTimeout(function(){
+            //             $(".add_long").css("height",browser_hei+browser_hei*0.5);
+            //             $(".popup_container").scrollTop(browser_hei*0.4);
+            //             $(document).scrollTop(0);
+            //             $(document).css("scroll","hidden");
+            //         },200);
+            //     });
+            //     $("#input_code").blur(function(){
+            //         setTimeout(function(){
+            //             $(".add_long").css("height",'0px');
+            //             $(".popup_container").scrollTop(0)
+            //             $(document).scrollTop(0);
+            //         },200)
+            //     });
+            //     timer=setInterval(listenCode,100);
+            //     $(".testEdit").css("display",'block');
+            // }
+
         }else {
             // if (expireTimeStamp==0){$(".days_num").html("00")}
             // else {
@@ -663,7 +873,7 @@ function send_index_con() {
 function reload_index(){
     var browser_hei=$(window).height();
     $(".container").css("height",browser_hei);
-    $(".standard-detail-coffee").css("display",'flex');
+    // $(".standard-detail-coffee").css("display",'flex');
     $("#dialog-info").css("height",browser_hei);
     if($("#dialog").css("display")=="none"){
         $(".change").css("display","block");
@@ -701,7 +911,9 @@ function show_prologs(pro){
             "<input type='text' placeholder='"+pro[current_start_weight].prolog_1.replace("S先生","Enjoy")+"' id='dialog-input' class='dialog-input' title='send' >" +
             "<span class='index_send_message'>发送</span>" +
             "</form>" +
-            "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
+            "</div>"
+            // +"<div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>"
+        );
         input_focus_blur(pro)
     }
     else if(corps==undefined){
@@ -711,8 +923,9 @@ function show_prologs(pro){
             "<form class='dialogForm' action='#' onsubmit='return false'>" +
             "<input type='text' placeholder='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input' title='send' >" +
             "<span class='index_send_message' onclick='send_index_con()'>发&nbsp;送</span> " +
-            "</form>"+
-            "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
+            "</form></div>"
+            // + "<div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>"
+        );
         $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
         input_focus_blur(pro)
     }
@@ -740,6 +953,42 @@ function show_prologs(pro){
         $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
         input_focus_blur_coffee(pro)
     }
+    else if(corps=='date'){
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+ "<span></span><div></div></span>");
+        $("#changeDialog").html("<div class='symbol symbol_coffee'></div>" +
+            "<div class='input_index input_index_coffee'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
+            "<input type='text' value='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input dialog-input-coffee' title='send' >" +
+            "<span class='index_send_message index_send_message_date' onclick='send_index_con()'>发&nbsp;送</span> " +
+            "</form>"+
+            "</div>" );
+        $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+        input_focus_blur_coffee(pro)
+    }
+    else if(corps=='lunch'){
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+ "<span></span><div></div></span>");
+        $("#changeDialog").html("<div class='symbol symbol_coffee'></div>" +
+            "<div class='input_index input_index_coffee'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
+            "<input type='text' value='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input dialog-input-coffee' title='send' >" +
+            "<span class='index_send_message index_send_message_lunch' onclick='send_index_con()'>发&nbsp;送</span> " +
+            "</form>"+
+            "</div>" );
+        $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+        input_focus_blur_coffee(pro)
+    }
+    else if(corps=='KLM'){
+        $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+ "<span></span><div></div></span>");
+        $("#changeDialog").html("<div class='symbol symbol_coffee'></div>" +
+            "<div class='input_index input_index_coffee'>" +
+            "<form class='dialogForm' action='#' onsubmit='return false'>" +
+            "<input type='text' placeholder='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input dialog-input-coffee' title='send' >" +
+            "<span class='index_send_message index_send_message_klm' onclick='send_index_con()'>发&nbsp;送</span> " +
+            "</form>"+
+            "</div>" );
+        $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
+        input_focus_blur_coffee(pro)
+    }
     else{
         $(".changeHuashu").html("<span>"+pro[current_start_weight].prolog_0.replace("user_name",userName).replace("residue_times",total_trail_time-current_trail_time)+"<span></span><div></div></span>");
         $("#changeDialog").html("<div class='symbol'></div>" +
@@ -748,7 +997,9 @@ function show_prologs(pro){
             "<input type='text' placeholder='"+pro[current_start_weight].prolog_1+"' id='dialog-input' class='dialog-input' title='send' >" +
             "<span class='index_send_message' onclick='send_index_con()'>发&nbsp;送</span> " +
             "</form>"+
-            "</div><div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>" );
+            "</div>"
+            // + "<div class='dosometihing'><span class='click_me' id='click_me' onclick='change_prologs()'>换一个</span></div>"
+        );
         $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
         input_focus_blur(pro)
     }
@@ -798,7 +1049,7 @@ function input_focus_blur_coffee(pro) {
         },200)
     });
 }
-function input_focus_blur() {
+function input_focus_blur(pro) {
     var ua = navigator.userAgent.toLowerCase();
     $("#dialog-input").focus(function(){
         browser_hei=$(window).height();
@@ -1024,7 +1275,6 @@ function random_weight(prologs,s){//随机权重数
                 }
             }
         }
-
             prologs_num.push(current_weight);
             prologs_num.splice(0,1);
             return current_weight;
@@ -1069,6 +1319,18 @@ function reload_conv_list(conv_list){
                 msg=msg.replace('user-msg-content','user-msg-content user-msg-content-trip').replace('cs-msg-content','cs-msg-content cs-msg-content-trip')
                     .replace('cs_bubble','cs_bubble cs_bubble_trip').replace('cs_avatars','cs_avatars_trip').replace('bubbles','bubble-trip')
             }
+            if(corps=='date'){
+                msg=msg.replace('user-msg-content','user-msg-content user-msg-content-date').replace('cs-msg-content','cs-msg-content cs-msg-content-date')
+                    .replace('cs_bubble','cs_bubble cs_bubble_date').replace('cs_avatars','cs_avatars_date').replace('bubbles','bubble-date')
+            }
+            if(corps=='lunch'){
+                msg=msg.replace('user-msg-content','user-msg-content user-msg-content-lunch').replace('cs-msg-content','cs-msg-content cs-msg-content-lunch')
+                    .replace('cs_bubble','cs_bubble cs_bubble_lunch').replace('cs_avatars','cs_avatars_lunch').replace('bubbles','bubble-lunch')
+            }
+            if(corps=='KLM'){
+                msg=msg.replace('user-msg-content','user-msg-content user-msg-content-klm').replace('cs-msg-content','cs-msg-content cs-msg-content-klm')
+                    .replace('cs_bubble','cs_bubble cs_bubble_klm').replace('cs_avatars','cs_avatars_klm').replace('bubbles','bubble-klm')
+            }
             Dialog.log(msg);
             $("#dialog").css("display",'block');
 
@@ -1103,6 +1365,18 @@ function reload_conv_list(conv_list){
                 if(corps=='trip'){
                     msg=msg.replace('user-msg-content','user-msg-content user-msg-content-trip').replace('cs-msg-content','cs-msg-content cs-msg-content-trip')
                         .replace('cs_bubble','cs_bubble cs_bubble_trip').replace('cs_avatars','cs_avatars_trip').replace('bubbles','bubble-trip')
+                }
+                if(corps=='KLM'){
+                    msg=msg.replace('user-msg-content','user-msg-content user-msg-content-klm').replace('cs-msg-content','cs-msg-content cs-msg-content-klm')
+                        .replace('cs_bubble','cs_bubble cs_bubble_klm').replace('cs_avatars','cs_avatars_klm').replace('bubbles','bubble-klm')
+                }
+                if(corps=='date'){
+                    msg=msg.replace('user-msg-content','user-msg-content user-msg-content-date').replace('cs-msg-content','cs-msg-content cs-msg-content-date')
+                        .replace('cs_bubble','cs_bubble cs_bubble_date').replace('cs_avatars','cs_avatars_date').replace('bubbles','bubble-date')
+                }
+                if(corps=='lunch'){
+                    msg=msg.replace('user-msg-content','user-msg-content user-msg-content-lunch').replace('cs-msg-content','cs-msg-content cs-msg-content-lunch')
+                        .replace('cs_bubble','cs_bubble cs_bubble_lunch').replace('cs_avatars','cs_avatars_lunch').replace('bubbles','bubble-lunch')
                 }
                 var consoles = $('#conv_content');
                 var p = document.createElement('p');
@@ -1272,7 +1546,21 @@ function menuList(){
 function menuList_coffee() {
     document.getElementById("menu_list_coffee").innerHTML="";
     var div=document.createElement("div");
-    div.className='menuDiv-coffee';
+    if(corps=='coffee'){
+        div.className='menuDiv-coffee';
+    }
+    if(corps=='trip'){
+        div.className='menuDiv-trip'
+    }
+    if(corps=='KLM'){
+        div.className='menuDiv-trip'
+    }
+    if(corps=='date'){
+        div.className='menuDiv-date'
+    }
+    if(corps=='lunch'){
+        div.className='menuDiv-lunch'
+    }
     div.innerHTML="<img src='/static/images/s_qr_coffee.png' width='135px' height='135px' style='display: block;background-color: white'>" +
         "<div style='width: 135px;color:rgba(255,255,255,.6);text-align: center;font-size: 12px;position: absolute;line-height: 27px;'>长按二维码识别</div>";
     document.getElementById("menu_list_coffee").appendChild(div);
@@ -1306,10 +1594,11 @@ function orientationChange(){
     var orientation = window.orientation;
     if(orientation == 0 || orientation == 180){
         //添加竖屏操作
+        $('body,html').css("height",'100%');
         document.activeElement.blur('dialog-input');
         if( $(".change").css("display")=="block"){
             setTimeout(function () {
-                if (corps=='coffee'){
+                if (corps=='coffee'||corps=='trip'||corps=='date'||corps=='lunch'||corps=='KLM'){
                     $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
                 }else{
                     $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
@@ -1349,6 +1638,9 @@ function orientationChange(){
         },500)
         $(".con_dialogForm").css("width",dialogw-parseInt($("#menu").css("width"))-20+"px");
         $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+        if(corps=='KLM'){
+            $(".con_dialogForm input").css("width",'100%');
+        }
     }
     else if(Math.abs(orientation) == 90){
         //添加横屏操作
@@ -1361,7 +1653,7 @@ function orientationChange(){
         var browser_hei=$(window).height();
         if( $(".change").css("display")=="block"){
             setTimeout(function () {
-                if (corps=='coffee'){
+                if (corps=='coffee'||corps=='trip'||corps=='date'||corps=='lunch'||corps=='KLM'){
                     $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-80+"px");
                 }else{
                     $("input.dialog-input").css("width",parseInt($(".dialogForm").css("width"))-45+"px");
@@ -1385,6 +1677,9 @@ function orientationChange(){
         $("#server_infomation").css({"width":"100%","height":serverHeight-50});
         $(".bg_style").css({"background-size":''+serverWidth+'px'+' '+(serverHeight-50)+'px'+''});
         $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+        if(corps=='KLM'){
+            $(".con_dialogForm input").css("width",'100%');
+        }
     }else{
 
     }
@@ -1395,6 +1690,9 @@ $(document).ready(function(){
     initIndexShare();
     console.log(transdate());
     $(".con_dialogForm input").css("width",(parseInt($("#dialog").css("width"))-61));
+    if(corps=='KLM'){
+        $(".con_dialogForm input").css("width",'100%');
+    }
     $(".btn_start_use").html(service_btn);
     x=document.getElementById("positionErr");
     browser_hei=$(window).height();
@@ -1404,15 +1702,17 @@ $(document).ready(function(){
     var serverWidth=parseInt($("#server_select").css("width"));
     var serverHeight=parseInt($("#server_select").css("height"));
     if(serverWidth>369){
-        serverWidth=369;
+        // serverWidth=369;
         serverHeight=590.4;
-    //     // $("#server_select").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
-    //     // $(".invite_friend").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
+        // $("#server_select").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
+        // $(".invite_friend").css({"margin-top":-1*serverHeight/2,"margin-left":-1*serverWidth/2});
     }
     $("#server_infomation").css({"width":"100%","height":serverHeight-50});
     $(".bg_style").css({"background-size":'100% 100%'});
-    $(".server_img").css("margin-top",'10vh')
-    $(".server_img_trip").css("margin-top",'15vh')
+    $(".server_img").css("margin-top",'10vh');
+    $(".server_img_trip").css("margin-top",'15vh');
+    $(".server_img_date").css("margin-top",'8.9vh');
+    $(".server_img_lunch").css("margin-top",'18vh');
      // $(".server_img img").css({"width":serverWidth*0.19});
     var enterwidth=parseInt($(".server_intro2").css("width"));
     $(".server_intro2").css("margin-left",-1*enterwidth/2);
@@ -1594,6 +1894,9 @@ function close_activity() {
 function now_open_member() {
     window.location.href="http://"+window.location.host+"/year_fee";
 }
+function go_to_mrs() {
+    window.location.href="http://"+window.location.host;
+}
 function reload_ur_account_coffee() {
 //    咖啡页面点击我的账户弹出提示
     if ($(".coffee-account").length<1){//不存在则显示
@@ -1609,6 +1912,12 @@ function reload_ur_account_coffee() {
             '<div class="now-open now-open-coffee" onclick="coffee_look_my_saccount()">查看我的S先生</div></div>';
         if(corps=='trip'){
             div.innerHTML=div.innerHTML.replace('coffee-account-container','coffee-account-container trip-account-container').replace('now-open-coffee','now-open-trip').replace('订咖啡','安排出行');
+        }
+        if(corps=='date'){
+            div.innerHTML=div.innerHTML.replace('coffee-account-container','coffee-account-container date-account-container').replace('now-open-coffee','now-open-date').replace('订咖啡','安排约会');
+        }
+        if(corps=='lunch'){
+            div.innerHTML=div.innerHTML.replace('coffee-account-container','coffee-account-container lunch-account-container').replace('now-open-coffee','now-open-lunch').replace('订咖啡','叫外卖');
         }
         document.body.appendChild(div);
         $('.coffee-account').bind('click',function(){
@@ -1643,6 +1952,15 @@ function reload_over_time_coffee() {
         '<div class="now-open now-open-coffee" onclick="now_open_member()">开通会员</div></div>';
     if(corps=='trip'){
         div.innerHTML=div.innerHTML.replace('coffee-expire-container','coffee-expire-container trip-expire-container').replace('now-open-coffee','now-open-trip');
+    }
+    if(corps=='KLM'){
+        div.innerHTML=div.innerHTML.replace('coffee-expire-container','coffee-expire-container klm-expire-container').replace('now-open-coffee','now-open-klm');
+    }
+    if(corps=='date'){
+        div.innerHTML=div.innerHTML.replace('coffee-expire-container','coffee-expire-container date-expire-container').replace('now-open-coffee','now-open-date');
+    }
+    if(corps=='lunch'){
+        div.innerHTML=div.innerHTML.replace('coffee-expire-container','coffee-expire-container lunch-expire-container').replace('now-open-coffee','now-open-lunch');
     }
     document.body.appendChild(div);
 };

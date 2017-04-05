@@ -30,7 +30,8 @@ function reload_server_list() {
             $('#dialog-info').css("height",diaTop+'px');
         },1000);
     }
-    var  div="<li class='borstyle' onclick='select_service(this)'>" +
+    //onclick='select_service(this)'
+    var  div="<li class='borstyle'>" +
         "<div class='server_list_lis'>" +
         "<div class='ser_btn_select'>" +
         "<span class='btn_sel btn_select_ser'></span>"+
@@ -52,12 +53,12 @@ function reload_server_list() {
         var serverList=server_lists[i];
         if (serverList.service_type!=0){
             $("ul.server_list").html($("ul.server_list").html()+div.replace('serviceimage',serverList.service_image_url)
-                    .replace('servername',serverList.service_name).replace("serverdesc",serverList.service_desc)
+                    .replace('servername',serverList.service_name).replace("serverdesc",serverList.service_desc+"。<span class='start_soon'>[即将开通]</span>")
                     .replace("serverid",serverList.service_id).replace("none",'inline-block'));
         }
         else{
                 $("ul.server_list").html($("ul.server_list").html()+div.replace('serviceimage',serverList.service_image_url)
-                    .replace('servername',serverList.service_name).replace("serverdesc",serverList.service_desc)
+                    .replace('servername',serverList.service_name).replace("serverdesc",serverList.service_desc+"。<span class='start_soon'>[即将开通]</span>")
                     .replace("serverid",serverList.service_id));
         }
     }
@@ -87,7 +88,7 @@ function reload_server_list() {
                     $(".service-name:eq("+i+")").parent().parent().parent().parent().find("span.btn_sel").attr("class","btn_sel btn_selected_ser");
                     $(".service-name:eq("+i+")").parent().parent().parent().parent().attr("onclick","");
                     var selectednum=parseInt($(".detail_selected").html());
-                    $(".detail_selected").html(selectednum+1);
+                    // $(".detail_selected").html(selectednum+1);
                     $(".btn_start_use").css("color","rgb(255, 255, 255)");
                 }
             })
@@ -105,7 +106,7 @@ function select_service(li) {
         if($(li).find("span.btn_sel").attr("class")=="btn_sel btn_select_ser"){
             $(li).find("span.btn_sel").attr("class","btn_sel btn_selected_ser");
             var selectednum=parseInt($(".detail_selected").html());
-            $(".detail_selected").html(selectednum+1);
+            // $(".detail_selected").html(selectednum+1);
             $(".btn_start_use").css("color","rgb(255, 255, 255)");
             if(kvs.length==0){
                 service_btn="开&nbsp;始";
@@ -114,7 +115,7 @@ function select_service(li) {
         }else{
             var selectednum=parseInt($(".detail_selected").html());
             var selectname=$(li).find(".service-name").html();
-            $(".detail_selected").html(selectednum-1);
+            // $(".detail_selected").html(selectednum-1);
 
             if(kvkeywords.indexOf(selectname)==-1){
                 $(li).find("span.btn_sel").attr("class","btn_sel btn_select_ser");
@@ -294,6 +295,7 @@ function send_promo_code() {
     }
 }
 function enter_promo_code(){
+    $('#promo_input').attr('placeholder','请等待下一批优惠码发放')
     if($(".s_entert_promocode").css("color")=="rgb(255, 255, 255)") {
         $("#promo_code").css("display","block");
         $(".promo_container").css("display","block");

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>个人账户</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0"/>
-    <link href="../static/css/account.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/account.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <article class="act-content" id="act-content">
-    <div class="act_rest_days">剩余时间<span class="days_num">30</span>天</div>
+    <div class="act_rest_days" style="display: none">剩余时间<span class="days_num">30</span>天</div>
     <!--<div class="look_order_record" onclick="look_order_record()"><a style="color: rgba(255, 255, 255, 0.4);text-decoration: none" href="recordpage.html">查看消费记录></a></div>-->
     <div class="act-ur-amount">你的余额:</div>
     <div class="act-cash-amount"></div>
@@ -21,7 +21,7 @@
     </div>
 </article>
 <article class="history-detail">
-    <div class="close-detail"><img src="../static/images/s_ico_close.png" onclick="close_detail_act()"></div>
+    <div class="close-detail"><img src="/static/images/s_ico_close.png" onclick="close_detail_act()"></div>
     <div class="act-pay-price">支付金额</div>
     <div class="act-pay-price-money"></div>
     <div class="act-history-pay-detail"><ul class="act-hisory-detail-ul"></ul></div>
@@ -33,13 +33,14 @@
         <div class="promo_container">
             <div class="enter-ur-recharge"><div class="act-ur-promo">输入充值金额(¥)</div></div>
             <form class="promo_form" action="#" onsubmit="return false" >
-                <input id="recharge-input" type="number" autofocus="autofocus" class="recharge-input">
+                <input id="recharge-input" type="number" autofocus="autofocus" class="recharge-input" placeholder="即将来临">
             </form>
+            <div id="zhgn_title" style="text-align: center;margin-top: 16px;display: none;font-size: 12px">充值功能即将来临</div>
             <div class="recharge_next" onclick="recharge_next()">下一步</div>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-<script type="text/javascript" src="../static/js/account.js"></script>
+<script type="text/javascript" src="/static/js/account.js"></script>
 </body>
 </html>

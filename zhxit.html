@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="static/js/jquery-1.12.4.js"></script>
+</head>
+<body>
+<div>账户系统</div>
+<!--<svg class="svgrect" xmlns="http://www.w3.org/2000/svg">-->
+<!--<defs>-->
+<!--<linearGradient y1="0" x1="0" y2="1" x2="0"  id="svg_2">-->
+<!--<stop stop-color="#15181E" offset="0"/>-->
+<!--<stop stop-color="#363D4E" offset="1"/>-->
+<!--</linearGradient>-->
+<!--</defs>-->
+<!--<g>-->
+<!--<title>Layer 1</title>-->
+<!--<rect id="svg_1" width="100%" height="100%" y="0" x="0" fill="url(#svg_2)"/>-->
+<!--</g>-->
+<!--</svg>-->
+<script>
+    var xhrurl = 'http://www.essential.com.cn/api_s/account';
+
+//    var xhr = new XMLHttpRequest();
+//    xhr.open('GET', 'http://www.essential.com.cn/api/authorize_debug');
+//    xhr.withCredentials = true;
+//    xhr.onload = onLoadHandler;
+//    xhr.send();
+//    function onLoadHandler() {
+//        alert("dd")
+//    }
+    $.ajax({
+        type: "get",
+        url: "http://www.essential.com.cn/api/authorize_debug",
+        cache: false,
+        crossDomain: true,
+        dataType: 'json',
+        xhrFields: {withCredentials: true},
+        success: function (data) {
+            alert(JSON.stringify(data));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            /*错误信息处理*/
+            alert(JSON.stringify(jqXHR))
+            alert(textStatus)
+            alert(errorThrown)
+        }
+    });
+    $.ajax({
+        url: xhrurl,
+        dataType: "json",
+        type: "get",
+        success: function (data) {
+            alert(JSON.stringify(data));
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest);
+            console.log(errorThrown);
+            console.log(textStatus);
+        }
+    })
+
+</script>
+</body>
+</html>

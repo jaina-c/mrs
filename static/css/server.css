@@ -275,6 +275,9 @@ ul.server_list li{
 .server_list_lis  .server_pic,.server_list_lis  .server_infomation,.server_list_lis .ser_btn_select{
     display: inline-block;
 }
+.server_list_lis  .ser_btn_select{
+    display: none;
+}
 .server_list_lis .server_infomation,.server_info_detail{
     word-wrap: break-word;
     line-height: 1.4;
@@ -320,6 +323,10 @@ ul.server_list li{
     font-size: 12px;
     margin-left: 10px;
     margin-top: 2px;
+}
+.start_soon{
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
 }
 .ser_detail{
     width: 88vw;
@@ -384,6 +391,7 @@ ul.server_list li{
     margin-left: 17.5px;
     color: #ffffff;
     font-size: 12px;
+    display: none;
 }
 .detail_selected{
     font-size: 15px;
@@ -468,6 +476,7 @@ ul.server_list li{
     position: absolute;
     left: 22.5px;
     bottom: 32px;
+    display: none;
 }
 /*.allow_used{*/
     /*display: inline-block;*/
@@ -493,6 +502,7 @@ ul.server_list li{
     position: absolute;
     bottom: 24px;
     left: 22.5px;
+    display: none;
 }
 @media screen and (max-width: 320px) {
     .invite_img {
@@ -592,3 +602,50 @@ ul.server_list li{
     margin-top: 5%;
     max-width:80%;
 }
+.promo_enter_date{
+    background: linear-gradient(to bottom, #514f53, #3a3b3f);
+}
+.invite_friend2_date{
+    background-image: url("../images/s_bg_code_date.jpg");
+}
+.bg_style_date{
+    background:url(../images/s_server_date.jpg);
+    background-repeat:no-repeat;
+}
+.start_select_server_date{
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    background: #313236;
+    color: #ffffff;
+}
+.server_img .server_imgage_date{
+    width: 42.6vw;
+    max-width: 320px;
+}
+.server_intro_date{
+    margin-top: 0;
+    max-width:80%;
+}
+.bg_style_lunch{
+    background:url(../images/s_server_lunch.jpg);
+    background-repeat:no-repeat;
+}
+.server_img .server_imgage_lunch{
+    width: 34vw;
+    max-width: 258.3px;
+}
+.server_intro_lunch{
+    margin-top: 5%;
+    max-width:80%;
+}
+.start_select_server_lunch{
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    background: #6f777c;
+    color: #ffffff;
+}
+.invite_friend2_lunch{
+    background-image: url("../images/s_bg_code_lunch.jpg");
+}
+.promo_enter_lunch{
+    background: linear-gradient(to bottom, #6f777c, #62676b);
+}
+/*kml*/

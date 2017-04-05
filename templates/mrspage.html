@@ -10,7 +10,7 @@
     <link href="../static/css/server.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg">
-<div class="standard-detail"><div class="flexbox">现在充值，免费获得Standard会员<span class="detail-of-member" onclick="reload_standard_detail()">详情</span>
+<div class="standard-detail"><div class="flexbox">现在开通会员, 获得¥180返现<span class="detail-of-member" onclick="reload_standard_detail()">详情</span>
 </div><div class="shouqi" onclick="disable_title()">收起 <span class="upicon"></span></div></div>
 <div id="positionErr" style="position: absolute;top: -200px;"></div>
 <div></div>
@@ -38,8 +38,10 @@
     <div id="dialog" class="dialog">
         <!--<span id="menu" onclick="menuList()"></span>-->
         <div class="follow_title">
-            <div class="follows"><span style="text-decoration: underline;color: white;" onclick="menuList()">关注S先生</span>公众账号，获得即时服务提醒</div>
-            <div class="icon_close" onclick="close_bottom_title(this)"></div>
+            <div class="follows">关注S先生，获得即使提醒和更多服务</div>
+            <div class="follows-sqr"><span  onclick="menuList()">关注</span></div>
+            <!--<div class="follows"><span style="text-decoration: underline;color: white;" onclick="menuList()">关注S先生</span>公众账号，获得即时服务提醒</div>-->
+            <!--<div class="icon_close" onclick="close_bottom_title(this)"></div>-->
         </div>
         <form class="con_dialogForm" action="#" onsubmit="return false" >
             <input placeholder="点击输入..." id="dialog-input" type="text" class="con_dialog_input">
@@ -92,7 +94,7 @@
                 <li class="list_first borstyle" >
                     <div class="server_list_lis">
                         <div class="server_name">选择服务</div>
-                        <div class="server_des" style="color: rgba(255,255,255,.7);margin-top: 5px">想要的服务不在下面？没问题，打字告诉我，我帮你解决。</div>
+                        <div class="server_des" style="color: rgba(255,255,255,.7);margin-top: 5px">以下和更多服务即将开通</div>
                     </div>
                 </li>
             </ul>
@@ -199,7 +201,6 @@
         else
             e.cancelBubble = true;
     }
-
 </script>
 </body>
 </html>
